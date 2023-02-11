@@ -1,36 +1,36 @@
 <template>
     <div class="login-page">
         <div class="login-form">
-            <b-form @submit="onSubmit">
-                <b-row class="row-form">
-                    <p class="title-login">Autentificare</p>
-                </b-row>
-                <b-row class="row-form">
-                    <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
-                    <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="email" :state="emailState"></b-form-input>
-                    <p v-if="emailState == false" class="errorMessage">{{emailErrorMessage}}</p>
-                </b-row>
-                <b-row class="row-form">
-                    <label for="password" class="label-form">Parolă<span class="mandatory-field">*</span>:</label>
-                    <b-form-input id="password" class="input-form" type="password" placeholder="Parola" v-model="password" :state="passwordState"></b-form-input>
-                    <p v-if="passwordState == false" class="errorMessage">{{passwordErrorMessage}}</p>
-                </b-row>
-                <b-row class="row-form">
-                    <b-col class="col-form left">
-                        <p class="link-col">Înregistrare</p>
-                    </b-col>
-                    <b-col class="col-form right">
-                        <p class="link-col">Ați uitat parola?</p>
-                    </b-col>
-                </b-row>
-                <b-row class="row-form buttons">
-                    <b-button class="submit-login" type="submit" v-on:click="login">Login</b-button>
-                </b-row>
-            </b-form>
+            <b-row class="row-form">
+                <p class="title-login">Autentificare</p>
+            </b-row>
+            <b-row class="row-form">
+                <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
+                <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="email" :state="emailState"></b-form-input>
+                <p v-if="emailState == false" class="errorMessage">{{emailErrorMessage}}</p>
+            </b-row>
+            <b-row class="row-form">
+                <label for="password" class="label-form">Parolă<span class="mandatory-field">*</span>:</label>
+                <b-form-input id="password" class="input-form" type="password" placeholder="Parola" v-model="password" :state="passwordState"></b-form-input>
+                <p v-if="passwordState == false" class="errorMessage">{{passwordErrorMessage}}</p>
+            </b-row>
+            <b-row class="row-form">
+                <b-col class="col-form left">
+                    <p class="link-col" v-on:click="redirectRegister">Înregistrare</p>
+                </b-col>
+                <b-col class="col-form right">
+                    <p class="link-col">Ați uitat parola?</p>
+                </b-col>
+            </b-row>
+            <b-row class="row-form buttons">
+                <b-button class="submit-login" type="submit" v-on:click="checkFields">Login</b-button>
+            </b-row>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
+import $ from "jquery";
  export default {
     components: {
     },
@@ -45,39 +45,84 @@
       }
     },
     methods: {
-        login() {
-
+        checkFields() {
+            if(this.email === "" && this.password === "") {
+                this.emailError = 1;
+                this.passwordError = 1;
+            } else {
+                if(this.email === "") {
+                    this.emailError = 1;
+                } else if(this.password === "") {
+                    this.passwordError = 1;
+                } else {
+                    this.emailError = 0;
+                    this.passwordError = 0;
+                    this.postLogin();
+                }
+            }
         },
-        onSubmit() {
-
+        postLogin() {
+            let loginData = {
+                'email': this.email,
+                'password': this.password
+            }
+            axios({
+            method: 'post',
+                url: 'http://localhost:3000/users/login',
+                mode: 'no-cors',
+                headers: {
+                    "Accept": "application/json;odata=verbose",
+                    "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                },
+                contentType: "application/json;odata=verbose",
+                data: loginData
+            }).then(result => {
+                console.log("users", result);
+                if(result.data.status == "unfound") {
+                    this.emailError = 2;
+                } else if(result.data.status == "mismatch") {
+                    this.emailError = 0;
+                    this.passwordError = 2;
+                } else if(result.data.status == "success") {
+                    this.emailError = 0;
+                    this.passwordError = 0;
+                    this.redirectHome();
+                }
+            })
+        },
+        redirectRegister() {
+            this.$router.push('/register');
+        },
+        redirectHome() {
+            this.$router.push('/home');
         }
     },
     computed: {
        emailState() {
-            if(this.emailError == 1) {
-                if(this.email.length > 5 && this.email.includes("@")) {
+            if(this.emailError === 1) {
+                if(this.email !== "") {
                     return true;
                 } else {
+                    this.emailErrorMessage = "Adresa de email este obligatorie!";
                     return false;
                 }
-            } else if(this.emailError == 2) {
+            } else if(this.emailError === 2) { 
+                this.emailErrorMessage = "Utilizatorul nu a fost găsit. Vă rugăm, să vă înregistrați!";
                 return false;
             } else {
                 return null;
             } 
         }, 
         passwordState() {
-            if(this.passwordError == 1) {
-                if(this.password.length > 8) {
-                    if(this.emailState != false) {
-                        return true;
-                    } else {
-                        return null;
-                    }
+            if(this.passwordError === 1) {
+                if(this.password !== "") {
+                    return true;
                 } else {
+                    this.passwordErrorMessage = "Parola este obligatorie!";
                     return false;
                 }
-            } else if(this.passwordError == 2) {
+            } else if(this.passwordError === 2) { 
+                this.passwordErrorMessage = "Parola introdusă nu este corectă!";
                 return false;
             } else {
                 return null;

@@ -77,7 +77,8 @@ import Password from 'vue-password-strength-meter';
         confirmedPasswordError: false,
         confirmedPasswordErrorMessage: "",
         terms: "not_accepted",
-        termsError: null
+        termsError: false,
+        duplicateUser: false
       }
     },
     methods: {
@@ -89,7 +90,9 @@ import Password from 'vue-password-strength-meter';
             console.log(this.confirmedPassword, this.password)
             if(this.confirmedPassword !== this.password) {
                 this.confirmedPasswordError = true;
-            } 
+            } else {
+                this.confirmedPasswordError = false;
+            }
         },
         checkFields() {
             if(this.terms == "not_accepted") {
@@ -110,13 +113,11 @@ import Password from 'vue-password-strength-meter';
             if(this.lastName == "") {
                 this.lastNameError = true;
             } 
-
-            if(this.termsError == false && this.emailError == false && this.firstNameError == false && this.lastNameError == false && this.passwordError && this.confirmedPasswordError) {
+            if(this.termsError == false && this.emailError == false && this.firstNameError == false && this.lastNameError == false && this.passwordError == false && this.confirmedPasswordError == false) {
                 this.registerPost();
             }
         },
         registerPost() {
-            console.log("register")
             let userObject = {
                 'email': this.email,
                 'password': this.password,
@@ -135,7 +136,12 @@ import Password from 'vue-password-strength-meter';
                 data: userObject
             }).then(result => {
                 console.log("SUCCESS POST", result);
-                this.$router.push('/home');
+                if(result.data === "duplicate") {
+                    this.duplicateUser = true;
+                    this.emailError = true;
+                } else {
+                    this.$router.push('/home');
+                }
             }).catch(error => {
                 console.log("ERROR POST", error);
             })
@@ -168,11 +174,20 @@ import Password from 'vue-password-strength-meter';
         },
         emailState() {
             if(this.emailError == true) {
-                if(this.email !== "" && this.email.includes("@")) {
-                    return true;
-                } else {
+                if(this.duplicateUser === true && this.email !== "") {
+                    this.emailErrorMessage = "Adresa de email există deja!";
+                    return false;
+                } else if(this.duplicateUser === true && this.email === "") {
+                    this.duplicateUser = false;
                     this.emailErrorMessage = "Adresa de email este obligatorie!";
-                    return true;
+                    return false;
+                } else {
+                    if(this.email !== "" && this.email.includes("@")) {
+                        return true;
+                    } else {
+                        this.emailErrorMessage = "Adresa de email este obligatorie!";
+                        return false;
+                    }
                 }
             } else {
                 return null;
