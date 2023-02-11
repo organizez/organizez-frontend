@@ -6,5 +6,6 @@ module.exports = defineConfig({
     client: {
         webSocketURL: 'auto://0.0.0.0:0/ws'
     }
-  }
+  },
+  lintOnSave: false
 })

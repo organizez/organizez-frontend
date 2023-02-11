@@ -19,6 +19,7 @@
     "core-js": "^3.8.3",
     "jquery": "^3.6.3",
     "vue": "^2.7.14",
+    "vue-password-strength-meter": "^1.7.2",
     "vue-router": "^3.5.1"
   },
   "devDependencies": {
