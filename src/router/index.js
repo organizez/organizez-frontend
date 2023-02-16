@@ -23,7 +23,7 @@ const routes = [{
         component: Home
     },
     {
-        path: '/admin',
+        path: '/admin/:idUser',
         name: 'admin',
         component: AdminArea
     }
