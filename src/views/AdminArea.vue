@@ -147,17 +147,17 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
 <style>
   .admin-area-page {
     width: 100%;
-    height: 100vh;
+    height: 100%;
   }
   .admin-area-content {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex: row;
   }
   .admin-nav-container {
     width: 15%;
-    height: 100vh; 
+    height: 100%; 
     box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 5%), inset 0 -1px 5px rgb(0 0 0 / 15%);
   }
   .admin-vertical-item a {

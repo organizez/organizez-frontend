@@ -1,55 +1,37 @@
 <template>
     <div class="admin-users-component">
         <p class="title-admin-component">Utilizatori <span class="small-element-title">({{usersNumber}})</span></p>
-        <!-- <div class="users-table">
-            <b-overlay :show="isLoading" rounded="sm" spinner-variant="danger" spinner-type="grow">
-            <b-row class="row-header-table">
-              <b-col class="col-users-table">Index</b-col>
-              <b-col class="col-users-table">Prenume</b-col>
-              <b-col class="col-users-table">Nume</b-col>
-              <b-col class="col-users-table">Email</b-col>
-              <b-col class="col-users-table">Role</b-col>
-            </b-row>
-            <b-row class="row-content-table">
-              <b-row class="row-users-table" v-for="(user, index) in users" :key="user.idUser">
-                <b-col class="col-users-table">{{index + 1}}</b-col>
-                <b-col class="col-users-table">{{user.firstName}}</b-col>
-                <b-col class="col-users-table">{{user.lastName}}</b-col>
-                <b-col class="col-users-table">{{user.email}}</b-col>
-                <b-col class="col-users-table">{{user.role}}</b-col>
-              </b-row>
-            </b-row>
-            </b-overlay>
-        </div> -->
-        <b-table bordered striped :fields="fieldsTable" :items="users" :busy="isLoading" responsive="sm" class="users-table">
-            <template #table-busy>
-              <div class="text-center text-danger my-2">
-                <b-spinner class="align-middle"></b-spinner>
-                <strong>Loading...</strong>
-              </div>
-            </template>
-            <template #head(index)>Index</template>
-            <template #head(firstName)>Prenume</template>
-            <template #head(lastName)>Nume</template>
-            <template #head(email)>Email</template>
-            <template #head(role)>Rol</template>
-            <template #cell(index)="data">
-              {{ data.index + iteration + 1 }}
-            </template>
-            <template #cell(firstName)="data">
-              {{data.item.firstName}}
-            </template>
-            <template #cell(lastName)="data">
-              {{data.item.lastName}}
-            </template>
-            <template #cell(email)="data">
-              {{ data.item.email }}
-            </template>
-            <template #cell(role)="data">
-              <i>{{ data.item.role }}</i>
-            </template>
-        </b-table>
-        <b-row class="row-container-properties">
+        <b-row class="row-admin-component">
+          <b-table bordered striped :fields="fieldsTable" :items="users" :busy="isLoading" responsive="sm" class="users-table">
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+              <template #head(index)>Index</template>
+              <template #head(firstName)>Prenume</template>
+              <template #head(lastName)>Nume</template>
+              <template #head(email)>Email</template>
+              <template #head(role)>Rol</template>
+              <template #cell(index)="data">
+                {{ data.index + iteration + 1 }}
+              </template>
+              <template #cell(firstName)="data">
+                {{data.item.firstName}}
+              </template>
+              <template #cell(lastName)="data">
+                {{data.item.lastName}}
+              </template>
+              <template #cell(email)="data">
+                {{ data.item.email }}
+              </template>
+              <template #cell(role)="data">
+                <i>{{ data.item.role }}</i>
+              </template>
+          </b-table>
+        </b-row>
+        <b-row class="row-admin-component">
           <b-pagination
             v-model="currentPage"
             :total-rows="usersNumber"
@@ -73,17 +55,18 @@ import axios from 'axios';
             users: [],
             fieldsTable: ['Index', { key: 'firstName', label: 'Prenume' },{ key: 'lastName', label: 'Nume'}, { key: 'email', label: 'Email'},{ key: 'role', label: 'Rol'}],
             currentPage: 1,
-            perPageUsers: 20,
+            perPageUsers: 15,
             iteration: 0
         }
     },
     methods: {
         getUsers() {
             let thisRef = this;
-            this.iteration = (this.currentPage -1) * this.perPageUsers;
+            this.iteration = (this.currentPage - 1) * this.perPageUsers;
             if(this.isLoading !== true) {
               this.isLoading = true;
             }
+            console.log("iteration", this.iteration)
             this.users = [];
             axios({
                 method: "get",
@@ -111,24 +94,22 @@ import axios from 'axios';
                   }
                   setTimeout(function() {
                     thisRef.isLoading = false;
-                  }, 2000);
+                  }, 1000);
                 }
             })
         },
         getUsersNumber() {
-            let thisRef = this;
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
                 url: "http://localhost:3000/users/getUsersNumber"
             }).then(result => {
                 this.usersNumber = result.data[0].users_number;
-                console.log("getUsersNumber", result)
+                this.getUsers();
             })
         }
     },
     mounted() {
-        this.getUsers();
         this.getUsersNumber();
     }
   }
@@ -151,6 +132,9 @@ import axios from 'axios';
     .admin-users-component {
       padding: 30px;
     }
+    .users-table {
+      padding: 0 !important;
+    }
     .users-table th:first-child, .users-table th:nth-child(5) {
       width: 15% !important;
     }
@@ -161,12 +145,14 @@ import axios from 'axios';
       width: 30% !important;
     } 
     .table > :not(caption) > * > * {
-      padding: 7px 20px !important;
+      padding: 5px 15px !important;
       text-align: left !important;
+      font-size: 14px;
+      vertical-align: middle;
     }
     .pagination-table {
       justify-content: flex-end;
-      margin-top: 20px !important;
+      margin: 0px !important;
       padding-right: 0px;
     }
     .pagination-table .page-link {

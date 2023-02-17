@@ -23,7 +23,7 @@
                 </b-col>
             </b-row>
             <b-row class="row-form buttons">
-                <b-button class="submit-login" type="submit" v-on:click="checkFields">Login</b-button>
+                <b-button class="submit-login main-button" type="submit" v-on:click="checkFields">Login</b-button>
             </b-row>
         </div>
     </div>
@@ -148,33 +148,6 @@ import $ from "jquery";
         margin-bottom: 0 !important;
         color: #000;
     }
-    .row-form {
-        margin-bottom: 20px;
-    }
-    .label-form {
-        text-align: left;
-        padding-bottom: 5px  !important;
-        margin: 0;
-        color: #000;
-    }
-    .mandatory-field {
-        color: red;
-    }
-    .input-form {
-        margin: 0 10px !important;
-        padding: 10px !important;
-        flex-shrink: initial !important;
-    }
-    .input-form:focus {
-        border-color: #a3b18a !important;
-        box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
-    }
-    .col-form.right {
-        text-align: right;
-    }
-    .col-form.left {
-        text-align: left;
-    }
     .link-col {
         padding: 0;
         margin: 0;
@@ -212,8 +185,4 @@ import $ from "jquery";
         padding: 10px !important;
         background-color: #3a5a40 !important;
     }
-    .submit-login:focus, .submit-login.focus, .submit-login:active, .submit-login.active, .submit-login:focus:active {
-        border-color: #3a5a40 !important;
-        box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
-    } 
 </style>
