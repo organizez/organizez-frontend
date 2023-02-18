@@ -162,3 +162,10 @@
 .col-form.left {
     text-align: left;
 }
+.pencil-icon:hover {
+    color: #3a5a40 !important;
+}
+
+.trash-icon:hover {
+    color: #dc3545 !important;
+}
