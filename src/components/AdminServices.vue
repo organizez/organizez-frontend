@@ -91,15 +91,97 @@
               <b-col class="col-form left">
                 <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span></label>
                  <!-- <b-form-file v-model="addedService.image" class="mt-3" ></b-form-file> -->
+                  <template>
+                    <b-container >
+                      <b-form>
+                        <div class="mb-3">
+                          <b-form-file v-model="addedService.image" placeholder="Choose an image" ></b-form-file>
+                          <b-button v-if="hasImage" variant="danger" class="ml-3" @click="clearImage">Sterge imaginea</b-button>
+                        </div>
+                      </b-form>
+                    </b-container>
+                  </template>
               </b-col>
             </b-row>
+            <b-row class="row-form admin-buttons">
+              <b-button class="action-admin-button" v-on:click="addService()">Adaugă serviciu</b-button>
+              <b-button class="close-admin-button" v-on:click="closeAddService()">Închide</b-button>
+            </b-row>
         </b-row>
+      </b-row>
+      <b-row class="add-form-section" v-else-if="enabledEditService === true && enabledAddService === false">
+        <p class="title-admin-component">Editare serviciu</p>
+        <b-row class="row-admin-component">
+            <b-row class="row-form">
+              <b-col class="col-form left">
+                <label for="nameService" class="label-form">Serviciu<span class="mandatory-field">*</span>:</label>
+                <b-form-input id="nameService" class="input-form" placeholder="Serviciu" v-model="editedService.nameService"></b-form-input>
+              </b-col>
+              <b-col class="col-form left">
+                <label for="location" class="label-form">Locație<span class="mandatory-field">*</span>:</label>
+                <b-form-input id="location" class="input-form" placeholder="Locație" v-model="editedService.location"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="row-form">
+              <b-col class="col-form left">
+                <label for="shortDescription" class="label-form">Scurtă descriere<span class="mandatory-field">*</span>:</label>
+                <b-form-textarea id="textarea-form" placeholder="Scurtă descriere" v-model="editedService.shortDescription"></b-form-textarea>
+              </b-col>
+            </b-row>
+            <b-row class="row-form">
+              <b-col class="col-form left">
+                <label for="longDescription" class="label-form">Descriere detaliată<span class="mandatory-field">*</span>:</label>
+                <b-form-textarea id="textarea-form" placeholder="Descriere detaliată" v-model="editedService.longDescription"></b-form-textarea>
+              </b-col>
+            </b-row>
+            <b-row class="row-form">
+              <b-col class="col-form left">
+                <label for="company" class="label-form">Furnizori<span class="mandatory-field">*</span></label>
+                <b-select v-model="editedService.idProvider" :options="providers" class="select-from"></b-select>
+              </b-col>
+              <b-col class="col-form left">
+                <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span></label>
+                 <!-- <b-form-file v-model="addedService.image" class="mt-3" ></b-form-file> -->
+                  <template>
+                    <b-container >
+                      <b-form>
+                        <div class="mb-3">
+                          <b-form-file v-model="editedService.image" placeholder="Choose an image" ></b-form-file>
+                          <b-button v-if="hasImage" variant="danger" class="ml-3" @click="clearImage">Sterge imaginea</b-button>
+                        </div>
+                      </b-form>
+                    </b-container>
+                  </template>
+              </b-col>
+            </b-row>
+            <b-row class="row-form admin-buttons">
+              <b-button class="action-admin-button" v-on:click="updateService()">Actualizare serviciu</b-button>
+              <b-button class="close-admin-button" v-on:click="closeEditService()">Închide</b-button>
+            </b-row>
+        </b-row>
+      </b-row>
+       <b-row>
+        <b-modal id="admin-info-modal" v-model="showInfoModal" :title="titleInfoModal" ok-only @ok="okInfoModal">
+          <p>{{textInfoModal}}</p>
+        </b-modal>
+      </b-row>
+      <b-row>
+        <b-modal id="admin-delete-modal" v-model="showConfirmationModal" :title="titleConfirmationModal" @ok="okConfirmationModal">
+          <p>{{textConfirmationModal}}</p>
+        </b-modal>
       </b-row>
     </div>
 </template>
 <script>
 import axios from 'axios';
 import $ from "jquery";
+// const base64Encode = data =>
+//   new Promise((resolve, reject) => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(data);
+//     reader.onload = () => resolve(reader.result);
+//     reader.onerror = error => reject(error);
+//   });
  export default {
     data() {
       return {
@@ -116,6 +198,17 @@ import $ from "jquery";
         addedService:{
           nameService: "",
           location: "",
+          image: this.image,
+          shortDescription: "",
+          longDescription: "",
+          idProvider: "",
+          company: ""
+        },
+        enabledEditService: false,
+        editedService: {
+          idService: 0,
+          nameService: "",
+          location: "",
           image: "",
           shortDescription: "",
           longDescription: "",
@@ -123,7 +216,17 @@ import $ from "jquery";
           company: ""
         },
         providers: [],
-        enabledEditService: false,
+        idDeletedService: "",
+        titleInfoModal: "",
+        textInfoModal: "",
+        actionInfoModal: "",
+        showInfoModal: false,
+        titleConfirmationModal: "",
+        textConfirmationModal: "",
+        showConfirmationModal: false,
+        // imageSrc: null,
+        // image: null
+
       }
     },
     methods: {
@@ -214,12 +317,161 @@ import $ from "jquery";
             }
           }
         })
+      }, 
+      addService() {
+        axios({
+          method: "post",
+          url: "http://localhost:3000/services/addService",
+          mode: 'no-cors',
+          headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+          },
+          contentType: "application/json;odata=verbose",
+          data: this.addedService
+        }).then(result => {
+          this.addedService = {
+            nameService: "",
+            location: "",
+            image: "",
+            shortDescription: "",
+            longDescription: "",
+            idProvider: "",
+            company: ""
+        }
+        this.actionInfoModal = "adding";
+        this.titleInfoModal = "Adăugare serviciu";
+        this.textInfoModal = "Serviciul a fost adăugat cu succes!";
+        this.showInfoModal = true;
+        }).catch(error => {
+          this.actionInfoModal = "adding";
+          this.titleInfoModal = "Adăugare serviciu";
+          this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
+          this.showInfoModal = true;
+        })
+      },
+      editService(service) {
+        this.enabledAddService = false;
+        this.enabledEditService = true;
+        this.editedService = { 
+          idService: service.idService,
+          nameService: service.nameService,
+          location: service.location,
+          image: service.image,
+          shortDescription: service.shortDescription,
+          longDescription: service.longDescription,
+          idProvider: service.idProvider,
+        }
+      },
+      updateService() {
+        axios({
+          method: 'put',
+          url: 'http://localhost:3000/services/updateService',
+          mode: 'no-cors',
+          headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+          },
+          contentType: "application/json;odata=verbose",
+          data: this.editedService
+        }).then(result => {
+          this.actionInfoModal = "updating";
+          this.titleInfoModal = "Actualizare serviciu";
+          this.textInfoModal = "Serviciul a fost actualizat cu succes!";
+          this.showInfoModal = true;
+        }).catch(error => {
+          this.actionInfoModal = "updating";
+          this.titleInfoModal = "Actualizare serviciu";
+          this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
+          this.showInfoModal = true;
+        })
+      },
+      closeEditService(){
+        this.enabledEditService = false;
+        this.editedService = {
+          idService:"",
+          nameService: "",
+          location: "",
+          image: "",
+          shortDescription: "",
+          longDescription: "",
+          idProvider: "",
+          company: ""
+        }
+      },
+      initiateDeleteService(idService, nameService) {
+        this.titleConfirmationModal = "Confirmare ștergere serviciu"
+        this.textConfirmationModal = "Sigur doriți să ștergeți serviciul " + nameService + "?";
+        this.showConfirmationModal = true;
+        this.idDeletedService = idService;
+      },
+      deleteService() {
+        axios({
+          method: 'delete',
+          url: 'http://localhost:3000/services/deleteService/' + this.idDeletedService,
+           headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+          },
+          contentType: "application/json;odata=verbose",
+        }).then(result => {
+          this.actionInfoModal = "deleting";
+          this.titleInfoModal = "Ștergere serviciu";
+          this.textInfoModal = "Serviciul a fost șters cu succes!";
+          this.showInfoModal = true;
+        }).catch(error => {
+          this.actionInfoModal = "deleting";
+          this.titleInfoModal = "Ștergere serviciu";
+          this.textInfoModal = "A apărut o eroare la acțiunea de ștergere! Vă rugăm reîncercați";
+          this.showInfoModal = true;
+        })
+      },
+      okInfoModal() {
+        switch(this.actionInfoModal) {
+          case "adding":
+            this.enabledAddService = false;
+            this.getServices();
+            break;
+          case "updating":
+            this.enabledEditService = false;
+            this.getServices();
+            break;
+          case "deleting":
+            this.idDeletedService = 0;
+            this.getServices();
+            break;
+        }
+      },
+      okConfirmationModal() {
+        this.deleteService();
       }
     },
     mounted() {
       this.getServicesNumber();
       this.getProviders();
+    },
+  computed: {
+    hasImage() {
+      return !!this.image;
     }
+  },
+  watch: {
+    image(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        if (newValue) {
+          base64Encode(newValue)
+            .then(value => {
+              this.imageSrc = value;
+            })
+            .catch(() => {
+              this.imageSrc = null;
+            });
+        } else {
+          this.imageSrc = null;
+        }
+      }
+    }
+  }
   }
 </script>
 <style>
