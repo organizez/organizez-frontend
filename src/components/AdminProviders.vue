@@ -103,7 +103,7 @@
             </b-row>
         </b-row>
       </b-row>
-      <b-row class="add-form-section" v-else-if="enabledEditProvider === true && enabledAddProvider === false">
+      <b-row class="edit-form-section" v-else-if="enabledEditProvider === true && enabledAddProvider === false">
         <p class="title-admin-component">Editare furnizor</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
@@ -292,7 +292,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getAllCategoryProviders"
+          url: "http://localhost:3000/categoryProviders/getAllCategoriesProviders"
         }).then(result => {
           if(result.data.length > 0) {
             let categoryProviders = {
