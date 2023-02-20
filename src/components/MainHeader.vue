@@ -52,7 +52,7 @@
     }
     .row-main-header.logo {
        justify-content: center;
-       padding: 15px;
+       padding: 30px;
     }
     .col-nav {
         display: flex;
@@ -124,6 +124,6 @@
     }
     .logo-image {
         height: auto;
-        width: 220px !important;
+        width: 240px !important;
     }
 </style>
