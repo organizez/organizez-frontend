@@ -20,7 +20,7 @@
               <span slot="no-options">
                 Nu a fost găsit niciun oraș sau județ
               </span>
-                <template slot="option" slot-scope="option" class="search-location-template">
+                <template slot="option" slot-scope="option">
                   <b-row>
                     <b-col cols="1">
                       <span><font-awesome-icon icon="fa-location-dot" class="icon-dot-location"/></span>
@@ -48,6 +48,10 @@
           </b-col>
         </b-row>
       </b-row>
+      <b-row class="row-home">
+        <p class="title-home-section">CATEGORII DE SERVICII</p>
+        <hr class="home-line">
+      </b-row>
       <b-row class="row-home carousel-home">
         <vue-horizontal-list :items="categoriesProviders" :options="options" v-if="enableCarousel" class="categories-carousel">
           <template v-slot:default="{ item }">
@@ -58,43 +62,51 @@
           </template>
         </vue-horizontal-list>
       </b-row>
-      <b-row class="about-us-row-home">
-        <div class="module-border-wrap">
-          <div class="about-us-homepage-class">
-            <div class="main-about-us-hompeage-class">
-              <b-card class="card-about-us-homepage-class"
-                img-src="https://i.pinimg.com/236x/a3/a8/2d/a3a82d408b862d026717a6239fa91cb3.jpg" img-alt="Card image" img-right >
-                <h4 class="h4-about-us-homepage-class">Despre noi</h4>
-                <h5 class="h5-class-space">________</h5>
-                <b-card-text>
-                  <p class="text-about-us-homepga-class">Momentele unice ale vieții sunt cele mai importante.</p>
-                  <p class="text-about-us-homepga-class">Iubim să aducem un zâmbet pe chipul oamenilor și să luăm parte la momente deosebite.</p>
-                  <p class="text-about-us-homepga-class">Acesta este și scopul nostru principal. Ne dorim să ne punem amprenta asupra evenimentului tau, </p>
-                  <p class="text-about-us-homepga-class">să surprindem cele mai fabuloase clipe care să îți încânte chipul de fiecare dată când arunci o privire. </p>
-                  <p class="text-about-us-homepga-class">Noi suntem o echipă de profeșioniști, pregătită să organizeze momentul tau!</p>
-                </b-card-text>
-              </b-card>
-            </div>
-          </div>
-        </div>
+      <b-row class="row-home about-us">
+        <b-card class="about-us-container"
+            img-src="https://i.pinimg.com/236x/a3/a8/2d/a3a82d408b862d026717a6239fa91cb3.jpg" img-alt="Card image" img-right >
+          <h4 class="title-about-us">Despre noi</h4>
+          <h5 class="line-title-about-us">________</h5>
+          <b-card-text>
+            <p class="text-about-us">Momentele unice ale vieții sunt cele mai importante.</p>
+            <p class="text-about-us">Iubim să aducem un zâmbet pe chipul oamenilor și să luăm parte la momente deosebite.</p>
+            <p class="text-about-us">Acesta este și scopul nostru principal. Ne dorim să ne punem amprenta asupra evenimentului tau, </p>
+            <p class="text-about-us">să surprindem cele mai fabuloase clipe care să îți încânte chipul de fiecare dată când arunci o privire. </p>
+            <p class="text-about-us">Noi suntem o echipă de profeșioniști, pregătită să organizeze momentul tau!</p>
+          </b-card-text>
+        </b-card>
+    </b-row>
+      <b-row class="row-home">
+        <p class="title-home-section">CELE MAI RECENTE ARTICOLE PUBLICATE</p>
+        <hr class="home-line">
       </b-row>
-      <HomePageBlog></HomePageBlog>
+      <b-row class="row-home blog">
+        <b-col class="col-blog-article" v-for = "(blogArticle, index) in blogArticles" :key="index">
+          <b-card class="blog-article-container" :img-src="blogArticle.image" img-alt="Image" img-height="200px" img-top :title="blogArticle.nameArticle" >
+            <b-card-text class="blog-article-text">
+              {{blogArticle.shortDescription}}
+            </b-card-text>
+            <template #footer >
+              <small class="blog-article-date">Publicare: <i>{{blogArticle.dateArticle}}</i></small>
+            </template>
+          </b-card>
+        </b-col>
+      </b-row>
       <Footer></Footer>
     </div>
 </template>
 <script>
 import axios from 'axios';
 // import $ from "jquery";
+import moment from 'moment';
 import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
-import HomePageBlog from "../components/HomepageBlog.vue"
 import VueHorizontalList from "vue-horizontal-list";
 
  export default {
     components: {
       MainHeader,
       Footer,
-      HomePageBlog,
       VueHorizontalList
     },
     data() {
@@ -108,7 +120,7 @@ import VueHorizontalList from "vue-horizontal-list";
           responsive: [
             { end: 576, size: 1 },
             { start: 576, end: 768, size: 2 },
-            { size: 3 },
+            { size: 4 },
           ],
         },
         locations: [],
@@ -120,7 +132,8 @@ import VueHorizontalList from "vue-horizontal-list";
         chosenCategoryProviders: {
           idCategory: "0",
           category: ""
-        }
+        },
+        blogArticles: []
       }
     },
     methods: {
@@ -205,9 +218,37 @@ import VueHorizontalList from "vue-horizontal-list";
           }
         })
       },
+      getBlogArticlesByDate() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/blog/getBlogsByDate"
+        }).then(result => {
+          
+            if(result.data.length > 0) {
+              let blogArticle = {
+                image: "",
+                nameArticle: "",
+                shortDescription: "",
+                dateArticle: ""
+              }
+            for( var i = 0; i < result.data.length; i++) {
+              blogArticle = {
+                image: result.data[i].image,
+                nameArticle: result.data[i].name_article,
+                shortDescription: result.data[i].short_description,
+                dateArticle: moment(result.data[i].date_article).format('LL')
+              }
+              this.blogArticles.push(blogArticle);
+            }
+          }
+        })
+      }
     },
     mounted() {
+      moment.locale('ro');
       this.getCategoriesProviders();
+      this.getBlogArticlesByDate();
     },
     computed: {
     }
@@ -215,7 +256,8 @@ import VueHorizontalList from "vue-horizontal-list";
 </script>
 <style>
   .row-home {
-    margin: 10px 50px!important;
+    margin: 10px 60px !important;
+    padding: 20px 0;
   }
   .categories-carousel {
     padding: 0 !important;
@@ -234,6 +276,9 @@ import VueHorizontalList from "vue-horizontal-list";
   .search-location-template {
     flex-direction: row;
     padding: 5px;
+  }
+  .search-home {
+    column-gap: 2%;
   }
   .location-search {
     margin-bottom: 0px !important;
@@ -300,7 +345,7 @@ import VueHorizontalList from "vue-horizontal-list";
   }
   .row-search.row-home {
     background-color: #f6f2f0 !important;
-    padding: 50px 50px 70px 50px !important;
+    padding: 60px 50px 70px 60px !important;
     margin: 0 !important;
     background-image: url(https://organizez-images.fra1.digitaloceanspaces.com/homepage%2Fhome-decor.png);
     background-repeat: no-repeat;
@@ -308,40 +353,97 @@ import VueHorizontalList from "vue-horizontal-list";
     background-position: right;
     box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
   }
-  .h5-class-space {
-    padding-bottom: 50px;
-    padding-left: 460px !important;
-  }
-  .text-about-us-homepga-class {
-    font-family: 'Petrona';
-    font-weight: 300;
-    color: black;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding-left: 460px;
-  }
-  .h4-about-us-homepage-class {
-    font-family: 'Petrona';
-    font-weight: 300;
-    color: black;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    padding-left: 460px;
-    
-  }
-  .card-about-us-homepage-class {
-    padding-right: 208px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+  .title-home-section {
+    font-size: 18px;
+    font-weight: 400;
     margin: 0 !important;
-    background-color: #cad2c5 !important ;
+    padding: 20px 0 5px 0px !important;
+    text-align: left;
+    color: #9c876e;
   }
-  .h5-class-space{
-    padding-left: 190px;
+  .home-line {
+    color: #9c876e;
+    font-weight: 700;
   }
-  .main-about-us-hompeage-class {
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
+  .title-about-us {
+    color: #9c876e;
+    text-transform: uppercase;
+    line-height: 2;
+    letter-spacing: 0.15em;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Nord Book';
+    font-weight: 500;
+    margin-bottom: 0px !important;
+  }
+  .line-title-about-us {
+    padding-bottom: 25px;
+  }
+  .text-about-us {
+    font-weight: 300;
+    color: black;
+    margin-bottom: 0px !important;
+  }
+  .about-us-container {
+    margin: 0 !important;
+    border-radius: 0px !important;
+    background-color: #cad2c5 !important;
+    border: none !important;
+  }
+  .about-us-container .card-img-right {
+    height: 280px !important;
+    width: 250px;
+  }
+  .card-body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .row-home.about-us {
     margin: 0px !important;
+    padding: 20px 60px;
+    background-color: #cad2c5 !important;
+    border-top: 1px solid #a4ac86;
+    border-bottom: 1px solid #a4ac86;
+  }
+  .row-home.blog {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .col-blog-article {
+    width: 27% !important;
+    padding: 0px !important;
+    flex: none !important;
+  }
+  .blog-article-container {
+    background-size: 250px !important;
+    padding: 0px !important;
+    border-radius: 0px !important;
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+  }
+  .blog-article-container .card-img-top {
+    border-radius: 0px !important;
+  }
+  .blog-article-container .card-title {
+    margin-bottom: 0px !important;
+    color: #9c876e;
+    text-transform: uppercase;
+    line-height: 2;
+    letter-spacing: 0.11em;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Nord Book';
+    font-weight: 400;
+  }
+  .blog-article-text {
+    margin-bottom: 0px !important;
+    color: #5e503f;
+    font-style: italic;
+  }
+  .blog-article-container .card-body {
+    padding: 5px 0 !important;
   }
 </style>
