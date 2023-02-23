@@ -52,6 +52,7 @@
     .footer-component {
         bottom: 0;
         position: relative;
+        margin-top: 50px !important;
     }
     .content-footer {
         background-color: #f6f2f0 !important;

@@ -1,21 +1,19 @@
 <template>
     <div class="homepage-card-blog-component">
-        <hr class="homepage-line">
         <div>
             <b-row class="row-homepage-blog-card">
                 <b-col class="col-homepage-blog-card" v-for = "(blog, index) in blogs" :key="index">
                     <b-card class="homepage-blog-card"  :img-src="blog.image" img-alt="Image" img-height="200px" img-top :title="blog.nameArticle" >
                         <b-card-text class="homepage-blog-card-text" >
-                              {{blog.shortDescription}}
+                            {{blog.shortDescription}}
                         </b-card-text>
-                         <template class="template-footer-homepage-blog-card" #footer >
+                         <template #footer >
                              <small class="text-muted">Data publicare articol: {{blog.dateArticle}}</small>
                         </template>
                     </b-card>
                 </b-col>
             </b-row>
         </div>
-        <hr class="homepage-line">
     </div>
     
 </template>
@@ -71,9 +69,6 @@ import axios from 'axios';
 .homepage-card-blog-component {
     padding-bottom: 20px;
     position: relative;
-    padding-left: 100px;
-    padding-right: 100px !important;
-    margin: 10px; 
     }
 .homepage-blog-card {
     font-family: 'Petrona';
