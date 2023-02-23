@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import AdminArea from '../views/AdminArea.vue'
+import Form from '../views/Form.vue'
 
 Vue.use(VueRouter)
 
@@ -26,7 +27,13 @@ const routes = [{
         path: '/admin/:idUser',
         name: 'admin',
         component: AdminArea
+    },
+    {
+        path: '/form',
+        name: 'form',
+        component: Form
     }
+
     // {
     //   path: '/about',
     //   name: 'about',
