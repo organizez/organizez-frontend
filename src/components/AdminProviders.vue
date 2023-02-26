@@ -17,9 +17,7 @@
               <template #head(company)>Company</template>
               <template #head(completeNameRepresentative)>Nume Reprezentant</template>
               <template #head(emailRepresentative)>Email Reprezentant</template>
-              <template #head(category)>Categorie</template>
               <template #head(addressCompany)>Adresa companiei</template>
-              <template #head(city)>City</template>
               <template #head(action)>Acțiune</template>
               <template #cell(index)="data">
                 <b>{{ data.index + iteration + 1 }}</b>
@@ -33,14 +31,8 @@
               <template #cell(emailRepresentative)="data">
                 {{ data.item.emailRepresentative }}
               </template>
-              <template #cell(category)="data">
-                <i>{{ data.item.category }}</i>
-              </template>
               <template #cell(addressCompany)="data">
                 {{ data.item.addressCompany }}
-              </template>
-              <template #cell(city)="data">
-                {{ data.item.city }}
               </template>
               <template #cell()="data">
                 <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon"  @click="editProvider(data.item)"/>
@@ -86,17 +78,7 @@
                 <label for="adressCompany" class="label-form">Adresa Companiei<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Adresa Companiei" v-model="addedProvider.addressCompany"></b-form-textarea>            
               </b-col>
-            </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left">
-                <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="addedProvider.idCity" :options="cities" class="select-form"></b-select>             
-              </b-col>
-              <b-col class="col-form left">
-                <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="addedProvider.idCategory" :options="categoriesProviders" class="select-form"></b-select>             
-              </b-col>
-            </b-row>
+            </b-row>          
             <b-row class="row-form admin-buttons">
                 <b-button class="action-admin-button" v-on:click="addProvider()">Adăugare furnizor</b-button>
                 <b-button class="close-admin-button" v-on:click="closeAddProvider()">Close</b-button>
@@ -132,16 +114,6 @@
                 <b-form-textarea id="textarea-form" placeholder="Adresa Companiei" v-model="editedProvider.addressCompany"></b-form-textarea>            
               </b-col>
             </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left">
-                <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="editedProvider.idCity" :options="cities" class="select-form"></b-select>             
-              </b-col>
-              <b-col class="col-form left">
-                <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="editedProvider.idCategory" :options="categoriesProviders" class="select-form"></b-select>             
-              </b-col>
-            </b-row>
             <b-row class="row-form admin-buttons">
                 <b-button class="action-admin-button" v-on:click="updateProvider()">Actualizare furnizor</b-button>
                 <b-button class="close-admin-button" v-on:click="closeEditProvider()">Close</b-button>
@@ -170,8 +142,8 @@ import $ from "jquery";
         isLoading: true,
         providers: [],
         fieldsTable: ['Index', { key: 'company', label: 'Company' }, { key: 'completeNameRepresentative', label: 'Name Representative'}, 
-        { key: 'emailRepresentative', label: 'Email Representative'}, { key: 'category', label: 'Category'}, { key: 'addressCompany', label: 'Address'},
-        { key: 'city', label: 'Ciry'}, { key: 'action', label: 'Acțiune'}],
+        { key: 'emailRepresentative', label: 'Email Representative'}, { key: 'addressCompany', label: 'Address'},
+        { key: 'action', label: 'Acțiune'}],
         currentPage: 1,
         perPageProviders: 15,
         iteration: 0,
@@ -182,10 +154,6 @@ import $ from "jquery";
           lastNameRepresentative: "",
           emailRepresentative: "",
           addressCompany: "",
-          idCategory: "",
-          category: "",
-          idCity: "",
-          city: ""
         },
         enabledEditProvider: false,
         editedProvider: {
@@ -195,13 +163,7 @@ import $ from "jquery";
           lastNameRepresentative: "",
           emailRepresentative: "",
           addressCompany: "",
-          idCategory: "",
-          category: "",
-          idCity: "",
-          city: ""
         },
-        categoriesProviders: [],
-        cities: [],
         idDeletedProvider: "",
         titleInfoModal: "",
         textInfoModal: "",
@@ -244,10 +206,6 @@ import $ from "jquery";
               completeNameRepresentative: "",
               emailRepresentative: "",
               addressCompany: "",
-              id_category: 0,
-              category: "",
-              id_city: 0,
-              city: ""
             }
             for(var i = 0; i < result.data.length; i++) {
               provider = {
@@ -258,10 +216,6 @@ import $ from "jquery";
                 completeNameRepresentative: result.data[i].name_representative,
                 emailRepresentative: result.data[i].email_representative,
                 addressCompany: result.data[i].address_company,
-                idCategory: result.data[i].id_category,
-                category: result.data[i].category,
-                idCity: result.data[i].id_city,
-                city: result.data[i].city
               } 
               this.providers.push(provider);                   
             }
@@ -282,53 +236,7 @@ import $ from "jquery";
           lastNameRepresentative: "",
           emailRepresentative: "",
           addressCompany: "",
-          idCategory: "",
-          category: "",
-          idCity: "",
-          city: ""
         }
-      },
-      getCategoriesProviders() {
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getAllCategoriesProviders"
-        }).then(result => {
-          if(result.data.length > 0) {
-            let categoryProviders = {
-              value: 0,
-              text: ""
-            }
-            for(var i = 0; i < result.data.length; i++) {
-              categoryProviders = {
-                value: result.data[i].id_category,
-                text: result.data[i].category
-              }
-              this.categoriesProviders.push(categoryProviders);
-            }
-          }
-        })
-      },
-      getCities() {
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/cities/getAllCities"
-        }).then(result => {
-          if(result.data.length > 0) {
-            let city = {
-              value: 0,
-              text: ""
-            }
-            for(var i = 0; i < result.data.length; i++) {
-              city = {
-                value: result.data[i].id_city,
-                text: result.data[i].city
-              }
-              this.cities.push(city);
-            }
-          }
-        })
       },
       addProvider() {
         axios({
@@ -348,10 +256,6 @@ import $ from "jquery";
             lastNameRepresentative: "",
             emailRepresentative: "",
             addressCompany: "",
-            idCategory: "",
-            category: "",
-            idCity: "",
-            city: ""
           }
           this.actionInfoModal = "adding";
           this.titleInfoModal = "Adăugare furnizor";
@@ -374,8 +278,6 @@ import $ from "jquery";
           lastNameRepresentative: provider.lastNameRepresentative,
           emailRepresentative: provider.emailRepresentative,
           addressCompany: provider.addressCompany,
-          idCategory: provider.idCategory,
-          idCity: provider.idCity
         }
       },
       updateProvider() {
@@ -410,8 +312,6 @@ import $ from "jquery";
           lastNameRepresentative: "",
           emailRepresentative: "",
           addressCompany: "",
-          idCategory: "",
-          idCity: ""
         }
       },
       initiateDeleteProvider(idProvider, companyProvider) {
@@ -464,8 +364,6 @@ import $ from "jquery";
     },
     mounted() {
       this.getProvidersNumber();
-      this.getCategoriesProviders();
-      this.getCities();
     }
   }
 </script>
