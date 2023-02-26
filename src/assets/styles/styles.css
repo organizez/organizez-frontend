@@ -169,3 +169,9 @@
 .trash-icon:hover {
     color: #dc3545 !important;
 }
+.spinner {
+    color: #3a5a40;
+}
+.spinner .position-absolute .position-absolute:nth-child(2) {
+    top: 20% !important;
+}
