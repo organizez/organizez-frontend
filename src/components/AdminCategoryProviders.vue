@@ -16,12 +16,16 @@
               <template #head(index)>Index</template>
               <template #head(category)>Categorie Furnizori</template>
               <template #head(servicesNumber)>Număr de servicii</template>
+              <template #head(categoryImage)>Imagine</template>
               <template #head(action)>Acțiune</template>
               <template #cell(index)="data">
                 <b>{{ data.index + iteration + 1 }}</b>
               </template>
               <template #cell(category)="data">
                 {{data.item.category}}
+              </template>
+               <template #cell(categoryImage)="data">
+                {{data.item.categoryImage}}
               </template>
               <template #cell(servicesNumber)="data">
                 {{data.item.servicesNumber}}
@@ -50,6 +54,12 @@
             <b-form-input id="categoryName"  class="input-form" placeholder="Categorie" v-model="addedCategory.category"></b-form-input>            
           </b-col>
         </b-row>
+        <b-row class="row-form">
+          <b-col class="col-form left">
+            <label for="categoryImage" class="label-form">Imagine<span class="mandatory-field">*</span>:</label>
+            <b-form-textarea id="textarea-form" placeholder="Imagine" v-model="addedCategory.categoryImage"></b-form-textarea>
+          </b-col>
+        </b-row>
         <b-row class="row-form admin-buttons">
           <b-button class="action-admin-button" v-on:click="addCategory()">Adăugare categorie</b-button>
           <b-button class="close-admin-button" v-on:click="closeAddCategory()">Close</b-button>
@@ -61,6 +71,12 @@
           <b-col class="col-form left">
             <label for="categoryName" class="label-form">Denumire Categorie<span class="mandatory-field">*</span>:</label>
             <b-form-input id="categoryName" class="input-form" placeholder="Categorie" v-model="editedCategory.category"></b-form-input>            
+          </b-col>
+        </b-row>
+        <b-row class="row-form">
+          <b-col class="col-form left">
+            <label for="categoryImage" class="label-form">Imagine<span class="mandatory-field">*</span>:</label>
+            <b-form-textarea id="textarea-form" placeholder="Imagine" v-model="editedCategory.categoryImage"></b-form-textarea>
           </b-col>
         </b-row>
         <b-row class="row-form admin-buttons">
@@ -88,19 +104,21 @@ import $ from "jquery";
       return {
         categoriesNumber: "",
         isLoading: true,
-        fieldsCategoriesTable: ['Index', { key: 'category', label: 'Categorie'}, { key: 'servicesNumber', label: 'Număr de servicii'}, { key: 'action', label: 'Acțiune'}],
+        fieldsCategoriesTable: ['Index', { key: 'category', label: 'Categorie'}, { key: 'categoryImage', label: 'Imagine'}, { key: 'servicesNumber', label: 'Număr de servicii'}, { key: 'action', label: 'Acțiune'}],
         categoriesProviders: [],
         currentPage: 1,
         perPageCategories: 15,
         iteration: 0,
         enabledAddCategory: false,
         addedCategory: {
-          category: ""
+          category: "",
+          categoryImage: ""
         },
         enabledEditCategory: false,
         editedCategory: {
           idCategory: "",
-          category: ""
+          category: "",
+          categoryImage: ""
         },
         idDeletedCategory: "",
         titleInfoModal: "",
@@ -117,7 +135,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getCategoriesProvidersNumber"
+          url: "http://localhost:3000/categoriesServices/getCategoriesServicesNumber"
         }).then(result => {
           this.categoriesNumber = result.data[0].categories_number;
           this.getCategoriesProviders();
@@ -133,18 +151,20 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getAllCategoriesProviders/" + this.iteration
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let category = {
               idCategory: 0,
               category: "",
+              categoryImage: "",
               servicesNumber: 0
             }
             for(var i = 0; i < result.data.length; i++) {
               category = {
                 idCategory: result.data[i].id_category,
                 category: result.data[i].category,
+                categoryImage: result.data[i].category_image.substring(0,33) + "...",
                 servicesNumber: result.data[i].services_number,
               } 
               this.categoriesProviders.push(category);                   
@@ -167,7 +187,7 @@ import $ from "jquery";
       addCategory() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/categoryProviders/addCategoryProviders',
+          url: 'http://localhost:3000/categoriesServices/addCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -177,7 +197,8 @@ import $ from "jquery";
           data: this.addedCategory
         }).then(result => {
           this.addedCategory = {
-            category: ""
+            category: "",
+            categoryImage: ""
           }
           this.actionInfoModal = "adding";
           this.titleInfoModal = "Adăugare categorie";
@@ -195,13 +216,14 @@ import $ from "jquery";
         this.enabledEditCategory = true;
         this.editedCategory = {
           idCategory: categoryProvider.idCategory,
-          category: categoryProvider.category
+          category: categoryProvider.category,
+          categoryImage: categoryProvider.categoryImage
         }
       },
       updateCategory() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/categoryProviders/updateCategoryProvider',
+          url: 'http://localhost:3000/categoriesServices/updateCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -225,7 +247,8 @@ import $ from "jquery";
         this.enabledEditCategory = false;
         this.editCategory = {
           idCategory: "",
-          category: ""
+          category: "",
+          categoryImage: ""
         }
       },
       initiateDeleteCategory(idCategory, categoryProvider, servicesNumber) {
@@ -244,7 +267,7 @@ import $ from "jquery";
       deleteCategoryProvider() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/categoryProviders/deleteCategoryProvider/' + this.idDeletedCategory,
+          url: 'http://localhost:3000/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

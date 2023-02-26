@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import AdminArea from '../views/AdminArea.vue'
+import Form from '../views/Form.vue'
 import Services from '../views/Services.vue'
 import ServiceDetails from '../views/ServiceDetails.vue'
 import Portofolio from '../views/Portofolio.vue'
@@ -44,7 +45,13 @@ const routes = [{
         path: '/portofolio/test',
         name: 'portofolio',
         component: Portofolio
+    },
+    {
+        path: '/form',
+        name: 'form',
+        component: Form
     }
+
     // {
     //   path: '/about',
     //   name: 'about',
