@@ -50,7 +50,7 @@ const routes = [{
         path: '/form',
         name: 'form',
         component: Form
-    }
+    },
 
     // {
     //   path: '/about',
