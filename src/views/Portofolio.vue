@@ -26,7 +26,10 @@
                     </b-carousel>
                     <p class="pagination-carousel">{{slide+1}} / {{imagesTotalNumber}}</p>
                 </b-modal>         
-          </b-row>
+            </b-row>
+            <b-row class="row-portofolio button">
+                <b-button class="view-more-images-button second-button" @click="getImagesFromPortofolio()">Mai multe imagini</b-button>
+            </b-row>
         </div>
         <Footer></Footer>
     </div>
@@ -51,7 +54,8 @@ import axios from 'axios';
         },
         slide: 0,
         modalShow: false,
-        imagesTotalNumber: 0
+        imagesTotalNumber: 0,
+        iteration: 0
       }
     },
     methods: {
@@ -59,24 +63,27 @@ import axios from 'axios';
             this.slide = index;
             this.modalShow = true;
         },
-        getImagesFromPortofolio(){
+        getImagesFromPortofolio() {
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "http://localhost:3000/portofolio/getAllImages"
+                url: "http://localhost:3000/portofolio/getAllImages/" + this.iteration
             }).then(result => {
-                this.imagesTotalNumber = result.data.length;
-                let image = {
-                    idImage: 0,
-                    image: ""
-                }
-                for(var i = 0; i < result.data.length; i++) {
-                    image = {
-                        idImage: result.data[i].id_image,
-                        image: result.data[i].image
+                if(result.data.length > 0) {
+                    let image = {
+                        idImage: 0,
+                        image: ""
                     }
-                    this.portofolio.push(image);
-                 }
+                    for(var i = 0; i < result.data.length; i++) {
+                        image = {
+                            idImage: result.data[i].id_image,
+                            image: result.data[i].image
+                        }
+                        this.portofolio.push(image);
+                    }
+                    this.imagesTotalNumber = this.portofolio.length;
+                    this.iteration += 12;
+                }
             })
         },
     },
@@ -113,6 +120,10 @@ import axios from 'axios';
         flex-direction: row;
         column-gap: 3%;
         row-gap: 25px;
+    }
+    .row-portofolio.button {
+        justify-content: center;
+        margin: 40px 0 0 0 !important;
     }
     .col-gallery {
         width: 31.33% !important;
@@ -177,5 +188,14 @@ import axios from 'axios';
         font-size: 16px;
         padding: 5px 0 0 0;
         font-family: 'Petrona';
+    }
+    .view-more-images-button {
+        width: auto !important;
+        padding: 5px 20px !important;
+        background-color: #9c876e !important;
+        border-radius: 0px !important;
+        border-color: #a99985 !important;
+        margin: 0 !important;
+        cursor: pointer;
     }
 </style>

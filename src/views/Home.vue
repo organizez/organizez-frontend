@@ -82,7 +82,7 @@
       </b-row>
       <b-row class="row-home blog">
         <b-col class="col-blog-article" v-for = "(blogArticle, index) in blogArticles" :key="index">
-          <b-card class="blog-article-container" :img-src="blogArticle.image" img-alt="Image" img-height="200px" img-top :title="blogArticle.nameArticle" >
+          <b-card class="blog-article-card" :img-src="blogArticle.image" img-alt="Image" img-height="200px" img-top :title="blogArticle.nameArticle" >
             <b-card-text class="blog-article-text">
               {{blogArticle.shortDescription}}
             </b-card-text>
@@ -418,16 +418,16 @@ import VueHorizontalList from "vue-horizontal-list";
     padding: 0px !important;
     flex: none !important;
   }
-  .blog-article-container {
+  .blog-article-card {
     background-size: 250px !important;
     padding: 0px !important;
     border-radius: 0px !important;
     box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
   }
-  .blog-article-container .card-img-top {
+  .blog-article-card .card-img-top {
     border-radius: 0px !important;
   }
-  .blog-article-container .card-title {
+  .blog-article-card .card-title {
     margin-bottom: 0px !important;
     color: #9c876e;
     text-transform: uppercase;
@@ -438,12 +438,13 @@ import VueHorizontalList from "vue-horizontal-list";
     font-family: 'Nord Book';
     font-weight: 400;
   }
+  .blog-article-card .card-body {
+    padding: 5px !important;
+  }
   .blog-article-text {
     margin-bottom: 0px !important;
     color: #5e503f;
     font-style: italic;
-  }
-  .blog-article-container .card-body {
-    padding: 5px 0 !important;
+    font-size: 14px;
   }
 </style>

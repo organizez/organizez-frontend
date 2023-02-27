@@ -37,7 +37,7 @@
             :total-rows="usersNumber"
             :per-page="perPageUsers"
             @input="getUsers()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
     </div>
@@ -149,23 +149,5 @@ import axios from 'axios';
       text-align: left !important;
       font-size: 14px;
       vertical-align: middle;
-    }
-    .pagination-table {
-      justify-content: flex-end;
-      margin: 0px !important;
-      padding-right: 0px;
-    }
-    .pagination-table .page-link {
-      color: #000000 !important;
-    }
-    .pagination-table .page-item.active .page-link {
-      color: #FFFFFF !important;
-    }
-    .pagination-table .page-item.active .page-link {
-      background-color: #588157 !important;
-      border-color: #3a5a40 !important;
-    }
-    .pagination-table .page-link:focus {
-      box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
     }
 </style>

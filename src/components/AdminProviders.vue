@@ -46,7 +46,7 @@
             :total-rows="providersNumber"
             :per-page="perPageProviders"
             @input="getProviders()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>
