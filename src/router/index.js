@@ -8,6 +8,8 @@ import Form from '../views/Form.vue'
 import Services from '../views/Services.vue'
 import ServiceDetails from '../views/ServiceDetails.vue'
 import Portofolio from '../views/Portofolio.vue'
+import Blog from '../views/Blog.vue'
+import BlogArticle from '../views/BlogArticle.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +52,16 @@ const routes = [{
         path: '/form',
         name: 'form',
         component: Form
+    },
+    {
+        path: '/blog/test',
+        name: 'blog',
+        component: Blog
+    },
+    {
+        path: '/blog/:idBlogArticle',
+        name: 'blog-article',
+        component: BlogArticle
     }
 
     // {

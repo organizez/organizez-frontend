@@ -54,7 +54,7 @@
             :total-rows="blogsNumber"
             :per-page="perPageBlogs"
             @input="getBlogs()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

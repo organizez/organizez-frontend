@@ -81,7 +81,7 @@
           :total-rows="servicesNumber"
           :per-page="perPageServices"
           @input="getServices()"
-          class="pagination-table"
+          class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

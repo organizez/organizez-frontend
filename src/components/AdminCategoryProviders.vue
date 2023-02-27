@@ -42,7 +42,7 @@
             :total-rows="categoriesNumber"
             :per-page="perPageCategories"
             @input="getProviders()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

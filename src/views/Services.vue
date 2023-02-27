@@ -28,7 +28,7 @@
                     :total-rows="servicesNumber"
                     :per-page="perPageServices"
                     @input="getServices()"
-                    class="pagination-table">
+                    class="site-pagination-table">
                 </b-pagination>
             </b-row>
         </div>
