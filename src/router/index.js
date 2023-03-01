@@ -10,6 +10,10 @@ import ServiceDetails from '../views/ServiceDetails.vue'
 import Portofolio from '../views/Portofolio.vue'
 import Blog from '../views/Blog.vue'
 import BlogArticle from '../views/BlogArticle.vue'
+import AboutUs from '../views/AboutUs.vue'
+import Anpc from '../views/Anpc.vue'
+import DataPrivacyPolicy from '../views/DataPrivacyPolicy.vue'
+import TermsConditions from '../views/TermsConditions.vue'
 
 Vue.use(VueRouter)
 
@@ -62,6 +66,26 @@ const routes = [{
         path: '/blog/:idBlogArticle',
         name: 'blog-article',
         component: BlogArticle
+    },
+    {
+        path: '/aboutUs/test',
+        name: 'aboutUs',
+        component: AboutUs
+    },
+    {
+        path: '/anpc/test',
+        name: 'anpc',
+        component: Anpc
+    },
+    {
+        path: '/dataPrivacyPolicy/test',
+        name: 'dataPrivacyPolicy',
+        component: DataPrivacyPolicy
+    },
+    {
+        path: '/termsConditions/test',
+        name: 'termsConditions',
+        component: TermsConditions
     }
 
     // {

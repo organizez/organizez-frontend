@@ -198,7 +198,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getAllCategoriesProviders"
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices"
         }).then(result => {
           if(result.data.length > 0) {
             let categoryProviders = {

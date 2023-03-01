@@ -11,13 +11,13 @@
                 </div>
               </template>
               <template #head(titleAnpc)>Titlu</template>
-              <template #head(textAnpc)>Text</template>
+              <template #head(urlAnpc)>Text</template>
               <template #head(action)>Acțiune</template>
              <template #cell(titleAnpc)="data">
                 {{data.item.titleAnpc}}
               </template>
-             <template #cell(textAnpc)="data">
-                {{data.item.textAnpc}}
+             <template #cell(urlAnpc)="data">
+                {{data.item.urlAnpc}}
               </template>
               <template #cell()="data">
                 <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon"  @click="editAnpc(data.item)"/>
@@ -42,8 +42,8 @@
             </b-row>
             <b-row class="row-form">
               <b-col class="col-form left">
-                <label for="textAnpc" class="label-form">Text<span class="mandatory-field">*</span>:</label>
-                <b-form-textarea id="textarea-form" placeholder="Text" v-model="editedAnpc.textAnpc"></b-form-textarea>            
+                <label for="urlAnpc" class="label-form">Text<span class="mandatory-field">*</span>:</label>
+                <b-form-textarea id="textarea-form" placeholder="Text" v-model="editedAnpc.urlAnpc"></b-form-textarea>            
               </b-col>
             </b-row>
             <b-row class="row-form admin-buttons">
@@ -67,12 +67,12 @@ import $ from "jquery";
       return {
         anpc: [],
         isLoading: true,
-        fieldsTable: [{ key: 'titleAnpc', label: 'Title' }, { key: 'textAnpc', label: 'Text' }, { key: 'action', label: 'Acțiune'}],
+        fieldsTable: [{ key: 'titleAnpc', label: 'Title' }, { key: 'urlAnpc', label: 'Text' }, { key: 'action', label: 'Acțiune'}],
         enabledEditAnpc: false,
         editedAnpc: {
         idAnpc: 0,
         titleAnpc: "",
-        textAnpc: ""
+        urlAnpc: ""
         },
         titleInfoModal: "",
         textInfoModal: "",
@@ -99,12 +99,12 @@ import $ from "jquery";
             let item = {
               idAnpc: 0,
               titleAnpc: "",
-              textAnpc: "",
+              urlAnpc: "",
             }
             item = {
                 idAnpc: result.data[0].id_anpc,
                 titleAnpc: result.data[0].title_anpc,
-                textAnpc: result.data[0].text_anpc
+                urlAnpc: result.data[0].url_anpc
                 }
         this.anpc.push(item);
         }
@@ -119,7 +119,7 @@ import $ from "jquery";
         this.editedAnpc = {
           idAnpc: anpc.idAnpc,
           titleAnpc: anpc.titleAnpc,
-          textAnpc: anpc.textAnpc
+          urlAnpc: anpc.urlAnpc
         }
       },
       updateAnpc() {
@@ -150,7 +150,7 @@ import $ from "jquery";
         this.editedAnpc = {
           idAnpc: "",
           titleAnpc: "",
-          textAnpc: ""
+          urlAnpc: ""
         }
       },
       okInfoModal() {
