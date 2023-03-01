@@ -368,7 +368,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/services/getServicesNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumber"
         }).then(result => {
           this.servicesNumber = result.data[0].services_number;
           this.getServices();
@@ -384,7 +384,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/services/getAllServices/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getAllServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let service = {
