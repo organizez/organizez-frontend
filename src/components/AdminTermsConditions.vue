@@ -93,7 +93,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/termsConditions/getTermsConditions"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/termsConditions/getTermsConditions"
         }).then(result => {
           if(result.data.length > 0) {
             let item = {
@@ -125,7 +125,7 @@ import $ from "jquery";
       updateTermsConditions() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/termsConditions/updateTermsConditions',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/termsConditions/updateTermsConditions',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

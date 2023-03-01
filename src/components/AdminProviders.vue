@@ -179,7 +179,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/providers/getProvidersNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/providers/getProvidersNumber"
         }).then(result => {
           this.providersNumber = result.data[0].providers_number;
           this.getProviders();
@@ -195,7 +195,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/providers/getAllProviders/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/providers/getAllProviders/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let provider = {
@@ -241,7 +241,7 @@ import $ from "jquery";
       addProvider() {
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/addProvider',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/providers/addProvider',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -283,7 +283,7 @@ import $ from "jquery";
       updateProvider() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/updateProvider',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/providers/updateProvider',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -323,7 +323,7 @@ import $ from "jquery";
       deleteProvider() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/deleteProvider/' + this.idDeletedProvider,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/providers/deleteProvider/' + this.idDeletedProvider,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

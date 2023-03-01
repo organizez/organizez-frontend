@@ -68,7 +68,7 @@ import $ from "jquery";
             }
             axios({
             method: 'post',
-                url: 'https://squid-app-q7qzv.ondigitalocean.app/users/login',
+                url: 'https://squid-app-q7qzv.ondigitalocean.app/be/users/login',
                 mode: 'no-cors',
                 headers: {
                     "Accept": "application/json;odata=verbose",

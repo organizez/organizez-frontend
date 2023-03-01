@@ -123,7 +123,7 @@ import Footer from "../components/Footer.vue";
         }
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/forms/addForm',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/forms/addForm',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -141,7 +141,7 @@ import Footer from "../components/Footer.vue";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/cities/getAllCities"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {

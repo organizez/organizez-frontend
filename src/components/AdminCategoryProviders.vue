@@ -135,7 +135,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/categoriesServices/getCategoriesServicesNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getCategoriesServicesNumber"
         }).then(result => {
           this.categoriesNumber = result.data[0].categories_number;
           this.getCategoriesProviders();
@@ -151,7 +151,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/categoriesServices/getAllCategoriesServices/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let category = {
@@ -187,7 +187,7 @@ import $ from "jquery";
       addCategory() {
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/categoriesServices/addCategoriesServices',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/addCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -223,7 +223,7 @@ import $ from "jquery";
       updateCategory() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/categoriesServices/updateCategoriesServices',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/updateCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -267,7 +267,7 @@ import $ from "jquery";
       deleteCategoryProvider() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
