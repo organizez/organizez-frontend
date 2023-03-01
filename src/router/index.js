@@ -4,7 +4,8 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import AdminArea from '../views/AdminArea.vue'
-import Form from '../views/Form.vue'
+import EventForm from '../views/EventForm.vue'
+import ContactForm from '../views/ContactForm.vue'
 import Services from '../views/Services.vue'
 import ServiceDetails from '../views/ServiceDetails.vue'
 import Portofolio from '../views/Portofolio.vue'
@@ -13,57 +14,62 @@ import BlogArticle from '../views/BlogArticle.vue'
 
 Vue.use(VueRouter)
 
-const routes = [{
-        path: '/login',
-        name: 'login',
-        component: Login
-    },
-    {
-        path: '/register',
-        name: 'register',
-        component: Register
-    },
-    {
-        path: '/home/:idUser?',
-        name: 'home',
-        component: Home
-    },
+const routes = [
     {
         path: '/admin/:idUser',
         name: 'admin',
         component: AdminArea
     },
     {
-        path: '/services/:idUser?',
+        path: '/autentificare',
+        name: 'login',
+        component: Login
+    },
+    {
+        path: '/inregistrare',
+        name: 'register',
+        component: Register
+    },
+    {
+        path: '/servicii/:idCounty/:idServicesCategory/:idUser?',
         name: 'services',
         component: Services
     },
     {
-        path: '/:idService',
-        name: 'service-details',
+        path: '/serviciu/:idService/:idUser?',
+        name: 'service',
         component: ServiceDetails
     },
     {
-        path: '/portofolio/test',
+        path: '/portofoliu/:idUser?',
         name: 'portofolio',
         component: Portofolio
     },
     {
-        path: '/form',
-        name: 'form',
-        component: Form
-    },
-    {
-        path: '/blog/test',
+        path: '/blog/:idUser?',
         name: 'blog',
         component: Blog
     },
     {
-        path: '/blog/:idBlogArticle',
+        path: '/blog/articol/:idBlogArticle/:idUser?',
         name: 'blog-article',
         component: BlogArticle
-    }
-
+    },
+    {
+        path: '/formular-contact/:idUser?',
+        name: 'contact-form',
+        component: ContactForm
+    },
+    {
+        path: '/formular-eveniment/:idUser?',
+        name: 'event-form',
+        component: EventForm
+    },
+    {
+        path: '/:idUser?',
+        name: 'home',
+        component: Home
+    },
     // {
     //   path: '/about',
     //   name: 'about',

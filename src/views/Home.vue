@@ -1,6 +1,15 @@
 <template>
     <div class="home-page">
       <Main-Header></Main-Header>
+      <!-- <b-row>
+        <b-card
+          overlay
+          img-src="https://organizez-images.fra1.digitaloceanspaces.com/homepage%2Fcategories-swiper%2Frestaurante.jpg"
+          img-alt="Card Image"
+          text-variant="white"
+          title="Lasă momentul tău de vis în mâinile noastre">
+        </b-card>
+      </b-row> -->
       <b-row class="row-home row-search">
         <b-row class="search-home">
           <p class="title-search-home">Aveți un eveniment de organizat?</p>
@@ -8,29 +17,23 @@
         </b-row>
         <b-row class="search-home">
           <b-col sm="12" md="6" lg="6" xl="4" class="col-search-home">
-            <v-select 
-              v-bind:options="locations"
-              v:bind:key="location.idLocation"
-              label="location"
-              v-model="chosenLocation.location"
-              placeholder="Introduceți orașul sau județul evenimentului"
-              @search="searchLocations"
-              @input="setLocation"
-              class="search-location">
-              <span slot="no-options">
-                Nu a fost găsit niciun oraș sau județ
-              </span>
-                <template slot="option" slot-scope="option">
-                  <b-row>
-                    <b-col cols="1">
-                      <span><font-awesome-icon icon="fa-location-dot" class="icon-dot-location"/></span>
-                    </b-col>
-                    <b-col cols="11">
-                      <p class="location-search">{{ option.location }}</p>
-                      <p class="category-search">{{ option.categoryLocation }}</p>
-                    </b-col>
-                  </b-row>
-                </template>
+            <v-select :options="counties"   
+              v-model="chosenCounty.county"
+              label="idCounty"
+              v:bind:key="county.idCounty"
+              placeholder="Alegeți județul evenimentului" 
+              @input="setCounty" 
+              class="search-category">
+              <template slot="option" slot-scope="option">
+                <b-row>
+                  <b-col cols="1">
+                    <span><font-awesome-icon icon="fa-location-dot" class="icon-dot-location"/></span>
+                  </b-col>
+                  <b-col cols="11">
+                    <p class="location-search">{{ option.county }}</p>
+                  </b-col>
+                </b-row>
+              </template>
             </v-select>
           </b-col>
           <b-col sm="12" md="6" lg="6" xl="4" class="col-search-home">
@@ -44,7 +47,7 @@
             </v-select>
           </b-col>
           <b-col sm="12" md="6" lg="6" xl="2" >
-            <b-button class="search-button main-button">Caută</b-button>
+            <b-button class="search-button main-button" @click="searchServices()">Caută</b-button>
           </b-col>
         </b-row>
       </b-row>
@@ -82,7 +85,7 @@
       </b-row>
       <b-row class="row-home blog">
         <b-col class="col-blog-article" v-for = "(blogArticle, index) in blogArticles" :key="index">
-          <b-card class="blog-article-card" :img-src="blogArticle.image" img-alt="Image" img-height="200px" img-top :title="blogArticle.nameArticle" >
+          <b-card class="blog-article-card" :img-src="blogArticle.image" img-alt="Image" img-height="220px" img-top :title="blogArticle.nameArticle" >
             <b-card-text class="blog-article-text">
               {{blogArticle.shortDescription}}
             </b-card-text>
@@ -123,53 +126,28 @@ import VueHorizontalList from "vue-horizontal-list";
             { size: 4 },
           ],
         },
-        locations: [],
-        chosenLocation: {
-          idLocation: "",
-          location: "",
-          categoryLocation: ""
-        },
+        counties: [],
         chosenCategoryProviders: {
-          idCategory: "0",
+          idCategory: "",
           category: ""
         },
-        blogArticles: []
+        chosenCounty: {
+          idCounty: 0,
+          county: ""
+        },
+        blogArticles: [],
+        propsImage: {
+          blankColor: '#f6f2f0',
+          blankHeight: 250,
+          class: 'image-blog-article'
+        } 
       }
     },
     methods: {
-      async getLocations(location) {
-        return await axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/cities/locationContainsName/" + location
-        })
-      },
-      searchLocations(location) {
-        if(location.length >= 3) {
-          this.locations = [];
-          this.getLocations(location).then(result => {
-            let location = {
-              key: "",
-              idLocation: "",
-              location: "",
-              categoryLocation: ""
-            }
-            for(var i = 0; i < result.data.length; i++) {
-              location = {
-                key: result.data[i].category_location + i,
-                idLocation: result.data[i].id_location,
-                location: result.data[i].location,
-                categoryLocation: result.data[i].category_location,
-              }
-              this.locations.push(location);
-            }
-          })   
-        }
-      },
       setCategory(value) {
         if(value == null) {
           this.chosenCategoryProviders = {
-            idCategory: "",
+            idCategory: 0,
             category: ""
           }
         } else {
@@ -178,27 +156,50 @@ import VueHorizontalList from "vue-horizontal-list";
             category: value.category
           }
         }
+        console.log(this.chosenCategoryProviders.idCategory)
       },
-      setLocation(value) {
+      setCounty(value) {
+        console.log(value)
         if(value == null) {
-          this.chosenLocation = {
-            idLocation: "",
-            location: "",
-            categoryLocation: ""
+          this.chosenCounty = {
+            idCounty: 0,
+            county: ""
           }
         } else {
-          this.chosenLocation = {
-            idLocation: value.idLocation,
-            location: value.location,
-            categoryLocation: value.categoryLocation
+          this.chosenCounty = {
+            idCounty: value.idCounty,
+            county: value.county
           }
         }
+        console.log(this.chosenCounty.idCounty)
+      },
+      getCounties() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/counties/getDistinctCounties"
+        }).then(result => {
+          if(result.data.length > 0) {
+            let county = {
+              idCounty: 0,
+              county: ""
+            }
+            for(var i = 0; i < result.data.length; i++) {
+              county = {
+                idCounty: result.data[i].id_county,
+                county: result.data[i].county
+              }
+              this.counties.push(county);
+            }
+            console.log(this.counties)
+          }
+        })
       },
       getCategoriesProviders() {
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoryProviders/getAllCategoriesProviders"
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices"
         }).then(result => {
           if(result.data.length > 0) {
             let categoryProviders = {
@@ -214,6 +215,7 @@ import VueHorizontalList from "vue-horizontal-list";
               }
               this.categoriesProviders.push(categoryProviders);
             }
+            console.log(this.categoriesProviders)
             this.enableCarousel = true;
           }
         })
@@ -236,17 +238,31 @@ import VueHorizontalList from "vue-horizontal-list";
               blogArticle = {
                 image: result.data[i].image,
                 nameArticle: result.data[i].name_article,
-                shortDescription: result.data[i].short_description,
+                shortDescription: result.data[i].short_description.substring(0,90) + '...',
                 dateArticle: moment(result.data[i].date_article).format('LL')
               }
               this.blogArticles.push(blogArticle);
             }
           }
         })
+      },
+      searchServices() {
+        console.log(this.chosenCounty.idCounty)
+        console.log(this.chosenCounty.idService)
+        if(this.idUser !== undefined) {
+          this.$router.push('/servicii/' + this.chosenCounty.idCounty + '/' + this.chosenCategoryProviders.idCategory + '/' + this.idUser);
+        } else {
+          this.$router.push('/servicii/' + this.chosenCounty.idCounty + '/' + this.chosenCategoryProviders.idCategory);
+        }
       }
     },
     mounted() {
+      if(this.$route.params.idUser !== undefined) {
+        this.idUser = this.$route.params.idUser;
+      }
+
       moment.locale('ro');
+      this.getCounties();
       this.getCategoriesProviders();
       this.getBlogArticlesByDate();
     },
@@ -263,8 +279,8 @@ import VueHorizontalList from "vue-horizontal-list";
     padding: 0 !important;
   }
   .category-image {
-    width: 145px !important;
-    height: 140px !important;
+    width: 165px !important;
+    height: 160px !important;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   }
@@ -286,12 +302,6 @@ import VueHorizontalList from "vue-horizontal-list";
     font-size: 16px;
     color: #000000;
   }
-  .category-search {
-    margin-bottom: 0px !important;
-    font-size: 13px;
-    color:#808080;
-    font-weight: 400;
-  } 
   .search-location, .search-category {
     flex: 1;
     background: #FFFFFF;
@@ -414,7 +424,8 @@ import VueHorizontalList from "vue-horizontal-list";
     flex-wrap: wrap;
   }
   .col-blog-article {
-    width: 27% !important;
+    width: 28% !important;
+    height: 350px !important;
     padding: 0px !important;
     flex: none !important;
   }
@@ -439,10 +450,11 @@ import VueHorizontalList from "vue-horizontal-list";
     font-weight: 400;
   }
   .blog-article-card .card-body {
-    padding: 5px !important;
+    padding: 15px !important;
   }
   .blog-article-text {
     margin-bottom: 0px !important;
+    padding: 10px 0 0 0 !important;
     color: #5e503f;
     font-style: italic;
     font-size: 14px;

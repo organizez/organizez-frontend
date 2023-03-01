@@ -44,6 +44,7 @@ import moment from 'moment';
     },
     data() {
       return {
+        idUser: 0,
         isLoading: false,
         blogArticlesNumber: 0,
         blogArticles: [],
@@ -58,70 +59,79 @@ import moment from 'moment';
       }
     },
     methods: {
-      getBlogArticlesNumber() {
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/blog/getBlogArticlesNumber"
-        }).then(result => {
-          this.blogArticlesNumber = result.data[0].blog_articles_number;
-          this.getBlogArticles();
-        })
-      },
-      getBlogArticles() {
-        let thisRef = this;
-        this.iteration = (this.currentPage - 1) * this.perPageBlogArticles;
-        if(this.isLoading !== true) {
-          this.isLoading = true;
-        }
-        this.blogArticles = [];
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/blog/getAllBlogArticles/" + this.iteration
-        }).then(result => {
-            if(result.data.length > 0) {
-                let blogArticle = {
-                    idBlogArticle: 0,
-                    nameArticle: "",
-                    dateArticle: new Date(),
-                    author: "",
-                    image: "",
-                    shortDescription: ""
-                }
-                for(var i = 0; i < result.data.length; i++) {
-                    blogArticle = {
-                        idBlogArticle: result.data[i].id_article,
-                        nameArticle: result.data[i].name_article,
-                        dateArticle:  moment(result.data[i].date_article).format('LL'),
-                        author: result.data[i].author,
-                        image: result.data[i].image,
-                        shortDescription: result.data[i].short_description
-                    } 
-                    this.blogArticles.push(blogArticle);                   
-                }
-                console.log(result)
-                setTimeout(function() {
-                    thisRef.isLoading = false;
-                }, 1000);
+        getParam() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }  
+            this.getBlogArticlesNumber();      
+        },
+        getBlogArticlesNumber() {
+            axios({
+                method: "get",
+                headers: {"accept":"application/json"},
+                url: "http://localhost:3000/blog/getBlogArticlesNumber"
+            }).then(result => {
+                this.blogArticlesNumber = result.data[0].blog_articles_number;
+                this.getBlogArticles();
+            })
+        },
+        getBlogArticles() {
+            let thisRef = this;
+            this.iteration = (this.currentPage - 1) * this.perPageBlogArticles;
+            if(this.isLoading !== true) {
+            this.isLoading = true;
             }
-        })
-      },
-      redirectToBlogArticle(idBlogArticle) {
-        this.$router.push('/blog/' + idBlogArticle);
-      }
-
+            this.blogArticles = [];
+            axios({
+            method: "get",
+            headers: {"accept":"application/json"},
+            url: "http://localhost:3000/blog/getAllBlogArticles/" + this.iteration
+            }).then(result => {
+                if(result.data.length > 0) {
+                    let blogArticle = {
+                        idBlogArticle: 0,
+                        nameArticle: "",
+                        dateArticle: new Date(),
+                        author: "",
+                        image: "",
+                        shortDescription: ""
+                    }
+                    for(var i = 0; i < result.data.length; i++) {
+                        blogArticle = {
+                            idBlogArticle: result.data[i].id_article,
+                            nameArticle: result.data[i].name_article,
+                            dateArticle:  moment(result.data[i].date_article).format('LL'),
+                            author: result.data[i].author,
+                            image: result.data[i].image,
+                            shortDescription: result.data[i].short_description
+                        } 
+                        this.blogArticles.push(blogArticle);                   
+                    }
+                    console.log(result)
+                    setTimeout(function() {
+                        thisRef.isLoading = false;
+                    }, 1000);
+                }
+            })
+        },
+        redirectToBlogArticle(idBlogArticle) {
+            if(this.idUser !== undefined) {
+                this.$router.push('/blog/articol/' + idBlogArticle + '/' + this.idUser);
+            } else {
+                this.$router.push('/blog/articol/' + idBlogArticle);
+            }
+        }
     },
     mounted() {
         moment.locale('ro');
-        this.getBlogArticlesNumber();
+        this.getParam();
     },
   }
 </script>
 <style>
     .blog-container {
         width: 100%;
-        margin: auto;;
+        margin: auto;
     }
     .row-blog.header {
         background-color: rgb(163, 177, 138, 0.2);

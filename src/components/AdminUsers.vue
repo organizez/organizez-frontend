@@ -134,6 +134,7 @@ import axios from 'axios';
     }
     .users-table {
       padding: 0 !important;
+      overflow: overlay;
     }
     .users-table th:first-child, .users-table th:nth-child(5) {
       width: 15% !important;

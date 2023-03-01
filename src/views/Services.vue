@@ -1,17 +1,17 @@
 <template>
     <div class="services-page">
         <Main-Header></Main-Header>
+        <b-row class="row-services header">
+            <p class="title-services-found">{{servicesCategory}} în {{county}}</p>
+        </b-row>
         <div class="services-container">
-            <b-row>
-                <h4 class="search-results"><font-awesome-icon icon="fa-solid fa-map-pin" class="map-pin-icon" /> Locatie <font-awesome-icon icon="fa-solid fa-rectangle-list" class="rectangle-list-icon" />Category</h4>
-            </b-row>
             <b-row class="services-found-container">
                 <b-overlay :show="isLoading" rounded="sm" class="spinner" spinner-type="grow">
                     <b-row class="service-found" v-for="service in services" :key="service.idService">
                         <b-row class="row-services-found" sm="12" md="12" lg="5" xl="12">
                             <b-img :src="service.image" fluid alt="image" class="image-service-found"></b-img>
                         </b-row>
-                        <b-row class="row-services-found" sm="12" md="12" lg="12" xl="12">
+                        <b-row class="row-services-found text" sm="12" md="12" lg="12" xl="12">
                             <p class="title-service-found">{{service.nameService}}</p>
                             <p class="location-service-found"><font-awesome-icon class="location-icon" icon="fa-solid fa-location-dot" /> {{service.location}}</p>
                             <p class="description-service-found">{{service.shortDescription}}</p>
@@ -53,15 +53,31 @@ import axios from 'axios';
         currentPage: 1,
         perPageServices: 8,
         iteration: 0,
+        idUser: 0,
+        county: "",
+        servicesCategory: ""
       }
     },
     methods: {
+        getParams() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }
+            if(this.$route.params.idCounty !== undefined) {
+                this.idCounty = this.$route.params.idCounty;
+            }
+            if(this.$route.params.idServicesCategory !== undefined) {
+                this.idServicesCategory = this.$route.params.idServicesCategory;
+            }   
+            this.getServicesNumber();         
+        },
         getServicesNumber(){
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "http://localhost:3000/services/getServicesNumber"
+                url: "http://localhost:3000/services/getServicesNumber/" + this.idCounty + "/" + this.idServicesCategory 
             }).then(result => {
+                
                 this.servicesNumber = result.data[0].services_number;
                 this.getServices();
             })
@@ -76,8 +92,11 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/services/getAllServices/" + this.iteration
+                url: "http://localhost:3000/services/getAllServices/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
             }).then(result => {
+                this.county = result.data[0].county;
+                this.servicesCategory = result.data[0].category;
+                console.log(result)
                 if(result.data.length > 0) {
                     let service = {
                         idService: 0,
@@ -107,17 +126,22 @@ import axios from 'axios';
             })
         },
         redirectToService(idService) {
-            this.$router.push('/' + idService);
+            if(this.idUser !== undefined) {
+                this.$router.push('/serviciu/' + idService + '/' + this.idUser);
+            } else {
+                this.$router.push('/serviciu/' + idService);
+            }
         }
     },
     mounted() {
-      this.getServicesNumber();
+        this.getParams();
     },
   }
 </script>
 <style>
     .services-container {
-        width: 70%;
+        width: 80%;
+        padding: 20px 40px !important;
         margin: auto;
         display: flex;
         flex-direction: column;
@@ -126,6 +150,21 @@ import axios from 'axios';
     .search-results {
         font-size: 18px;
         text-align: left;
+    }
+    .row-services.header {
+        background-color: rgb(163, 177, 138, 0.2);
+        padding: 30px !important;
+        margin: 0 0 60px 0 !important;
+    }
+    .title-services-found {
+        color: #9c876e;
+        line-height: 2;
+        letter-spacing: 0.15em;
+        font-size: 20px;
+        text-align: center;
+        font-family: 'Nord Book';
+        font-weight: 500;
+        margin-bottom: 0px !important;
     }
     .map-pin-icon {
         color: #B22222;
@@ -142,7 +181,7 @@ import axios from 'axios';
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        padding: 20px !important;
+        padding: 30px !important;
         margin-bottom: 35px;
         border: 1px solid #dad7cd;
         box-shadow: 0 8px 32px 0 rgb(213 189 175 / 20%);
@@ -154,6 +193,9 @@ import axios from 'axios';
     .row-services-found {
         padding: 0px !important;
         margin: 0px !important;
+    }
+    .row-services-found.text {
+        padding-top: 10px !important;
     }
     .rectangle-list-icon {
         padding: 0 5px 0 25px !important;
@@ -182,7 +224,7 @@ import axios from 'axios';
     }
     .description-service-found {
         font-size: 14px;
-        text-align: left;
+        text-align: justify;
         color: #000000;
         margin-bottom: 0px !important;    
         padding: 10px 0 0 0 !important;

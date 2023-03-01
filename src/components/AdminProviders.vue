@@ -373,6 +373,7 @@ import $ from "jquery";
     }
     .providers-table {
       padding: 0 !important;
+      overflow: overlay;
     }
     .providers-table th:first-child  {
       width: 5% !important;

@@ -710,6 +710,7 @@ import $ from "jquery";
   }
   .services-table{
     padding: 0 !important;
+    overflow: overlay;
   }
   .services-table th:first-child  {
     width: 5% !important;

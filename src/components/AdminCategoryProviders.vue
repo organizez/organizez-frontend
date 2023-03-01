@@ -323,6 +323,7 @@ import $ from "jquery";
     }
     .categories-providers-table {
       padding: 0 !important;
+      overflow: overlay;
     }
     .categories-providers-table th:last-child, .categories-providers-table td:last-child  {
       text-align: center !important;

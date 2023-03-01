@@ -197,7 +197,7 @@ import Footer from "../components/Footer.vue";
     .buttons {
         margin: 30px 0 0 0 !important;
     }
-     .submit-form {
+    .submit-form {
         width: 50% !important;
         margin: 10px auto 0 auto;
         padding: 10px !important;

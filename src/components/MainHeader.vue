@@ -12,7 +12,7 @@
                 <b-col class="col-nav">
                     <b-nav-item class="item-main-header link-item"><i>Aveți un eveniment?</i></b-nav-item>      
                     <b-nav-item class="item-main-header"><b-button class="redirect-login main-button" v-on:click="redirectLogin">Login</b-button></b-nav-item>
-                    <b-nav-item class="item-main-header"><b-button class="redirect-register main-button" v-on:click="redirecRegister">Înregistrare</b-button></b-nav-item>
+                    <b-nav-item class="item-main-header"><b-button class="redirect-register second-button" v-on:click="redirecRegister">Înregistrare</b-button></b-nav-item>
                 </b-col>
             </b-nav>
         </b-row>

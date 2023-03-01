@@ -399,6 +399,7 @@ import $ from "jquery";
     }
     .blogs-table {
       padding: 0 !important;
+      overflow: overlay;
     }
     .blogs-table th:first-child  {
       width: 5% !important;
