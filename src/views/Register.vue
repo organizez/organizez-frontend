@@ -126,7 +126,7 @@ import Password from 'vue-password-strength-meter';
             }
             axios({
                 method: 'post',
-                url: 'http://localhost:3000/users/register',
+                url: 'https://squid-app-q7qzv.ondigitalocean.app/users/register',
                 mode: 'no-cors',
                 headers: {
                     "Accept": "application/json;odata=verbose",

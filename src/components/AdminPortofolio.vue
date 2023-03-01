@@ -117,7 +117,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/portofolio/getImagesNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/portofolio/getImagesNumber"
         }).then(result => {
           this.imagesNumber = result.data[0].images_number;
           this.getImages();
@@ -133,7 +133,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/portofolio/getAllImages/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/portofolio/getAllImages/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let image = {
@@ -165,7 +165,7 @@ import $ from "jquery";
       addImage() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/portofolio/addImage',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/portofolio/addImage',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -199,7 +199,7 @@ import $ from "jquery";
       updateImage() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/portofolio/updateImage',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/portofolio/updateImage',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -235,7 +235,7 @@ import $ from "jquery";
       deleteImage() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/portofolio/deleteImage/' + this.idDeletedImage,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/portofolio/deleteImage/' + this.idDeletedImage,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

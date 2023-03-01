@@ -126,7 +126,7 @@ import axios from 'axios';
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "http://localhost:3000/services/getServiceById/" + this.idService
+          url: "https://squid-app-q7qzv.ondigitalocean.app/services/getServiceById/" + this.idService
         }).then(result => {
           console.log(result)
             this.service = {

@@ -69,7 +69,7 @@ import moment from 'moment';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/blog/getBlogArticlesNumber"
+                url: "https://squid-app-q7qzv.ondigitalocean.app/blog/getBlogArticlesNumber"
             }).then(result => {
                 this.blogArticlesNumber = result.data[0].blog_articles_number;
                 this.getBlogArticles();
@@ -85,7 +85,7 @@ import moment from 'moment';
             axios({
             method: "get",
             headers: {"accept":"application/json"},
-            url: "http://localhost:3000/blog/getAllBlogArticles/" + this.iteration
+            url: "https://squid-app-q7qzv.ondigitalocean.app/blog/getAllBlogArticles/" + this.iteration
             }).then(result => {
                 if(result.data.length > 0) {
                     let blogArticle = {

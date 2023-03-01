@@ -67,7 +67,7 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "http://localhost:3000/portofolio/getAllImages/" + this.iteration
+                url: "https://squid-app-q7qzv.ondigitalocean.app/portofolio/getAllImages/" + this.iteration
             }).then(result => {
                 if(result.data.length > 0) {
                     let image = {

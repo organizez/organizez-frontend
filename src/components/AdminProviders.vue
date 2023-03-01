@@ -179,7 +179,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/providers/getProvidersNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/providers/getProvidersNumber"
         }).then(result => {
           this.providersNumber = result.data[0].providers_number;
           this.getProviders();
@@ -195,7 +195,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/providers/getAllProviders/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/providers/getAllProviders/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let provider = {
@@ -241,7 +241,7 @@ import $ from "jquery";
       addProvider() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/providers/addProvider',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/addProvider',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -283,7 +283,7 @@ import $ from "jquery";
       updateProvider() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/providers/updateProvider',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/updateProvider',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -323,7 +323,7 @@ import $ from "jquery";
       deleteProvider() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/providers/deleteProvider/' + this.idDeletedProvider,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/providers/deleteProvider/' + this.idDeletedProvider,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

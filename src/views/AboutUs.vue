@@ -39,7 +39,7 @@ import Footer from "../components/Footer.vue";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/aboutUs/getAboutUs/"
+                url: "https://squid-app-q7qzv.ondigitalocean.app/aboutUs/getAboutUs/"
             }).then(result => {
                 console.log(result)
                 this.titleAboutUs = result.data[0].title_about_us,
