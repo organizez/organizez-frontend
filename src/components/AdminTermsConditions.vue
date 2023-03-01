@@ -27,7 +27,7 @@
          <b-row class="row-admin-component">
           <b-pagination
             @input="getTermsConditions()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

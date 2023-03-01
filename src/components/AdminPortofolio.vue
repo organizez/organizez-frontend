@@ -34,7 +34,7 @@
             :total-rows="imagesNumber"
             :per-page="perPageImages"
             @input="getImages()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

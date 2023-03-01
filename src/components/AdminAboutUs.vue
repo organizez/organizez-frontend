@@ -31,7 +31,7 @@
          <b-row class="row-admin-component">
           <b-pagination
             @input="getAboutUs()"
-            class="pagination-table"
+            class="admin-pagination-table"
           ></b-pagination>
         </b-row>
       </b-row>

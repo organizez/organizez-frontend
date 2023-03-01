@@ -70,17 +70,15 @@ const routes = [
         component: Anpc
     },
     {
-        path: '/dataPrivacyPolicy/test',
+        path: '/dataPrivacyPolicy',
         name: 'dataPrivacyPolicy',
         component: DataPrivacyPolicy
     },
     {
-        path: '/termsConditions/test',
+        path: '/termsConditions',
         name: 'termsConditions',
         component: TermsConditions
-    }
-
-    // {
+    },
     {
         path: '/formular-contact/:idUser?',
         name: 'contact-form',

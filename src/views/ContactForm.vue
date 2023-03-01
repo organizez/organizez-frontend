@@ -26,7 +26,7 @@
           </b-col>
           <b-col class="col-form right">
             <label for="phone" class="label-form">Număr de telefon<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="phone" class="input-form" type="phone" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
+            <b-form-input id="phone" class="input-form" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
             <!-- <p v-if="phoneState == false" class="errorMessage">{{phoneErrorMessage}}</p> -->
           </b-col>
         </b-row>
@@ -165,7 +165,7 @@ import Footer from "../components/Footer.vue";
   }
 </script>
 <style>
-  .formUser-background {
+  .contactForm-background {
     /* background-image: url('https://i.pinimg.com/236x/0b/28/9b/0b289b6fbbaba4381fae3968a7755420.jpg')!important; 
     background-repeat: repeat !important;
     background-size: 680px !important; */
@@ -178,17 +178,17 @@ import Footer from "../components/Footer.vue";
     background-size: 860px !important; */
   }
 
- .formUser-form {
-        width: 45%;
+ .contactForm-form {
+        width: 45% !important;
         margin: auto;
         padding: 30px;
         background-color: rgb(243 233 220 / 50%);
         padding-bottom: 50px;
     }
-    .formUser-form .input-form {
+    .contactForm-form .input-form {
         margin: 0 12px !important;
     }
-    .formUser-form .col-form {
+    .contactForm-form .col-form {
         text-align: left !important;
     }
     .col-form .input-form {

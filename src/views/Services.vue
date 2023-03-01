@@ -75,7 +75,7 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "http://localhost:3000/services/getServicesNumber/" + this.idCounty + "/" + this.idServicesCategory 
+                url: "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory 
             }).then(result => {
                 
                 this.servicesNumber = result.data[0].services_number;
@@ -92,7 +92,7 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/services/getAllServices/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+                url: "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
             }).then(result => {
                 this.county = result.data[0].county;
                 this.servicesCategory = result.data[0].category;
