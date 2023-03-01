@@ -7,7 +7,9 @@
                     <p class="anpc-title">{{titleAnpc}}</p>
                 </b-row>
                 <b-row>
-                    <p class="anpc-url">{{urlAnpc}}</p>
+                    <a href="https://anpc.ro/?ref=footer_3_6">
+                    <p class="anpc-url" href>{{urlAnpc}}</p>
+                    </a>
                 </b-row>         
             </div>
         </div>
