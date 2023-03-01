@@ -11,6 +11,10 @@
                     <b-nav-item class="admin-vertical-item" @click="showComponent('services')">Servicii</b-nav-item>
                     <b-nav-item class="admin-vertical-item" @click="showComponent('blog')">Blog</b-nav-item>
                     <b-nav-item class="admin-vertical-item" @click="showComponent('portofolio')">Portofoliu</b-nav-item>
+                    <b-nav-item class="admin-vertical-item" @click="showComponent('aboutUs')">Despre noi</b-nav-item>
+                    <b-nav-item class="admin-vertical-item" @click="showComponent('termsConditions')">Termeni și condiții </b-nav-item>
+                    <b-nav-item class="admin-vertical-item" @click="showComponent('dataPrivacyPolicy')">Politică de confidențialitate</b-nav-item>
+                    <b-nav-item class="admin-vertical-item" @click="showComponent('anpc')">ANPC</b-nav-item>
                 </b-nav>
             </div>
             <div class="admin-component-container">
@@ -21,6 +25,10 @@
               <Admin-Services v-if="activeServices"></Admin-Services>
               <Admin-Blog v-if="activeBlog"></Admin-Blog>
               <Admin-Portofolio v-if="activePortofolio"></Admin-Portofolio>
+              <Admin-AboutUs v-if="activeAboutUs"></Admin-AboutUs>
+              <Admin-TermsConditions v-if="activeTermsConditions"></Admin-TermsConditions>
+              <Admin-DataPrivacyPolicy v-if="activeDataPrivacyPolicy"></Admin-DataPrivacyPolicy>
+              <Admin-ANPC v-if="activeANPC"></Admin-ANPC>
             </div>
         </div>
     </div>
@@ -36,6 +44,12 @@ import AdminCategoryProviders from "../components/AdminCategoryProviders.vue";
 import AdminServices from "../components/AdminServices.vue";
 import AdminBlog from "../components/AdminBlog.vue";
 import AdminPortofolio from "../components/AdminPortofolio.vue";
+import AdminAboutUs from "../components/AdminAboutUs.vue";
+import AdminANPC from "../components/AdminANPC.vue";
+import AdminDataPrivacyPolicy from "../components/AdminDataPrivacyPolicy.vue";
+import AdminTermsConditions from "../components/AdminTermsConditions.vue";
+
+
 
  export default {
     components: {
@@ -46,7 +60,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
         AdminCategoryProviders,
         AdminServices,
         AdminBlog,
-        AdminPortofolio
+        AdminPortofolio,
+        AdminAboutUs,
+        AdminANPC,
+        AdminDataPrivacyPolicy,
+        AdminTermsConditions
     },
     data() {
       return {
@@ -56,7 +74,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
         activeCategoryProviders: false,
         activeServices: false,
         activeBlog: false, 
-        activePortofolio: false
+        activePortofolio: false,
+        activeAboutUs: false,
+        activeTermsConditions: false,
+        activeDataPrivacyPolicy: false,
+        activeANPC: false
       }
     },
     methods: {
@@ -71,6 +93,10 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeServices = false;
           this.activeBlog = false;
           this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;
           break;
         case 'users':
           this.activeDashboard = false;
@@ -79,7 +105,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeCategoryProviders = false;
           this.activeServices = false;
           this.activeBlog = false;
-          this.activePortofolio = false;         
+          this.activePortofolio = false;  
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;       
           break;
         case 'providers':
           this.activeDashboard = false;
@@ -89,6 +119,10 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeServices = false;
           this.activeBlog = false;
           this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;
           break;
         case 'categories':
           this.activeDashboard = false;
@@ -98,6 +132,10 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeServices = false;
           this.activeBlog = false;
           this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;
           break;
         case 'services':
           this.activeDashboard = false;
@@ -106,7 +144,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeCategoryProviders = false;
           this.activeServices = true;
           this.activeBlog = false;
-          this.activePortofolio = false;         
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;         
           break;
         case 'blog':
           this.activeDashboard = false;
@@ -115,7 +157,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeCategoryProviders = false;
           this.activeServices = false;
           this.activeBlog = true;
-          this.activePortofolio = false;             
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;             
           break;
         case 'portofolio':
           this.activeDashboard = false;
@@ -124,7 +170,63 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeCategoryProviders = false;
           this.activeServices = false;
           this.activeBlog = false;
-          this.activePortofolio = true;           
+          this.activePortofolio = true;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;           
+          break;
+          case 'aboutUs':
+          this.activeDashboard = false;
+          this.activeUsers = false;
+          this.activeProviders = false;
+          this.activeCategoryProviders = false;
+          this.activeServices = false;
+          this.activeBlog = false;
+          this.activePortofolio = false;
+          this.activeAboutUs = true;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;           
+          break;
+          case 'termsConditions':
+          this.activeDashboard = false;
+          this.activeUsers = false;
+          this.activeProviders = false;
+          this.activeCategoryProviders = false;
+          this.activeServices = false;
+          this.activeBlog = false;
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = true;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;           
+          break;
+          case 'dataPrivacyPolicy':
+          this.activeDashboard = false;
+          this.activeUsers = false;
+          this.activeProviders = false;
+          this.activeCategoryProviders = false;
+          this.activeServices = false;
+          this.activeBlog = false;
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = true;
+          this.activeANPC = false;           
+          break;
+          case 'anpc':
+          this.activeDashboard = false;
+          this.activeUsers = false;
+          this.activeProviders = false;
+          this.activeCategoryProviders = false;
+          this.activeServices = false;
+          this.activeBlog = false;
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = true;           
           break;
         default:
           this.activeDashboard = true;
@@ -133,7 +235,11 @@ import AdminPortofolio from "../components/AdminPortofolio.vue";
           this.activeCategoryProviders = false;
           this.activeServices = false;
           this.activeBlog = false;
-          this.activePortofolio = false;         
+          this.activePortofolio = false;
+          this.activeAboutUs = false;
+          this.activeTermsConditions = false;
+          this.activeDataPrivacyPolicy = false;
+          this.activeANPC = false;         
       }
       }
     },
