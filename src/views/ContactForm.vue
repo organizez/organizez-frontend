@@ -4,7 +4,7 @@
       <div class="contactForm-background">
        <div class="contactForm-form">
         <b-row class="row-form">
-          <p class="title-form">Formular contact</p>
+          <p class="title-login">Formular contact</p>
         </b-row>
         <b-row class="row-form">
           <b-col class="col-form left">
@@ -68,6 +68,8 @@ import Footer from "../components/Footer.vue";
         },
       },
     mounted() {
+        $(".nav-link").removeClass("active");
+        $(".contact-form-item .nav-link").addClass("active"); 
     }
   }
 </script>

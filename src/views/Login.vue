@@ -103,6 +103,9 @@ import Footer from "../components/Footer.vue";
             this.$router.push('/home');
         }
     },
+    mounted() {
+        $(".nav-link").removeClass("active");
+    },
     computed: {
        emailState() {
             if(this.emailError === 1) {
@@ -138,12 +141,9 @@ import Footer from "../components/Footer.vue";
   }
 </script>
 <style>
-    .login-page {
-        margin: 8% 0;
-    }
     .login-form {
         width: 40%;
-        margin: auto;
+        margin: 20px auto;
         padding: 30px;
         background-color: rgb(243 233 220 / 50%);
     }

@@ -38,7 +38,7 @@
 import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
-// import $ from "jquery";
+import $ from "jquery";
  export default {
     components: {
         MainHeader,
@@ -88,6 +88,8 @@ import axios from 'axios';
         },
     },
     mounted() {
+        $(".nav-link").removeClass("active");
+        $(".portofolio-item .nav-link").addClass("active"); 
         this.getImagesFromPortofolio();
     },
   }

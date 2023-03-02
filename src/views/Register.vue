@@ -153,6 +153,9 @@ import Footer from "../components/Footer.vue";
             })
         }
     },
+    mounted() {
+        $(".nav-link").removeClass("active");
+    },
     computed: {
         firstNameState() {
             if(this.firstNameError == true) {
@@ -244,12 +247,9 @@ import Footer from "../components/Footer.vue";
   }
 </script>
 <style>
-    .register-page {
-        margin: 8% 0;
-    }
     .register-form {
         width: 45%;
-        margin: auto;
+        margin: 20px auto;
         padding: 30px;
         background-color: rgb(243 233 220 / 50%);
     }

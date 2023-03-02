@@ -36,7 +36,7 @@ import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 import moment from 'moment';
-// import $ from "jquery";
+import $ from "jquery";
  export default {
     components: {
         MainHeader,
@@ -124,6 +124,8 @@ import moment from 'moment';
     },
     mounted() {
         moment.locale('ro');
+        $(".nav-link").removeClass("active");
+        $(".blog-item .nav-link").addClass("active"); 
         this.getParam();
     },
   }

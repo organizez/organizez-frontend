@@ -3,16 +3,16 @@
         <b-row class="row-main-header">
             <b-nav class="nav-main-header">
                 <b-col class="col-nav">
-                    <b-nav-item active class="item-main-header">Home</b-nav-item>
-                    <b-nav-item class="item-main-header">Servicii</b-nav-item>
-                    <b-nav-item class="item-main-header">Portofoliu</b-nav-item>
-                    <b-nav-item class="item-main-header">Blog</b-nav-item>
-                    <b-nav-item class="item-main-header">Contact</b-nav-item>
+                    <b-nav-item active class="item-main-header" @click="redirectToHome()">Home</b-nav-item>
+                    <b-nav-item class="item-main-header services-item" @click="redirectToServices()">Servicii</b-nav-item>
+                    <b-nav-item class="item-main-header portofolio-item" @click="redirectToPortofolio()">Portofoliu</b-nav-item>
+                    <b-nav-item class="item-main-header blog-item" @click="redirectToBlog()">Blog</b-nav-item>
+                    <b-nav-item class="item-main-header contact-form-item" @click="redirectToContactForm()">Contact</b-nav-item>
                 </b-col>
                 <b-col class="col-nav">
-                    <b-nav-item class="item-main-header link-item"><i>Aveți un eveniment?</i></b-nav-item>      
-                    <b-nav-item class="item-main-header"><b-button class="redirect-login main-button" v-on:click="redirectLogin">Login</b-button></b-nav-item>
-                    <b-nav-item class="item-main-header"><b-button class="redirect-register second-button" v-on:click="redirecRegister">Înregistrare</b-button></b-nav-item>
+                    <b-nav-item class="item-main-header link-item event-form-item" @click="redirectToEventForm()"><i>Aveți un eveniment?</i></b-nav-item>      
+                    <b-nav-item class="item-main-header login-item" @click="redirectToLogin()"><b-button class="redirect-login main-button">Login</b-button></b-nav-item>
+                    <b-nav-item class="item-main-header register-item" @click="redirectToRegister()"><b-button class="redirect-register second-button">Înregistrare</b-button></b-nav-item>
                 </b-col>
             </b-nav>
         </b-row>
@@ -30,11 +30,29 @@
       }
     },
     methods: {
-        redirectLogin() {
-
+        redirectToHome() {
+            this.$router.push('/');
         },
-        redirecRegister() {
-
+        redirectToServices() {
+            this.$router.push('/servicii/1/4');
+        },
+        redirectToPortofolio() {
+            this.$router.push('/portofoliu');
+        },
+        redirectToBlog() {
+            this.$router.push('/blog');
+        },
+        redirectToContactForm() {
+            this.$router.push('/formular-contact');
+        },
+        redirectToEventForm() {
+            this.$router.push('/formular-eveniment');
+        },
+        redirectToLogin() {
+            this.$router.push('/autentificare');
+        },
+        redirectToRegister() {
+            this.$router.push('/inregistrare');
         }
     },
     mounted() {

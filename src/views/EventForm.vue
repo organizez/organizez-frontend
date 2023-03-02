@@ -4,7 +4,7 @@
       <div class="formUser-background">
        <div class="formUser-form">
         <b-row class="row-form">
-          <p class="title-form">Formular organizare eveniment</p>
+          <p class="title-login">Formular organizare eveniment</p>
         </b-row>
         <b-row class="row-form">
           <b-col class="col-form left">
@@ -26,7 +26,7 @@
           </b-col>
           <b-col class="col-form right">
             <label for="phone" class="label-form">Număr de telefon<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="phone" class="input-form" type="phone" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
+            <b-form-input id="phone" class="input-form" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
             <!-- <p v-if="phoneState == false" class="errorMessage">{{phoneErrorMessage}}</p> -->
           </b-col>
         </b-row>
@@ -160,6 +160,8 @@ import Footer from "../components/Footer.vue";
       },
       },
     mounted() {
+      $(".nav-link").removeClass("active");
+      $(".event-form-item .nav-link").addClass("active"); 
       this.getCities();
     }
   }
@@ -179,7 +181,7 @@ import Footer from "../components/Footer.vue";
   }
 
  .formUser-form {
-        width: 45%;
+        width: 65%;
         margin: auto;
         padding: 30px;
         background-color: rgb(243 233 220 / 50%);
