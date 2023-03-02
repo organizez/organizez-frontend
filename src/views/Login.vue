@@ -37,6 +37,8 @@ import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
     components: {
+      MainHeader,
+      Footer,
     },
     data() {
       return {

@@ -60,7 +60,9 @@ import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-        Password 
+        Password,
+        MainHeader,
+        Footer,
     },
     data() {
       return {
