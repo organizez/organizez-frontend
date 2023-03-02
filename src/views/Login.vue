@@ -97,10 +97,10 @@ import Footer from "../components/Footer.vue";
             })
         },
         redirectRegister() {
-            this.$router.push('/register');
+            this.$router.push('/inregistrare');
         },
         redirectHome() {
-            this.$router.push('/home');
+            this.$router.push('/');
         }
     },
     mounted() {
