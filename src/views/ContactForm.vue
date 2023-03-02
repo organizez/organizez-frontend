@@ -8,71 +8,19 @@
         </b-row>
         <b-row class="row-form">
           <b-col class="col-form left">
-            <label for="firstNameUser" class="label-form">Nume<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="firstNameUser" class="input-form" placeholder="Nume" v-model="firstNameUser" ></b-form-input>
-            <!-- <p v-if="firstNameUserState == false" class="errorMessage">{{firstNameUserErrorMessage}}</p> -->
-          </b-col>
-          <b-col class="col-form right">
-            <label for="lastNameUser" class="label-form">Prenume<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="lastNameUser" class="input-form" placeholder="Prenume" v-model="lastNameUser" ></b-form-input>
-            <!-- <p v-if="lastNameUserState == false" class="errorMessage">{{lastNameUserErrorMessage}}</p> -->
-          </b-col>
-        </b-row>
-        <b-row class="row-form">
-          <b-col class="col-form left">
            <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
            <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="email" ></b-form-input>
            <!-- <p v-if="emailState == false" class="errorMessage">{{emailErrorMessage}}</p> -->
           </b-col>
-          <b-col class="col-form right">
-            <label for="phone" class="label-form">Număr de telefon<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="phone" class="input-form" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
-            <!-- <p v-if="phoneState == false" class="errorMessage">{{phoneErrorMessage}}</p> -->
-          </b-col>
-        </b-row>
-         <b-row class="row-form">
-          <b-col class="col-form left">
-           <label for="dateEvent" class="label-form">Dată eveniment<span class="mandatory-field">*</span>:</label>
-           <b-form-input id="dateEvent" class="input-form" type="date" placeholder="Dată eveniment" v-model="dateEvent" ></b-form-input>
-           <!-- <p v-if="dateState == false" class="errorMessage">{{dateErrorMessage}}</p> -->
-          </b-col>
-          <b-col class="col-form right">
-            <label for="numberGuests" class="label-form">Număr invitați<span class="mandatory-field">*</span>:</label>
-            <b-form-input id="numberGuests" class="input-form" type="number" placeholder="Număr invitați" v-model="numberGuests"></b-form-input>
-            <!-- <p v-if="numberGuestsState == false" class="errorMessage">{{numberGuestsErrorMessage}}</p> -->
-          </b-col>
-        </b-row>
-
-       <b-row class="row-form">
-        <b-col class="col-form left">
-          <label for="cities" class="label-form">Oraș<span class="mandatory-field">*</span>:</label>
-          <b-select v-model="idCity" :options="cities" class="select-form"></b-select> 
-        </b-col>
-        <b-col class="col-form right">
-          <label for="budget" class="label-form">Buget<span class="mandatory-field">*</span>:</label>
-          <b-form-input id="budget" class="input-form" placeholder="Buget" v-model="budget" ></b-form-input>
-          <!-- <p v-if="budgetState == false" class="errorMessage">{{budgetErrorMessage}}</p> -->
-          </b-col>
         </b-row>
         <b-row class="row-form">
           <b-col class="col-form left">
-            <label for="details" class="label-form">Detalii suplimentare<span class="mandatory-field">*</span>:</label>
+            <label for="details" class="label-form">Detalii<span class="mandatory-field">*</span>:</label>
             <b-form-textarea id="textarea-form" placeholder="Detalii suplimentare" v-model="details"></b-form-textarea>            
           </b-col>
         </b-row>
-         <b-row class="row-form">
-                <b-form-checkbox
-                    id="signedProviders"
-                    v-model="signedProviders"
-                    button-variant="success"
-                    value="true"
-                    unchecked-value="false" 
-                   >
-                    Ați semnat cu anumiți furnizori?
-                </b-form-checkbox> 
-            </b-row>
             <b-row class="row-form buttons">
-                <b-button class="submit-form" type="submit" v-on:click="addForm">Trimite formular</b-button>
+                <b-button class="submit-form" type="submit" v-on:click="addContactForm">Trimite formular</b-button>
             </b-row>
        </div>
       </div>
@@ -92,38 +40,19 @@ import Footer from "../components/Footer.vue";
     },
     data() {
       return {
-        firstNameUser: "",
-        lastNameUser: "",
         email: "",
-        phone: "",
-        dateEvent: "",
-        numberGuests: 0,
-        idCity: "",
-        // city: "",
-        budget: 0.00,
         details: "",
-        signedProviders: false,
-        cities: []
       }
     },
     methods: {
-      addForm() {
+      addContactForm() {
         let formObject = {
-            'firstNameUser': this.firstNameUser,
-            'lastNameUser': this.lastNameUser,
             'email': this.email,
-            'phone': this.phone,
-            'dateEvent': this.dateEvent,
-            'numberGuests': this.numberGuests,
-            'idCity': this.idCity,
-            // 'city': this.city,
-            'budget': this.budget,
             'details': this.details,
-            'signedProviders': this.signedProviders,
         }
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/forms/addForm',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/contactForms/addContactForm',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -137,30 +66,8 @@ import Footer from "../components/Footer.vue";
           console.log("ERROR POST", error);
         })
         },
-        getCities() {
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
-        }).then(result => {
-          if(result.data.length > 0) {
-            let city = {
-              value: 0,
-              text: ""
-            }
-            for(var i = 0; i < result.data.length; i++) {
-              city = {
-                value: result.data[i].id_city,
-                text: result.data[i].city
-              }
-              this.cities.push(city);
-            }
-          }
-        })
-      },
       },
     mounted() {
-      this.getCities();
     }
   }
 </script>

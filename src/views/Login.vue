@@ -1,5 +1,6 @@
 <template>
     <div class="login-page">
+        <Main-Header></Main-Header>
         <div class="login-form">
             <b-row class="row-form">
                 <p class="title-login">Autentificare</p>
@@ -26,11 +27,14 @@
                 <b-button class="submit-login main-button" type="submit" v-on:click="checkFields">Login</b-button>
             </b-row>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 <script>
 import axios from 'axios';
 import $ from "jquery";
+import MainHeader from "../components/MainHeader.vue";
+import Footer from "../components/Footer.vue";
  export default {
     components: {
     },

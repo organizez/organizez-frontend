@@ -1,5 +1,6 @@
 <template>
     <div class="register-page">
+        <Main-Header></Main-Header>
         <div class="register-form">
             <b-row class="row-form">
                 <p class="title-register">Înregistrare</p>
@@ -48,12 +49,15 @@
                 <b-button class="submit-register" type="submit" v-on:click="checkFields">Înregistrare</b-button>
             </b-row>
         </div>
+        <Footer></Footer>
     </div>
 </template>
 <script>
 import axios from 'axios';
 import $ from "jquery";
 import Password from 'vue-password-strength-meter';
+import MainHeader from "../components/MainHeader.vue";
+import Footer from "../components/Footer.vue";
  export default {
     components: {
         Password 
