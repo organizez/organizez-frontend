@@ -143,5 +143,6 @@
     .logo-image {
         height: auto;
         width: 280px !important;
+        padding: 0px !important;
     }
 </style>
