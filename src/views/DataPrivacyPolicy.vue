@@ -1,6 +1,6 @@
 <template>
     <div class="dataPrivacyPolicy-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="dataPrivacyPolicy-background">
             <div class="dataPrivacyPolicy-container">
                 <b-row class="row-dataPrivacyPolicy">
@@ -16,7 +16,6 @@
 </template>
 <script>
 import axios from 'axios';
-import $ from "jquery";
 import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
@@ -25,13 +24,20 @@ import Footer from "../components/Footer.vue";
       Footer,
     },
     data() {
-      return {
+        return {
+            idUser: "",
             titleDataPrivacyPolicy: "",
             textDataPrivacyPolicy: "",
-      }
+        }
     },
     methods: {
-    getDataPrivacyPolicy() {
+        getParam() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }
+            this.getDataPrivacyPolicy();
+        },
+        getDataPrivacyPolicy() {
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
@@ -45,8 +51,7 @@ import Footer from "../components/Footer.vue";
 
       },
     mounted() {
-     // this.getCities();
-     this.getDataPrivacyPolicy();
+        this.getParam(); 
     }
   }
 </script>

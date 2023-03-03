@@ -1,6 +1,6 @@
 <template>
     <div class="form-page">
-      <Main-Header></Main-Header>
+      <Main-Header :idUser="idUser"></Main-Header>
       <div class="contactForm-background">
        <div class="contactForm-form">
         <b-row class="row-form">
@@ -40,11 +40,17 @@ import Footer from "../components/Footer.vue";
     },
     data() {
       return {
+        idUser: "",
         email: "",
-        details: "",
+        details: ""
       }
     },
     methods: {
+      getParam() {
+        if(this.$route.params.idUser !== undefined) {
+          this.idUser = this.$route.params.idUser;
+        }
+      },
       addContactForm() {
         let formObject = {
             'email': this.email,
@@ -70,6 +76,7 @@ import Footer from "../components/Footer.vue";
     mounted() {
         $(".nav-link").removeClass("active");
         $(".contact-form-item .nav-link").addClass("active"); 
+        this.getParam();
     }
   }
 </script>

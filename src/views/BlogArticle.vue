@@ -1,6 +1,6 @@
 <template>
     <div class="blog-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="blog-article-container">
             <b-row class="row-article container">
                 <p class="article-name">{{nameArticle}}</p>
@@ -25,6 +25,7 @@ import moment from 'moment';
     },
     data() {
         return {
+            idUser: "",
             idBlogArticle: 0,
             nameArticle: "",
             dateArticle: new Date(),
@@ -39,7 +40,10 @@ import moment from 'moment';
         }
     },
     methods: {
-        getParam() {
+        getParams() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }
             this.idBlogArticle = this.$route.params.idBlogArticle;
             this.getBlogArticle();
         },
@@ -60,7 +64,7 @@ import moment from 'moment';
     },
     mounted() {
         moment.locale('ro');
-        this.getParam();
+        this.getParams();
     },
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="service-details-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="service-details-container">
           <b-row class="row-service">
             <p class="title-service">{{service.nameService}}</p>
@@ -95,6 +95,7 @@ import axios from 'axios';
     },
     data() {
       return {   
+        idUser: "",
         idService: 0,
         service: {
           idService: 0,
@@ -118,7 +119,10 @@ import axios from 'axios';
       }
     },
     methods: {
-      getParam() {
+      getParams() {
+        if(this.$route.params.idUser !== undefined) {
+            this.idUser = this.$route.params.idUser;
+        }
         this.idService = this.$route.params.idService;
         this.getServiceById();
       },
@@ -149,7 +153,7 @@ import axios from 'axios';
 
     },
     mounted() {
-      this.getParam();
+      this.getParams();
     },
   }
 </script>

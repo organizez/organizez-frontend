@@ -1,6 +1,6 @@
 <template>
     <div class="termsConditions-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="termsConditions-background">
             <div class="termsConditions-container">
                 <b-row class="row-termsConditions">
@@ -16,7 +16,6 @@
 </template>
 <script>
 import axios from 'axios';
-import $ from "jquery";
 import MainHeader from "../components/MainHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
@@ -26,12 +25,19 @@ import Footer from "../components/Footer.vue";
     },
     data() {
       return {
+            idUser: "",
             titleTermsConditions: "",
             textTermsConditions: "",
       }
     },
     methods: {
-    getTermsConditions() {
+        getParam() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }      
+            this.getTermsConditions();
+        },
+        getTermsConditions() {
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
@@ -46,7 +52,7 @@ import Footer from "../components/Footer.vue";
       },
     mounted() {
      // this.getCities();
-     this.getTermsConditions();
+     this.getParam();
     }
   }
 </script>

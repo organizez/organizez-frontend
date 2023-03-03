@@ -1,6 +1,6 @@
 <template>
     <div class="login-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="''"></Main-Header>
         <div class="login-form">
             <b-row class="row-form">
                 <p class="title-login">Autentificare</p>
@@ -48,6 +48,8 @@ import Footer from "../components/Footer.vue";
         password: "",
         passwordError: 0,
         passwordErrorMessage: "",
+        idUser: "", 
+        userRole: ""
       }
     },
     methods: {
@@ -90,6 +92,7 @@ import Footer from "../components/Footer.vue";
                     this.emailError = 0;
                     this.passwordError = 2;
                 } else if(result.data.status == "success") {
+                    this.idUser = result.data.idUser;
                     this.emailError = 0;
                     this.passwordError = 0;
                     this.redirectHome();
@@ -100,7 +103,11 @@ import Footer from "../components/Footer.vue";
             this.$router.push('/inregistrare');
         },
         redirectHome() {
-            this.$router.push('/');
+            if(this.userRole === "standard") {
+                this.$router.push('/' + this.idUser);
+            } else if(this.userRole === "admin") {
+                this.$router.push('/administrare/' + this.idUser);
+            }
         }
     },
     mounted() {

@@ -1,6 +1,6 @@
 <template>
     <div class="aboutUs-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="aboutUs-background">
             <div class="aboutUs-container">
                 <b-row class="row-aboutUs">
@@ -29,13 +29,20 @@ import Footer from "../components/Footer.vue";
     },
     data() {
       return {
+            idUser: "",
             titleAboutUs: "",
             image: "",
             textAboutUs: "",
       }
     },
     methods: {
-    getAboutUs() {
+        getParam() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }  
+            this.getAboutUs();    
+        },
+        getAboutUs() {
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
@@ -50,8 +57,7 @@ import Footer from "../components/Footer.vue";
 
       },
     mounted() {
-     // this.getCities();
-     this.getAboutUs();
+        this.getParam();
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="register-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="''"></Main-Header>
         <div class="register-form">
             <b-row class="row-form">
                 <p class="title-register">Înregistrare</p>

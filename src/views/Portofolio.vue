@@ -1,6 +1,6 @@
 <template>
     <div class="portofolio-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="portofolio-container">
             <b-row class="row-portofolio header">
                 <p class="title-portofolio">GALERIE FOTO <i>Organizez.ro</i></p>
@@ -46,6 +46,7 @@ import $ from "jquery";
     },
     data() {
       return {  
+        idUser: "",
         portofolio: [],
         propsImage: {
           blankColor: '#f6f2f0',
@@ -59,6 +60,12 @@ import $ from "jquery";
       }
     },
     methods: {
+        getParam() {
+            if(this.$route.params.idUser !== undefined) {
+                this.idUser = this.$route.params.idUser;
+            }
+            this.getImagesFromPortofolio();
+        },
         changeSlide(index) {
             this.slide = index;
             this.modalShow = true;
@@ -90,7 +97,7 @@ import $ from "jquery";
     mounted() {
         $(".nav-link").removeClass("active");
         $(".portofolio-item .nav-link").addClass("active"); 
-        this.getImagesFromPortofolio();
+        this.getParam();
     },
   }
 </script>

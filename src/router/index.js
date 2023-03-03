@@ -12,7 +12,6 @@ import Portofolio from '../views/Portofolio.vue'
 import Blog from '../views/Blog.vue'
 import BlogArticle from '../views/BlogArticle.vue'
 import AboutUs from '../views/AboutUs.vue'
-import Anpc from '../views/Anpc.vue'
 import DataPrivacyPolicy from '../views/DataPrivacyPolicy.vue'
 import TermsConditions from '../views/TermsConditions.vue'
 
@@ -20,7 +19,7 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/admin/:idUser',
+        path: '/administrare/:idUser',
         name: 'admin',
         component: AdminArea
     },
@@ -60,22 +59,17 @@ const routes = [
         component: BlogArticle
     },
     {
-        path: '/aboutUs/test',
+        path: '/despre-noi/:idUser?',
         name: 'aboutUs',
         component: AboutUs
     },
     {
-        path: '/anpc/test',
-        name: 'anpc',
-        component: Anpc
-    },
-    {
-        path: '/dataPrivacyPolicy',
+        path: '/politica-de-confidentialitate-a-datelor/:idUser?',
         name: 'dataPrivacyPolicy',
         component: DataPrivacyPolicy
     },
     {
-        path: '/termsConditions',
+        path: '/termeni-si-conditii/:idUser?',
         name: 'termsConditions',
         component: TermsConditions
     },

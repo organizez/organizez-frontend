@@ -1,6 +1,6 @@
 <template>
     <div class="form-page">
-      <Main-Header></Main-Header>
+      <Main-Header :idUser="idUser"></Main-Header>
       <div class="formUser-background">
        <div class="formUser-form">
         <b-row class="row-form">
@@ -92,6 +92,7 @@ import Footer from "../components/Footer.vue";
     },
     data() {
       return {
+        idUser: "",
         firstNameUser: "",
         lastNameUser: "",
         email: "",
@@ -107,6 +108,12 @@ import Footer from "../components/Footer.vue";
       }
     },
     methods: {
+      getParam() {
+        if(this.$route.params.idUser !== undefined) {
+          this.idUser = this.$route.params.idUser;
+        }
+        this.getCities();
+      },
       addForm() {
         let formObject = {
             'firstNameUser': this.firstNameUser,
@@ -162,7 +169,6 @@ import Footer from "../components/Footer.vue";
     mounted() {
       $(".nav-link").removeClass("active");
       $(".event-form-item .nav-link").addClass("active"); 
-      this.getCities();
     }
   }
 </script>

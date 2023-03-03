@@ -1,6 +1,6 @@
 <template>
     <div class="blog-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <div class="blog-container">
             <b-row class="row-blog header">
                 <p class="title-blog">BLOG</p>
@@ -43,20 +43,20 @@ import $ from "jquery";
         Footer
     },
     data() {
-      return {
-        idUser: 0,
-        isLoading: false,
-        blogArticlesNumber: 0,
-        blogArticles: [],
-        currentPage: 1,
-        perPageBlogArticles: 5,
-        iteration: 0, 
-        propsImage: {
-            blankColor: '#f6f2f0',
-            blankHeight: 250,
-            class: 'image-blog'
-        } 
-      }
+        return {
+            idUser: "",
+            isLoading: false,
+            blogArticlesNumber: 0,
+            blogArticles: [],
+            currentPage: 1,
+            perPageBlogArticles: 5,
+            iteration: 0, 
+            propsImage: {
+                blankColor: '#f6f2f0',
+                blankHeight: 250,
+                class: 'image-blog'
+            } 
+        }
     },
     methods: {
         getParam() {

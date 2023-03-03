@@ -1,6 +1,6 @@
 <template>
     <div class="home-page">
-      <Main-Header></Main-Header>
+      <Main-Header :idUser="idUser"></Main-Header>
       <!-- <b-row>
         <b-card
           overlay
@@ -114,6 +114,7 @@ import VueHorizontalList from "vue-horizontal-list";
     },
     data() {
       return {
+        idUser: "",
         enableCarousel: false,
         categoriesProviders: [],
         options: {
@@ -144,6 +145,14 @@ import VueHorizontalList from "vue-horizontal-list";
       }
     },
     methods: {
+      getParam() {
+        if(this.$route.params.idUser !== undefined) {
+          this.idUser = this.$route.params.idUser;
+        }
+        this.getCounties();
+        this.getCategoriesProviders();
+        this.getBlogArticlesByDate();
+      },
       setCategory(value) {
         if(value == null) {
           this.chosenCategoryProviders = {
@@ -247,8 +256,6 @@ import VueHorizontalList from "vue-horizontal-list";
         })
       },
       searchServices() {
-        console.log(this.chosenCounty.idCounty)
-        console.log(this.chosenCounty.idService)
         if(this.idUser !== undefined) {
           this.$router.push('/servicii/' + this.chosenCounty.idCounty + '/' + this.chosenCategoryProviders.idCategory + '/' + this.idUser);
         } else {
@@ -257,14 +264,8 @@ import VueHorizontalList from "vue-horizontal-list";
       }
     },
     mounted() {
-      if(this.$route.params.idUser !== undefined) {
-        this.idUser = this.$route.params.idUser;
-      }
-
       moment.locale('ro');
-      this.getCounties();
-      this.getCategoriesProviders();
-      this.getBlogArticlesByDate();
+      this.getParam();
     },
     computed: {
     }

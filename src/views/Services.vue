@@ -1,6 +1,6 @@
 <template>
     <div class="services-page">
-        <Main-Header></Main-Header>
+        <Main-Header :idUser="idUser"></Main-Header>
         <b-row class="row-services header">
             <p class="title-services-found">{{servicesCategory}} în {{county}}</p>
         </b-row>
@@ -46,14 +46,14 @@ import $ from "jquery";
         Footer
     },
     data() {
-      return {        
+      return {    
+        idUser: "",    
         isLoading: true,
         services: [],
         servicesNumber: 0,
         currentPage: 1,
         perPageServices: 8,
         iteration: 0,
-        idUser: 0,
         county: "",
         servicesCategory: ""
       }
