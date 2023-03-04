@@ -89,11 +89,11 @@
         <p class="title-admin-component">Adaugare serviciu</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="nameService" class="label-form">Serviciu<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="nameService" class="input-form" placeholder="Serviciu" v-model="addedService.nameService"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="location" class="label-form">Locație<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="location" class="input-form" placeholder="Locație" v-model="addedService.location"></b-form-input>
               </b-col>
@@ -111,19 +111,19 @@
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Furnizori<span class="mandatory-field">*</span></label>
                 <b-select v-model="addedService.idProvider" :options="providers" class="select-from"></b-select>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="addedService.idCity" :options="cities" class="select-form"></b-select>             
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="addedService.idCategory" :options="categoriesServices" class="select-form"></b-select>             
               </b-col>
-               <b-col class="col-form left">
+               <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="capacity" class="label-form">Capacitate:</label>
                 <b-form-input id="capacity" class="input-form" placeholder="Capacitate" v-model="addedService.capacity"></b-form-input>
               </b-col>
@@ -184,11 +184,11 @@
         <p class="title-admin-component">Editare serviciu</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="nameService" class="label-form">Serviciu<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="nameService" class="input-form" placeholder="Serviciu" v-model="editedService.nameService"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="location" class="label-form">Locație<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="location" class="input-form" placeholder="Locație" v-model="editedService.location"></b-form-input>
               </b-col>
@@ -212,19 +212,19 @@
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Furnizori<span class="mandatory-field">*</span></label>
                 <b-select v-model="editedService.idProvider" :options="providers" class="select-from"></b-select>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="editedService.idCity" :options="cities" class="select-form"></b-select>             
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="editedService.idCategory" :options="categoriesServices" class="select-form"></b-select>             
               </b-col>
-             <b-col class="col-form left">
+             <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="capacity" class="label-form">Capacitate:</label>
                 <b-form-input id="capacity" class="input-form" placeholder="Capacitate" v-model="editedService.capacity"></b-form-input>
               </b-col>

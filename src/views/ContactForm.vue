@@ -126,5 +126,16 @@ import Footer from "../components/Footer.vue";
         border-color: #3a5a40 !important;
         box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
     } 
+
+    @media only screen and (max-width: 992px) {
+     .contactForm-form {
+        width: 95% !important;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .contactForm-form {
+        width: 75% !important;
+    }
+    }
 </style>
 

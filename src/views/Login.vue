@@ -200,4 +200,14 @@ import Footer from "../components/Footer.vue";
         background-color: #3a5a40 !important;
         border-radius: 0 !important;
     }
+    @media only screen and (max-width: 992px) {
+     .login-form {
+        width: 93%;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .login-form {
+        width: 70%;
+    }
+    }
 </style>

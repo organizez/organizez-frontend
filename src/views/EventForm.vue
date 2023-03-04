@@ -8,36 +8,36 @@
           <p class="title-login">Formular organizare eveniment</p>
         </b-row>
         <b-row class="row-form">
-          <b-col class="col-form left">
+          <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
             <label for="firstNameUser" class="label-form">Nume<span class="mandatory-field">*</span>:</label>
             <b-form-input id="firstNameUser" class="input-form" placeholder="Nume" v-model="firstNameUser" ></b-form-input>
             <!-- <p v-if="firstNameUserState == false" class="errorMessage">{{firstNameUserErrorMessage}}</p> -->
           </b-col>
-          <b-col class="col-form right">
+          <b-col class="col-form right" sm="12" md="12" lg="6" xl="6">
             <label for="lastNameUser" class="label-form">Prenume<span class="mandatory-field">*</span>:</label>
             <b-form-input id="lastNameUser" class="input-form" placeholder="Prenume" v-model="lastNameUser" ></b-form-input>
             <!-- <p v-if="lastNameUserState == false" class="errorMessage">{{lastNameUserErrorMessage}}</p> -->
           </b-col>
         </b-row>
         <b-row class="row-form">
-          <b-col class="col-form left">
+          <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
            <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
            <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="email" ></b-form-input>
            <!-- <p v-if="emailState == false" class="errorMessage">{{emailErrorMessage}}</p> -->
           </b-col>
-          <b-col class="col-form right">
+          <b-col class="col-form right" sm="12" md="12" lg="6" xl="6">
             <label for="phone" class="label-form">Număr de telefon<span class="mandatory-field">*</span>:</label>
             <b-form-input id="phone" class="input-form" placeholder="Număr de telefon" v-model="phone" ></b-form-input>
             <!-- <p v-if="phoneState == false" class="errorMessage">{{phoneErrorMessage}}</p> -->
           </b-col>
         </b-row>
          <b-row class="row-form">
-          <b-col class="col-form left">
+          <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
            <label for="dateEvent" class="label-form">Dată eveniment<span class="mandatory-field">*</span>:</label>
            <b-form-input id="dateEvent" class="input-form" type="date" placeholder="Dată eveniment" v-model="dateEvent" ></b-form-input>
            <!-- <p v-if="dateState == false" class="errorMessage">{{dateErrorMessage}}</p> -->
           </b-col>
-          <b-col class="col-form right">
+          <b-col class="col-form right" sm="12" md="12" lg="6" xl="6">
             <label for="numberGuests" class="label-form">Număr invitați<span class="mandatory-field">*</span>:</label>
             <b-form-input id="numberGuests" class="input-form" type="number" placeholder="Număr invitați" v-model="numberGuests"></b-form-input>
             <!-- <p v-if="numberGuestsState == false" class="errorMessage">{{numberGuestsErrorMessage}}</p> -->
@@ -45,18 +45,18 @@
         </b-row>
 
        <b-row class="row-form">
-        <b-col class="col-form left">
+        <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
           <label for="cities" class="label-form">Oraș<span class="mandatory-field">*</span>:</label>
           <b-select v-model="idCity" :options="cities" class="select-form"></b-select> 
         </b-col>
-        <b-col class="col-form right">
+        <b-col class="col-form right" sm="12" md="12" lg="6" xl="6">
           <label for="budget" class="label-form">Buget<span class="mandatory-field">*</span>:</label>
           <b-form-input id="budget" class="input-form" placeholder="Buget" v-model="budget" ></b-form-input>
           <!-- <p v-if="budgetState == false" class="errorMessage">{{budgetErrorMessage}}</p> -->
           </b-col>
         </b-row>
         <b-row class="row-form">
-          <b-col class="col-form left">
+          <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
             <label for="details" class="label-form">Detalii suplimentare<span class="mandatory-field">*</span>:</label>
             <b-form-textarea id="textarea-form" placeholder="Detalii suplimentare" v-model="details"></b-form-textarea>            
           </b-col>
@@ -219,5 +219,15 @@ import Footer from "../components/Footer.vue";
         border-color: #3a5a40 !important;
         box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
     } 
+    @media only screen and (max-width: 992px) {
+     .formUser-form {
+        width: 95% !important;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .formUser-form {
+        width: 89% !important;
+    }
+    }
 </style>
 

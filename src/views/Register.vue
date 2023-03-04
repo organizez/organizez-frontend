@@ -6,12 +6,12 @@
                 <p class="title-register">Înregistrare</p>
             </b-row>
             <b-row class="row-form">
-                <b-col class="col-form left">
+                <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                     <label for="firstName" class="label-form">Prenume<span class="mandatory-field">*</span>:</label>
                     <b-form-input id="firstName" class="input-form" placeholder="Prenume" v-model="firstName" :state="firstNameState"></b-form-input>
                     <p v-if="firstNameState == false" class="errorMessage">{{firstNameErrorMessage}}</p>
                 </b-col>
-                <b-col class="col-form right">
+                <b-col class="col-form right" sm="12" md="12" lg="6" xl="6">
                     <label for="lastName" class="label-form">Nume<span class="mandatory-field">*</span>:</label>
                     <b-form-input id="lastName" class="input-form" placeholder="Nume" v-model="lastName" :state="lastNameState"></b-form-input>
                     <p v-if="lastNameState == false" class="errorMessage">{{lastNameErrorMessage}}</p>
@@ -34,7 +34,7 @@
                 <p v-if="confirmedPasswordState == false" class="errorMessage">{{confirmedPasswordErrorMessage}}</p>
             </b-row>
             <b-row class="row-form">
-                <b-form-checkbox
+                <b-form-checkbox 
                     id="terms"
                     v-model="terms"
                     button-variant="success"
@@ -315,4 +315,14 @@ import Footer from "../components/Footer.vue";
         border-color: #3a5a40 !important;
         box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
     } 
+    @media only screen and (max-width: 992px) {
+     .register-form {
+        width: 95%;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .register-form {
+        width: 85%;
+    }
+    }
 </style>

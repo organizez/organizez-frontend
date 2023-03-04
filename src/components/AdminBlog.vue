@@ -62,33 +62,33 @@
         <p class="title-admin-component">Adăugare blog</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="nameArticle" class="label-form">Titlu articol<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="nameArticle" class="input-form" placeholder="Titlu articol" v-model="addedBlog.nameArticle"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="author" class="label-form">Autor<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="author" class="input-form" placeholder="Autor" v-model="addedBlog.author"></b-form-input>
               </b-col>
             </b-row>
             <b-row class="row-form">
-             <b-col class="col-form left">
+             <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="dateArticle" class="label-form">Dată publicare articol<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="dateArticle" class="input-form" type="date" placeholder="Dată publicare eveniment" v-model="addedBlog.dateArticle" ></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="image" class="input-form"  placeholder="Imagine" v-model="addedBlog.image"></b-form-input>              
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="shortDescription" class="label-form">Descriere scurtă<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Descriere scurtă" v-model="addedBlog.shortDescription"></b-form-textarea>            
               </b-col>
             </b-row>
               <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="text" class="label-form">Text<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Text" v-model="addedBlog.text"></b-form-textarea>            
               </b-col>
@@ -103,33 +103,33 @@
         <p class="title-admin-component">Editare blog</p>
         <b-row class="row-admin-component">
            <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="nameArticle" class="label-form">Titlu articol<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="nameArticle" class="input-form" placeholder="Titlu articol" v-model="editedBlog.nameArticle"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="author" class="label-form">Autor<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="author" class="input-form" placeholder="Autor" v-model="editedBlog.author"></b-form-input>
               </b-col>
             </b-row>
             <b-row class="row-form">
-             <b-col class="col-form left">
+             <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="dateArticle" class="label-form">Dată publicare articol<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="dateArticle" class="input-form" type="date" placeholder="Dată publicare eveniment" v-model="editedBlog.dateArticle" ></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="image" class="input-form" tyep="image" placeholder="Imagine" v-model="editedBlog.image"></b-form-input>              
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="shortDescription" class="label-form">Descriere scurtă<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Descriere scurtă" v-model="editedBlog.shortDescription"></b-form-textarea>            
               </b-col>
             </b-row>
               <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="text" class="label-form">Text<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Text" v-model="editedBlog.text"></b-form-textarea>            
               </b-col>

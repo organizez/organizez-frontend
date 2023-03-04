@@ -54,21 +54,21 @@
         <p class="title-admin-component">Adăugare furnizor</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Companie<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="company" class="input-form" placeholder="Companie" v-model="addedProvider.company"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="email" class="label-form">Email Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="addedProvider.emailRepresentative"></b-form-input>
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="firstName" class="label-form">Prenume Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="firstName" class="input-form" placeholder="Prenume Reprezentant" v-model="addedProvider.firstNameRepresentative"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="lastName" class="label-form">Nume Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="lastName" class="input-form" placeholder="Nume" v-model="addedProvider.lastNameRepresentative"></b-form-input>              
               </b-col>
@@ -89,21 +89,21 @@
         <p class="title-admin-component">Editare furnizor</p>
         <b-row class="row-admin-component">
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Companie<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="company" class="input-form" placeholder="Companie" v-model="editedProvider.company"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="email" class="label-form">Email Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="editedProvider.emailRepresentative"></b-form-input>
               </b-col>
             </b-row>
             <b-row class="row-form">
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="firstName" class="label-form">Prenume Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="firstName" class="input-form" placeholder="Prenume Reprezentant" v-model="editedProvider.firstNameRepresentative"></b-form-input>
               </b-col>
-              <b-col class="col-form left">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="lastName" class="label-form">Nume Reprezentant<span class="mandatory-field">*</span>:</label>
                 <b-form-input id="lastName" class="input-form" placeholder="Nume" v-model="editedProvider.lastNameRepresentative"></b-form-input>              
               </b-col>

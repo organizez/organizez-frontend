@@ -74,7 +74,7 @@ import Footer from "../components/Footer.vue";
     width: 999px !important;
     position: center !important; */
   }
- .dataPrivacyPolicy-container{
+ .dataPrivacyPolicy-container {
         width: 45%;
         margin: auto;
         padding: 30px;
@@ -154,6 +154,17 @@ import Footer from "../components/Footer.vue";
  .aboutUs-image {
         width: 300px !important;
         position: center !important;
+    }
+    
+    @media only screen and (max-width: 992px) {
+     .dataPrivacyPolicy-container {
+        width: 95%;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .dataPrivacyPolicy-container {
+        width: 75%;
+    }
     }
 </style>
 

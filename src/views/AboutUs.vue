@@ -80,7 +80,7 @@ import Footer from "../components/Footer.vue";
     width: 999px !important;
     position: center !important; */
   }
- .aboutUs-container{
+ .aboutUs-container {
         width: 45%;
         margin: auto;
         padding: 30px;
@@ -160,6 +160,17 @@ import Footer from "../components/Footer.vue";
  .aboutUs-image {
         width: 300px !important;
         position: center !important;
+    }
+
+    @media only screen and (max-width: 992px) {
+     .aboutUs-container {
+        width: 95%;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .aboutUs-container {
+        width: 75%;
+    }
     }
 </style>
 

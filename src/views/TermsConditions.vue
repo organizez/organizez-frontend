@@ -74,7 +74,7 @@ import Footer from "../components/Footer.vue";
     width: 999px !important;
     position: center !important; */
   }
- .termsConditions-container{
+ .termsConditions-container {
         width: 45%;
         margin: auto;
         padding: 30px;
@@ -151,6 +151,15 @@ import Footer from "../components/Footer.vue";
         font-family: 'Nord Light';
         font-weight: 400;   
     } */
-
+   @media only screen and (max-width: 992px) {
+     .termsConditions-container {
+        width: 95%;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .termsConditions-container {
+        width: 75%;
+    }
+    }
 </style>
 
