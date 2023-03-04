@@ -1,6 +1,7 @@
 <template>
     <div class="form-page">
-      <Main-Header :idUser="idUser"></Main-Header>
+      <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+      <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
       <div class="contactForm-background">
        <div class="contactForm-form">
         <b-row class="row-form">
@@ -31,11 +32,13 @@
 <script>
 import axios from 'axios';
 import $ from "jquery";
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-      MainHeader,
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
       Footer,
     },
     data() {
@@ -58,7 +61,7 @@ import Footer from "../components/Footer.vue";
         }
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/contactForms/addContactForm',
+          url: 'http://localhost:3000/contactForms/addContactForm',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

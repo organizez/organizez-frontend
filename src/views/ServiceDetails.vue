@@ -1,6 +1,7 @@
 <template>
     <div class="service-details-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+      <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+      <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="service-details-container">
           <b-row class="row-service">
             <p class="title-service">{{service.nameService}}</p>
@@ -84,14 +85,16 @@
     </div>
 </template>
 <script>
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 // import $ from "jquery";
  export default {
     components: {
-        MainHeader,
-        Footer
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
+      Footer
     },
     data() {
       return {   
@@ -130,7 +133,7 @@ import axios from 'axios';
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServiceById/" + this.idService
+          url: "http://localhost:3000/services/getServiceById/" + this.idService
         }).then(result => {
           console.log(result)
             this.service = {

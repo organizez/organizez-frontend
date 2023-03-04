@@ -1,6 +1,6 @@
 <template>
     <div class="login-page">
-        <Main-Header :idUser="''"></Main-Header>
+        <Unauthenticated-User-Header></Unauthenticated-User-Header>
         <div class="login-form">
             <b-row class="row-form">
                 <p class="title-login">Autentificare</p>
@@ -33,11 +33,11 @@
 <script>
 import axios from 'axios';
 import $ from "jquery";
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-      MainHeader,
+      UnauthenticatedUserHeader,
       Footer,
     },
     data() {
@@ -76,7 +76,7 @@ import Footer from "../components/Footer.vue";
             }
             axios({
             method: 'post',
-                url: 'https://squid-app-q7qzv.ondigitalocean.app/be/users/login',
+                url: 'http://localhost:3000/users/login',
                 mode: 'no-cors',
                 headers: {
                     "Accept": "application/json;odata=verbose",
@@ -93,6 +93,7 @@ import Footer from "../components/Footer.vue";
                     this.passwordError = 2;
                 } else if(result.data.status == "success") {
                     this.idUser = result.data.idUser;
+                    this.userRole = result.data.role;
                     this.emailError = 0;
                     this.passwordError = 0;
                     this.redirectHome();
@@ -152,7 +153,7 @@ import Footer from "../components/Footer.vue";
         width: 40%;
         margin: 20px auto;
         padding: 30px;
-        background-color: rgb(243 233 220 / 50%);
+        background-color: rgba(249,248,246,1);
     }
     .title-login {
         font-size: 22px;
@@ -197,5 +198,6 @@ import Footer from "../components/Footer.vue";
         margin: 10px auto ;
         padding: 10px !important;
         background-color: #3a5a40 !important;
+        border-radius: 0 !important;
     }
 </style>

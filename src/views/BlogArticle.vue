@@ -1,6 +1,7 @@
 <template>
     <div class="blog-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+        <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+        <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="blog-article-container">
             <b-row class="row-article container">
                 <p class="article-name">{{nameArticle}}</p>
@@ -13,14 +14,16 @@
     </div>
 </template>
 <script>
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 import moment from 'moment';
 // import $ from "jquery";
  export default {
     components: {
-        MainHeader,
+        AuthenticatedUserHeader,
+        UnauthenticatedUserHeader,
         Footer
     },
     data() {
@@ -51,7 +54,7 @@ import moment from 'moment';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogArticleById/" + this.idBlogArticle
+                url: "http://localhost:3000/blog/getBlogArticleById/" + this.idBlogArticle
             }).then(result => {
                 console.log(result)
                 this.nameArticle = result.data.name_article,
@@ -94,8 +97,6 @@ import moment from 'moment';
     .image-blog-article {
         width: 100%;
         height: auto !important;
-        min-height: 300px !important;
-        max-height: 500px !important;
         padding: 0px !important;
     }
     .article-info {
@@ -120,5 +121,17 @@ import moment from 'moment';
         text-align: justify;
         font-family: 'Nord Light';
         font-weight: 400;   
+    }
+    @media only screen and (max-width: 992px) {
+        .row-article.container {
+            width: 100%;
+            padding: 30px !important;
+        }
+    }
+     @media only screen and (max-width: 1200px) and (min-width: 992px) {
+        .row-article.container {
+            width: 100%;
+            padding: 40px !important;
+        }
     }
 </style>

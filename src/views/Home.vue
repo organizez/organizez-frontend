@@ -1,15 +1,7 @@
 <template>
     <div class="home-page">
-      <Main-Header :idUser="idUser"></Main-Header>
-      <!-- <b-row>
-        <b-card
-          overlay
-          img-src="https://organizez-images.fra1.digitaloceanspaces.com/homepage%2Fcategories-swiper%2Frestaurante.jpg"
-          img-alt="Card Image"
-          text-variant="white"
-          title="Lasă momentul tău de vis în mâinile noastre">
-        </b-card>
-      </b-row> -->
+      <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+      <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
       <b-row class="row-home row-search">
         <b-row class="search-home">
           <p class="title-search-home">Aveți un eveniment de organizat?</p>
@@ -102,13 +94,15 @@
 import axios from 'axios';
 // import $ from "jquery";
 import moment from 'moment';
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import VueHorizontalList from "vue-horizontal-list";
 
  export default {
     components: {
-      MainHeader,
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
       Footer,
       VueHorizontalList
     },
@@ -186,7 +180,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/counties/getDistinctCounties"
+          url: "http://localhost:3000/counties/getDistinctCounties"
         }).then(result => {
           if(result.data.length > 0) {
             let county = {
@@ -208,7 +202,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices"
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices"
         }).then(result => {
           if(result.data.length > 0) {
             let categoryProviders = {
@@ -233,7 +227,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogsByDate"
+          url: "http://localhost:3000/blog/getBlogsByDate"
         }).then(result => {
           
             if(result.data.length > 0) {
@@ -266,8 +260,6 @@ import VueHorizontalList from "vue-horizontal-list";
     mounted() {
       moment.locale('ro');
       this.getParam();
-    },
-    computed: {
     }
   }
 </script>

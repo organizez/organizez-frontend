@@ -1,6 +1,7 @@
 <template>
     <div class="dataPrivacyPolicy-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+      <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+      <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="dataPrivacyPolicy-background">
             <div class="dataPrivacyPolicy-container">
                 <b-row class="row-dataPrivacyPolicy">
@@ -16,11 +17,13 @@
 </template>
 <script>
 import axios from 'axios';
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-      MainHeader,
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
       Footer,
     },
     data() {
@@ -41,7 +44,7 @@ import Footer from "../components/Footer.vue";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/dataPrivacyPolicy/getDataPrivacyPolicy/"
+                url: "http://localhost:3000/dataPrivacyPolicy/getDataPrivacyPolicy/"
             }).then(result => {
                 console.log(result)
                 this.titleDataPrivacyPolicy = result.data[0].title_data_privacy_policy,

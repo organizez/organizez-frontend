@@ -34,7 +34,7 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogsByDate"
+                url: "http://localhost:3000/blog/getBlogsByDate"
             }).then(result => {
                 if(result.data.length > 0) {
                     let blog = {

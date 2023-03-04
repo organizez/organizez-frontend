@@ -1,6 +1,7 @@
 <template>
     <div class="termsConditions-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+        <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+        <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="termsConditions-background">
             <div class="termsConditions-container">
                 <b-row class="row-termsConditions">
@@ -16,19 +17,21 @@
 </template>
 <script>
 import axios from 'axios';
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-      MainHeader,
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
       Footer,
     },
     data() {
-      return {
+        return {
             idUser: "",
             titleTermsConditions: "",
             textTermsConditions: "",
-      }
+        }
     },
     methods: {
         getParam() {
@@ -41,7 +44,7 @@ import Footer from "../components/Footer.vue";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/termsConditions/getTermsConditions/"
+                url: "http://localhost:3000/termsConditions/getTermsConditions/"
             }).then(result => {
                 console.log(result)
                 this.titleTermsConditions = result.data[0].title_terms_conditions,
@@ -51,7 +54,6 @@ import Footer from "../components/Footer.vue";
 
       },
     mounted() {
-     // this.getCities();
      this.getParam();
     }
   }

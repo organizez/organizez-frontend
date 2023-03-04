@@ -1,6 +1,7 @@
 <template>
     <div class="services-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+        <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+        <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <b-row class="row-services header">
             <p class="title-services-found">{{servicesCategory}} în {{county}}</p>
         </b-row>
@@ -36,13 +37,15 @@
     </div>
 </template>
 <script>
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
     components: {
-        MainHeader,
+        AuthenticatedUserHeader,
+        UnauthenticatedUserHeader,
         Footer
     },
     data() {
@@ -75,7 +78,7 @@ import $ from "jquery";
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory 
+                url: "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory 
             }).then(result => {
                 
                 this.servicesNumber = result.data[0].services_number;
@@ -92,7 +95,7 @@ import $ from "jquery";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+                url: "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
             }).then(result => {
                 this.county = result.data[0].county;
                 this.servicesCategory = result.data[0].category;

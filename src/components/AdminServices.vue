@@ -368,7 +368,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumber"
+          url: "http://localhost:3000/services/getServicesNumber"
         }).then(result => {
           this.servicesNumber = result.data[0].services_number;
           this.getServices();
@@ -384,7 +384,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getAllServices/" + this.iteration
+          url: "http://localhost:3000/services/getAllServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let service = {
@@ -462,7 +462,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices"
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -483,7 +483,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -504,7 +504,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/providers/getProvidersCompany"
+          url: "http://localhost:3000/providers/getProvidersCompany"
         }).then(result => {
           if(result.data.length > 0){
             let provider = {
@@ -524,7 +524,7 @@ import $ from "jquery";
       addService() {
         axios({
           method: "post",
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/addService",
+          url: "http://localhost:3000/services/addService",
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -585,7 +585,7 @@ import $ from "jquery";
       updateService() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/services/updateService',
+          url: 'http://localhost:3000/services/updateService',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -636,7 +636,7 @@ import $ from "jquery";
       deleteService() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/services/deleteService/' + this.idDeletedService,
+          url: 'http://localhost:3000/services/deleteService/' + this.idDeletedService,
            headers: {
             "Accept": "application/json;odata=verbose",
             "X-RequestDigest": $("#__REQUESTDIGEST").val()

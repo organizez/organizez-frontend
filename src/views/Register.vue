@@ -1,6 +1,6 @@
 <template>
     <div class="register-page">
-        <Main-Header :idUser="''"></Main-Header>
+        <Unauthenticated-User-Header></Unauthenticated-User-Header>
         <div class="register-form">
             <b-row class="row-form">
                 <p class="title-register">Înregistrare</p>
@@ -56,12 +56,12 @@
 import axios from 'axios';
 import $ from "jquery";
 import Password from 'vue-password-strength-meter';
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
 import Footer from "../components/Footer.vue";
  export default {
     components: {
         Password,
-        MainHeader,
+        UnauthenticatedUserHeader,
         Footer,
     },
     data() {
@@ -132,7 +132,7 @@ import Footer from "../components/Footer.vue";
             }
             axios({
                 method: 'post',
-                url: 'https://squid-app-q7qzv.ondigitalocean.app/be/users/register',
+                url: 'http://localhost:3000/users/register',
                 mode: 'no-cors',
                 headers: {
                     "Accept": "application/json;odata=verbose",
@@ -251,7 +251,7 @@ import Footer from "../components/Footer.vue";
         width: 45%;
         margin: 20px auto;
         padding: 30px;
-        background-color: rgb(243 233 220 / 50%);
+        background-color: rgba(249,248,246,1);
     }
     .title-register {
         font-size: 22px;
@@ -309,6 +309,7 @@ import Footer from "../components/Footer.vue";
         margin: 10px auto 0 auto;
         padding: 10px !important;
         background-color: #3a5a40 !important;
+        border-radius: 0 !important;
     }
     .submit-register:focus, .submit-register.focus, .submit-register:active, .submit-register.active, .submit-register:focus:active {
         border-color: #3a5a40 !important;

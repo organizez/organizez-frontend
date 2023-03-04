@@ -1,16 +1,17 @@
 <template>
     <div class="blog-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+        <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+        <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="blog-container">
             <b-row class="row-blog header">
                 <p class="title-blog">BLOG</p>
             </b-row>
             <b-row class="row-blog-articles container">
                 <b-row class="row-blog-article" v-for="blogArticle in blogArticles" :key="blogArticle.idBlogArticle">
-                    <b-col class="col-article" sm="12" md="12" lg="12" xl="4">
+                    <b-col class="col-article" sm="12" md="5" lg="5" xl="4">
                         <b-img-lazy v-bind="propsImage" :src="blogArticle.image" fluid alt="image" class="image-blog"></b-img-lazy>
                     </b-col>
-                    <b-col class="col-article large" sm="12" md="12" lg="12" xl="8">
+                    <b-col class="col-article large" sm="12" md="7" lg="7" xl="8">
                         <p class="blog-article-date"><i>{{blogArticle.dateArticle}}</i></p>
                         <p class="blog-article-name">{{blogArticle.nameArticle}}</p>
                         <p class="blog-article-shortDescription">{{blogArticle.shortDescription}}</p>
@@ -32,14 +33,16 @@
     </div>
 </template>
 <script>
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 import moment from 'moment';
 import $ from "jquery";
  export default {
     components: {
-        MainHeader,
+        UnauthenticatedUserHeader,
+        AuthenticatedUserHeader,
         Footer
     },
     data() {
@@ -69,7 +72,7 @@ import $ from "jquery";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogArticlesNumber"
+                url: "http://localhost:3000/blog/getBlogArticlesNumber"
             }).then(result => {
                 this.blogArticlesNumber = result.data[0].blog_articles_number;
                 this.getBlogArticles();
@@ -79,13 +82,13 @@ import $ from "jquery";
             let thisRef = this;
             this.iteration = (this.currentPage - 1) * this.perPageBlogArticles;
             if(this.isLoading !== true) {
-            this.isLoading = true;
+                this.isLoading = true;
             }
             this.blogArticles = [];
             axios({
-            method: "get",
-            headers: {"accept":"application/json"},
-            url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getAllBlogArticles/" + this.iteration
+                method: "get",
+                headers: {"accept":"application/json"},
+                url: "http://localhost:3000/blog/getAllBlogArticles/" + this.iteration
             }).then(result => {
                 if(result.data.length > 0) {
                     let blogArticle = {
@@ -177,8 +180,8 @@ import $ from "jquery";
         flex-direction: row-reverse;
     }
     .image-blog {
-        min-width: 300px !important;
-        height: 220px !important;
+        min-width: 100% !important;
+        min-height: auto !important;
         border-radius: 10px;
     }
     .blog-article-date {
@@ -223,5 +226,36 @@ import $ from "jquery";
     }
     .pagination-table .blog {
         padding: 0px !important;
+    }
+    @media only screen and (max-width: 992px) {
+        .row-blog-articles.container {
+            width: 90%;
+            margin: auto;
+            padding: 0px !important;
+        }
+        .col-article.large {
+            padding: 0 !important;
+        }
+        .image-blog {
+            min-width: 100% !important;
+            height: auto !important;
+            border-radius: 10px;
+            margin-bottom: 10px !important;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+        .row-blog-articles.container {
+            width: 90%;
+            margin: auto;
+            padding: 0px !important;
+        }
+        .col-article.large {
+            padding: 0 30px !important;
+        }
+        .image-blog {
+            min-width: 100% !important;
+            height: auto !important;
+            border-radius: 10px;
+        }
     }
 </style>

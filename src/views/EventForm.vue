@@ -1,6 +1,7 @@
 <template>
     <div class="form-page">
-      <Main-Header :idUser="idUser"></Main-Header>
+      <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+      <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
       <div class="formUser-background">
        <div class="formUser-form">
         <b-row class="row-form">
@@ -83,11 +84,13 @@
 <script>
 import axios from 'axios';
 import $ from "jquery";
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
  export default {
     components: {
-      MainHeader,
+      AuthenticatedUserHeader,
+      UnauthenticatedUserHeader,
       Footer,
     },
     data() {
@@ -130,7 +133,7 @@ import Footer from "../components/Footer.vue";
         }
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/forms/addForm',
+          url: 'http://localhost:3000/forms/addForm',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -148,7 +151,7 @@ import Footer from "../components/Footer.vue";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -169,6 +172,7 @@ import Footer from "../components/Footer.vue";
     mounted() {
       $(".nav-link").removeClass("active");
       $(".event-form-item .nav-link").addClass("active"); 
+      this.getParam();
     }
   }
 </script>

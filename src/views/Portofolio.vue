@@ -1,6 +1,7 @@
 <template>
     <div class="portofolio-page">
-        <Main-Header :idUser="idUser"></Main-Header>
+        <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
+        <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <div class="portofolio-container">
             <b-row class="row-portofolio header">
                 <p class="title-portofolio">GALERIE FOTO <i>Organizez.ro</i></p>
@@ -27,7 +28,7 @@
                     <p class="pagination-carousel">{{slide+1}} / {{imagesTotalNumber}}</p>
                 </b-modal>         
             </b-row>
-            <b-row class="row-portofolio button">
+            <b-row class="row-portofolio button" v-if="showLoadMoreButton">
                 <b-button class="view-more-images-button second-button" @click="getImagesFromPortofolio()">Mai multe imagini</b-button>
             </b-row>
         </div>
@@ -35,13 +36,15 @@
     </div>
 </template>
 <script>
-import MainHeader from "../components/MainHeader.vue";
+import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.vue";
+import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
     components: {
-        MainHeader,
+        AuthenticatedUserHeader,
+        UnauthenticatedUserHeader,
         Footer
     },
     data() {
@@ -56,6 +59,8 @@ import $ from "jquery";
         slide: 0,
         modalShow: false,
         imagesTotalNumber: 0,
+        showLoadMoreButton: true,
+        imagesPerLoad: 12,
         iteration: 0
       }
     },
@@ -74,8 +79,11 @@ import $ from "jquery";
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/getAllImages/" + this.iteration
+                url: "http://localhost:3000/portofolio/getAllImages/" + this.iteration
             }).then(result => {
+                if(result.data.length < this.imagesPerLoad) {
+                    this.showLoadMoreButton = false;
+                }
                 if(result.data.length > 0) {
                     let image = {
                         idImage: 0,
@@ -104,7 +112,7 @@ import $ from "jquery";
 <style>
     .portofolio-container {
         width: 100%;
-        margin: auto;;
+        margin: auto;
     }
     .row-portofolio.header {
         background-color: rgb(163, 177, 138, 0.2);
@@ -165,7 +173,7 @@ import $ from "jquery";
         font-family: 'Petrona';
     }
     #portofolioGallery .modal-content {
-        width: 85% !important;
+        width: 90% !important;
         margin: auto !important;
     }
     .carousel-portofolio-gallery {
@@ -206,5 +214,66 @@ import $ from "jquery";
         border-color: #a99985 !important;
         margin: 0 !important;
         cursor: pointer;
+    }
+    @media only screen and (max-width: 540px) {
+        .col-gallery {
+            width: 90%;
+            width: 100% !important;
+        }
+        #portofolioGallery .modal-dialog {
+            max-width: 100% !important;
+        }
+        #portofolioGallery .modal-title {
+            font-size: 16px;
+        }
+        .carousel-portofolio-gallery .img-fluid {
+            height: 350px !important;
+        }
+        .title-portofolio {
+            font-size: 16px;
+        }
+    }
+    @media only screen and (max-width: 720px) and (min-width: 540px) {
+        .row-portofolio.gallery {
+            width: 90%;
+            column-gap: 5%;
+            row-gap: 30px;
+        }
+        .col-gallery {
+            width: 47.5% !important;
+        }
+        #portofolioGallery .modal-dialog {
+            max-width: 95% !important;
+        }
+        #portofolioGallery .modal-title {
+            font-size: 18px;
+        }
+        .carousel-portofolio-gallery .img-fluid {
+            height: 380px !important;
+        }
+    }
+    @media only screen and (max-width: 960px) and (min-width: 720px) {
+        .row-portofolio.gallery {
+            width: 90%;
+            column-gap: 2%;
+            row-gap: 20px;
+        }
+        .col-gallery {
+            width: 32% !important;
+        }
+        #portofolioGallery .modal-dialog {
+            max-width: 95% !important;
+        }
+        .carousel-portofolio-gallery .img-fluid {
+            height: 400px !important;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 960px) {
+        #portofolioGallery .modal-dialog {
+            max-width: 85% !important;
+        }
+        .carousel-portofolio-gallery .img-fluid {
+            height: 400px !important;
+        }
     }
 </style>
