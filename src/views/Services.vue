@@ -307,10 +307,16 @@ import $ from "jquery";
         .row-services {
             margin: 0px !important;
         }
+        .row-services .site-pagination-table {
+            margin-top: 20px !IMPORTANT;
+        }
     }
     @media only screen and (max-width: 768px) and (min-width: 576px) {
         .services-container {
             width: 60%;
+        }
+        .row-services .site-pagination-table {
+            margin-top: 20px !IMPORTANT;
         }
     }
     @media only screen and (max-width: 992px) and (min-width: 768px) {
