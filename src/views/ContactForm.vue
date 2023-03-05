@@ -61,7 +61,7 @@ import Footer from "../components/Footer.vue";
         }
         axios({
           method: 'post',
-          url: 'http://localhost:3000/contactForms/addContactForm',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/contactForms/addContactForm',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
