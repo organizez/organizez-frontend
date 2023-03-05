@@ -115,4 +115,21 @@
     .row-footer.copyright-footer {
         padding: 10px 0 !important;
     }
+    @media only screen and (max-width: 768px) {
+        .text-col-footer {
+            text-align: left;
+        }
+        .col-footer.links-footer {
+            padding-left: 15px !important;
+        }
+        .logo-image-footer {
+            width: 180px !important;
+            padding: 20px 0 !important;
+        }
+    }
+    @media only screen and (max-width: 992px) and (min-width: 768px) {
+        .text-col-footer {
+            text-align: left;
+        }
+    }
 </style>

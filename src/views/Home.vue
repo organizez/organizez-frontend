@@ -8,7 +8,7 @@
           <p class="subtitle-search-home">Găsiți peste 100 de servicii pregătite pentru crearea evenimentului perfect</p>
         </b-row>
         <b-row class="search-home">
-          <b-col sm="12" md="6" lg="6" xl="4" class="col-search-home">
+          <b-col sm="12" md="8" lg="8" xl="4" class="col-search-home">
             <v-select :options="counties"   
               v-model="chosenCounty.county"
               label="idCounty"
@@ -28,7 +28,7 @@
               </template>
             </v-select>
           </b-col>
-          <b-col sm="12" md="6" lg="6" xl="4" class="col-search-home">
+          <b-col sm="12" md="8" lg="8" xl="4" class="col-search-home">
             <v-select :options="categoriesProviders"   
               v-model="chosenCategoryProviders.category"
               label="category"
@@ -38,7 +38,7 @@
               class="search-category">
             </v-select>
           </b-col>
-          <b-col sm="12" md="6" lg="6" xl="2" >
+          <b-col sm="12" md="8" lg="8" xl="2" class="col-search-home">
             <b-button class="search-button main-button" @click="searchServices()">Caută</b-button>
           </b-col>
         </b-row>
@@ -50,7 +50,7 @@
       <b-row class="row-home carousel-home">
         <vue-horizontal-list :items="categoriesProviders" :options="options" v-if="enableCarousel" class="categories-carousel">
           <template v-slot:default="{ item }">
-            <div class="item">
+            <div class="item" @click="redirectToServices(item.idCategory)">
               <b-img :src="item.categoryImage" rounded="circle" alt="Circle image" class="category-image"></b-img>
               <p class="category-name">{{ item.category }}</p>
             </div>
@@ -77,7 +77,7 @@
       </b-row>
       <b-row class="row-home blog">
         <b-col class="col-blog-article" v-for = "(blogArticle, index) in blogArticles" :key="index">
-          <b-card class="blog-article-card" :img-src="blogArticle.image" img-alt="Image" img-height="220px" img-top :title="blogArticle.nameArticle" >
+          <b-card class="blog-article-card" @click="redirectToBlogArticle(blogArticle.idBlogArticle)" :img-src="blogArticle.image" img-alt="Image" img-height="220px" img-top :title="blogArticle.nameArticle" >
             <b-card-text class="blog-article-text">
               {{blogArticle.shortDescription}}
             </b-card-text>
@@ -118,6 +118,7 @@ import VueHorizontalList from "vue-horizontal-list";
           responsive: [
             { end: 576, size: 1 },
             { start: 576, end: 768, size: 2 },
+            { start: 768, end: 1200, size: 3 },
             { size: 4 },
           ],
         },
@@ -232,6 +233,7 @@ import VueHorizontalList from "vue-horizontal-list";
           
             if(result.data.length > 0) {
               let blogArticle = {
+                idBlogArticle: 0,
                 image: "",
                 nameArticle: "",
                 shortDescription: "",
@@ -239,6 +241,7 @@ import VueHorizontalList from "vue-horizontal-list";
               }
             for( var i = 0; i < result.data.length; i++) {
               blogArticle = {
+                idBlogArticle: result.data[i].id_article,
                 image: result.data[i].image,
                 nameArticle: result.data[i].name_article,
                 shortDescription: result.data[i].short_description.substring(0,90) + '...',
@@ -254,6 +257,20 @@ import VueHorizontalList from "vue-horizontal-list";
           this.$router.push('/servicii/' + this.chosenCounty.idCounty + '/' + this.chosenCategoryProviders.idCategory + '/' + this.idUser);
         } else {
           this.$router.push('/servicii/' + this.chosenCounty.idCounty + '/' + this.chosenCategoryProviders.idCategory);
+        }
+      },
+      redirectToServices(idCategory) {
+        if(this.idUser !== undefined) {
+          this.$router.push('/servicii/0/' + idCategory + '/' + this.idUser);
+        } else {
+          this.$router.push('/servicii/0/' + idCategory);        
+      }
+      },
+      redirectToBlogArticle(idBlogArticle) {
+        if(this.idUser !== undefined) {
+          this.$router.push('/blog/articol/' + idBlogArticle + '/' + this.idUser);
+        } else {
+          this.$router.push('/blog/articol/' + idBlogArticle);
         }
       }
     },
@@ -428,6 +445,9 @@ import VueHorizontalList from "vue-horizontal-list";
     border-radius: 0px !important;
     box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
   }
+  .blog-article-card:hover {
+    cursor: pointer;
+  }
   .blog-article-card .card-img-top {
     border-radius: 0px !important;
   }
@@ -451,5 +471,150 @@ import VueHorizontalList from "vue-horizontal-list";
     color: #5e503f;
     font-style: italic;
     font-size: 14px;
+  }
+
+  @media only screen and (max-width: 992px) {
+    .row-main-header.logo {
+      padding: 10px 0px 30px 0px;
+    }
+    .row-search.row-home {
+      padding: 30px !important;
+    }
+    .col-search-home {
+      padding: 0px !important;
+    }
+    .row.search-home {
+      margin: 0px !important;
+      row-gap: 10px !important;
+      padding: 0px !important;
+    }
+    .title-search-home, .subtitle-search-home {
+      padding: 0px !important;
+    }
+    .subtitle-search-home {
+      padding-bottom: 10px !important;
+    }
+    .search-button {
+      padding: 5px 30px !important;
+    }
+    .row-home {
+      margin: 0px 20px !important;
+    }
+    .carousel-home {
+      margin: 0 20px 20px 20px !important;
+      padding: 0px !important;
+    }
+    .title-home-section {
+      padding: 0px !important;
+    }
+    .home-line {
+      margin: 0px !important;
+    }
+    .row-home.about-us {
+      padding: 20px;
+    }
+    .about-us-container {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .about-us-container.flex-row-reverse {
+      flex-direction: column !important;
+    }
+    .about-us-container .card-img-right {
+      height: auto !important;
+      width: 100%;
+      max-height: 350px;
+    }
+    .row-home.blog {
+      row-gap: 30px;
+    }
+    .col-blog-article {
+      width: 100% !important;
+      height: auto !important;
+      padding: 0px !important;
+      flex: none !important;
+    }
+    .col-blog-article .card-img-top {
+      height: auto;
+    }
+  }
+  @media only screen and (max-width: 768px) and (min-width: 576px) {
+    .row-search.row-home {
+      padding: 30px 50px !important;
+    }
+    .row-home.about-us {
+      padding: 20px 50px !important;
+    }
+    .row-home {
+      margin: 0px 50px !important;
+    }
+  }
+  @media only screen and (max-width: 992px) and (min-width: 768px) {
+    .row.search-home {
+      margin: 0px !important;
+      row-gap: 15px !important;
+      padding: 0px !important;
+    }
+    .row-search.row-home {
+      padding: 30px 50px !important;
+    }
+    .row-home.about-us {
+      padding: 20px 50px !important;
+    }
+    .row-home {
+      margin: 0px 50px !important;
+    }
+    .categories-carousel .vhl-item {
+      padding: 20px 0 !important;
+    }
+    .categories-carousel .vhl-container{
+      margin-bottom: 0px !important;
+    }
+    .about-us-container {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .about-us-container.flex-row-reverse {
+      flex-direction: column !important;
+    }
+    .about-us-container .card-img-right {
+      height: auto !important;
+      width: 100%;
+      max-height: 350px;
+    }
+    .about-us-container .card-img-right {
+      max-height: 550px;
+    }
+  }
+  @media only screen and (max-width: 1200px) and (min-width: 992px) {
+    .row-search.row-home {
+      padding: 30px 50px !important;
+    }
+    .row.search-home:nth-child(2) {
+      row-gap: 20px !important;
+    }
+    .row-home.about-us {
+      padding: 20px 50px !important;
+    }
+    .row-home {
+      margin: 20px 50px !important;
+    }
+    .categories-carousel .vhl-item {
+      padding: 20px 0 !important;
+    }
+    .about-us-container .card-img-right {
+      width: 300px;
+    }
+    .blog-article-card .card-title {
+      font-size: 15px;
+    }
+    .col-blog-article {
+      width: 31% !important;
+      height: auto !important;
+    }
+    .row-home.blog {
+      padding-top: 0px !important;
+      margin-top: 0px !important;
+    }
   }
 </style>

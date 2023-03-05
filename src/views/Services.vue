@@ -3,13 +3,14 @@
         <Unauthenticated-User-Header v-if="this.$route.params.idUser === undefined || this.$route.params.idUser === ''"></Unauthenticated-User-Header>
         <Authenticated-User-Header v-else :idUser="this.$route.params.idUser"></Authenticated-User-Header>
         <b-row class="row-services header">
-            <p class="title-services-found">{{servicesCategory}} în {{county}}</p>
+            <p v-if='services.length > 0' class="title-services-found">{{titleServicesFound}}</p>
+            <p v-else class="title-services-found">Niciun serviciu nu a fost găsit</p>
         </b-row>
-        <div class="services-container">
+        <div class="services-container" v-if='services.length > 0'>
             <b-row class="services-found-container">
                 <b-overlay :show="isLoading" rounded="sm" class="spinner" spinner-type="grow">
                     <b-row class="service-found" v-for="service in services" :key="service.idService">
-                        <b-row class="row-services-found" sm="12" md="12" lg="5" xl="12">
+                        <b-row class="row-services-found" sm="12" md="12" lg="12" xl="12">
                             <b-img :src="service.image" fluid alt="image" class="image-service-found"></b-img>
                         </b-row>
                         <b-row class="row-services-found text" sm="12" md="12" lg="12" xl="12">
@@ -58,7 +59,10 @@ import $ from "jquery";
         perPageServices: 8,
         iteration: 0,
         county: "",
-        servicesCategory: ""
+        servicesCategory: "",
+        titleServicesFound: "",
+        getServicesNumberRoute: "",
+        getServicesRoute: ""
       }
     },
     methods: {
@@ -72,13 +76,31 @@ import $ from "jquery";
             if(this.$route.params.idServicesCategory !== undefined) {
                 this.idServicesCategory = this.$route.params.idServicesCategory;
             }   
+            if(this.idCounty === "0") {
+                if(this.idServicesCategory === "0") {
+                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndAllCategories";
+                    this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndAllCategories/" + this.iteration;
+                    this.titleServicesFound = "Toate serviciile";
+                } else {
+                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndSingleCategory/" + this.idServicesCategory;
+                    this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndSingleCategory/" + this.idServicesCategory + "/" + this.iteration;
+                }
+            } else {
+                if(this.idServicesCategory === "0") {
+                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberSingleCountyAndAllCategories/" + this.idCounty;
+                    this.getServicesRoute = "http://localhost:3000/services/getServicesSingleCountyAndAllCategories/" + this.idCounty + "/" + this.iteration;
+                } else {
+                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory;
+                    this.getServicesRoute = "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+                }
+            }
             this.getServicesNumber();         
         },
-        getServicesNumber(){
+        getServicesNumber() {
             axios({
                 method: "get",
                 headers: {"accept": "application/json"},
-                url: "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory 
+                url: this.getServicesNumberRoute
             }).then(result => {
                 
                 this.servicesNumber = result.data[0].services_number;
@@ -88,18 +110,27 @@ import $ from "jquery";
         getServices(){
             let thisRef = this;
             this.iteration = (this.currentPage - 1) * this.perPageServices;
-            if(this.isLoading !== true){
-            this.isLoading = true;
+            if(this.isLoading !== true) {
+                this.isLoading = true;
             }
             this.services = [];
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+                url: this.getServicesRoute 
             }).then(result => {
-                this.county = result.data[0].county;
-                this.servicesCategory = result.data[0].category;
-                console.log(result)
+                if(this.idCounty !== "0" && this.idServicesCategory !== "0") {
+                    this.county = result.data[0].county;
+                    this.servicesCategory = result.data[0].category;
+                    this.titleServicesFound = this.servicesCategory + " în " + this.county;
+                } else if(this.idCounty === "0" && this.idServicesCategory !== "0") {
+                    this.servicesCategory = result.data[0].category;
+                    this.titleServicesFound = this.servicesCategory;
+                } else if(this.idCounty !== "0" && this.idServicesCategory === "0") {
+                    this.county = result.data[0].county;
+                    this.titleServicesFound = "Toate serviciile din " + this.county;
+                }
+
                 if(result.data.length > 0) {
                     let service = {
                         idService: 0,
@@ -118,13 +149,15 @@ import $ from "jquery";
                             image: result.data[i].image1_service,
                             shortDescription: result.data[i].short_description,
                             company: result.data[i].company,
-                            location: result.data[i].location + ', ' + result.data[i].city + ', ' + result.data[i].county
+                            location: result.data[i].location + ', ' + result.data[i].city 
                         }
                         this.services.push(service);
                     }
                     setTimeout(function() {
                         thisRef.isLoading = false;
                     }, 2000);
+                } else {
+                    thisRef.isLoading = false;
                 }
             })
         },
@@ -255,5 +288,47 @@ import $ from "jquery";
     .angle-right-icon {
         font-size: 10px;
         color: #FFFFFF;
+    }
+    @media only screen and (max-width: 768px) {
+        .services-found-container {
+            margin: 0px !important;
+        }
+        .service-found {
+            width: 100% !important;
+            margin: 0px !important;
+        }
+        .services-found-container .b-overlay-wrap {
+            padding: 0px !important;
+            row-gap: 30px;
+        }
+        .services-container {
+            padding: 0 !important;
+        }
+        .row-services {
+            margin: 0px !important;
+        }
+    }
+    @media only screen and (max-width: 768px) and (min-width: 576px) {
+        .services-container {
+            width: 60%;
+        }
+    }
+    @media only screen and (max-width: 992px) and (min-width: 768px) {
+        .services-container {
+            width: 95%;
+            padding: 0px !important;
+        }
+        .service-found {
+            width: 47%;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 992px) {
+        .services-container {
+            width: 90%;
+            padding: 0px !important;
+        }
+        .service-found {
+            width: 46%;
+        }
     }
 </style>

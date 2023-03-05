@@ -8,10 +8,10 @@
             <p class="location-service"><font-awesome-icon class="location-icon" icon="fa-solid fa-location-dot" /> {{service.location}}</p>
           </b-row>
           <b-row class="row-service">
-            <b-col class="col-service image" sm="12" md="12" lg="12" xl="5">
+            <b-col class="col-service image" sm="12" md="12" lg="6" xl="6">
               <b-img-lazy v-bind="propsImage" :src="service.image1" fluid alt="image" class="image-service" v-b-modal.serviceGallery></b-img-lazy>
             </b-col>   
-            <b-col class="col-service image" sm="12" md="12" lg="12" xl="7">
+            <b-col class="col-service image" sm="12" md="12" lg="6" xl="6">
               <b-img-lazy v-bind="propsImage" :src="service.image1" fluid alt="image" class="image-service" v-b-modal.serviceGallery></b-img-lazy>
             </b-col>        
           </b-row>
@@ -46,34 +46,34 @@
               </b-tab>
               <b-tab title="Informații suplimentare" class="tab-service">
                 <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="2">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
                     <p class="title-content-tab">Site:</p>
                   </b-col>
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="10">
+                  <b-col class="col-service-tab" sm="12" md="12" lg="6" xl="10">
                     <p class="text-content-tab site"><i>{{service.siteLink}}</i></p>
                   </b-col>                  
                 </b-row>
                 <b-row class="row-service-tab" v-if="service.category == 'Restaurante'">
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="2">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
                     <p class="title-content-tab">Capacitate:</p>
                   </b-col>
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="10">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
                     <p class="text-content-tab">{{service.capacity}} persoane</p>
                   </b-col>                  
                 </b-row>
                 <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="2">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
                     <p class="title-content-tab">Categorie:</p>
                   </b-col>
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="10">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
                     <p class="text-content-tab">{{service.category}}</p>
                   </b-col>                  
                 </b-row>
                 <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="2">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
                     <p class="title-content-tab">Furnizor:</p>
                   </b-col>
-                  <b-col class="col-service-tab" sm="12" md="12" lg="12" xl="10">
+                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
                     <p class="text-content-tab">{{service.company}}</p>
                   </b-col>                  
                 </b-row>
@@ -149,7 +149,7 @@ import axios from 'axios';
               company: result.data.company,
               category: result.data.category,
               capacity: result.data.capacity,
-              location: result.data.location + ', ' + result.data.city + ', ' + result.data.county
+              location: result.data.location + ', ' + result.data.city 
             }
         })
       },
@@ -174,7 +174,7 @@ import axios from 'axios';
   }
   .image-service {
     width: 100% !important;
-    height: 300px !important;
+    height: auto !important;
     padding: 0px !important;
     box-shadow: 3px 0 5px 0 #ccc;
   }
@@ -198,7 +198,20 @@ import axios from 'axios';
     border-radius: 0 !important;
   }
   .carousel-service-gallery .img-fluid {
+    width: auto !important;
     height: 450px !important;
+    margin: auto !important; 
+  }
+  .carousel-service-gallery .carousel-item {
+    background: #ffffff !important;
+  }
+  .carousel-service-gallery {
+    background: #ffffff !important;
+  }
+  .carousel-service-gallery .carousel-control-prev-icon, .carousel-service-gallery .carousel-control-next-icon {
+    background-color: #9c876e !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
   }
   .title-service {
     font-size: 24px;
@@ -262,4 +275,19 @@ import axios from 'axios';
   .text-content-tab.site:hover {
     font-weight: 600;
   }
+    @media only screen and (max-width: 768px) {
+      .service-details-container {
+        width: 90%;
+      }
+
+    }
+    @media only screen and (max-width: 768px) and (min-width: 576px) {
+
+    }
+    @media only screen and (max-width: 992px) and (min-width: 768px) {
+
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 992px) {
+
+    }
 </style>

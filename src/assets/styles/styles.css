@@ -245,6 +245,9 @@
    justify-content: center;
    padding: 35px;
 }
+.nav-header {
+    padding: 0px !important;
+}
 .col-nav {
     display: flex;
     flex-direction: row;
@@ -318,6 +321,14 @@
     width: 280px !important;
     padding: 0px !important;
 }
+.toggle-header {
+    border-color: rgb(169 153 133 / 50%) !important;
+    margin: 10px 20px 5px 20px !important;
+}
+.toggle-header, .toggle-header:hover, .toggle-header:focus {
+   outline: none !important;
+   box-shadow: none !important;
+}
 @media only screen and (max-width: 992px)  {
     .nav-main-header {
         padding: 5px 15px !important;
@@ -334,5 +345,9 @@
     .item-main-header {
         width: 100% !important;
         text-align: left;
+    }
+    .col-nav:nth-child(2) {
+        width: 50%;
+        justify-content: flex-start;
     }
 }

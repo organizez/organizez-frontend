@@ -1,13 +1,13 @@
 <template>
     <div class="main-header-component">
-        <b-navbar toggleable="sm">
-            <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar toggleable="sm" class="nav-header">
+            <b-navbar-toggle target="nav-collapse" class="toggle-header"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>
                 <b-row class="row-main-header">
                     <b-nav class="nav-main-header">
                         <b-col class="col-nav">
                             <b-nav-item active class="item-main-header" @click="redirectToPage('/')">Home</b-nav-item>
-                            <b-nav-item class="item-main-header services-item" @click="redirectToPage('/servicii/1/4')">Servicii</b-nav-item>
+                            <b-nav-item class="item-main-header services-item" @click="redirectToPage('/servicii/0/0')">Servicii</b-nav-item>
                             <b-nav-item class="item-main-header portofolio-item" @click="redirectToPage('/portofoliu')">Portofoliu</b-nav-item>
                             <b-nav-item class="item-main-header blog-item" @click="redirectToPage('/blog')">Blog</b-nav-item>
                             <b-nav-item class="item-main-header contact-form-item" @click="redirectToPage('/formular-contact')">Contact</b-nav-item>
@@ -42,5 +42,6 @@
   }
 </script>
 <style>
+
 
 </style>
