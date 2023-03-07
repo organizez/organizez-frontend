@@ -58,7 +58,7 @@
                     <p class="title-content-tab">Capacitate:</p>
                   </b-col>
                   <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
-                    <p class="text-content-tab">{{service.capacity}} persoane</p>
+                    <p class="text-content-tab">{{service.minimumCapacity}} - {{service.maximumCapacity}} persoane</p>
                   </b-col>                  
                 </b-row>
                 <b-row class="row-service-tab">
@@ -112,7 +112,9 @@ import axios from 'axios';
           siteLink: "",
           company: "",
           category: "",
-          location: ""
+          location: "",
+          minimumCapacity: "",
+          maximumCapacity: "",
         },
         propsImage: {
           blankColor: '#f6f2f0',
@@ -127,6 +129,7 @@ import axios from 'axios';
             this.idUser = this.$route.params.idUser;
         }
         this.idService = this.$route.params.idService;
+        console.log(this.idService)
         this.getServiceById();
       },
       getServiceById() {
@@ -148,7 +151,8 @@ import axios from 'axios';
               siteLink: result.data.site_link,
               company: result.data.company,
               category: result.data.category,
-              capacity: result.data.capacity,
+              minimumCapacity: result.data.minimum_capacity,
+              maximumCapacity: result.data.maximum_capacity,
               location: result.data.location + ', ' + result.data.city 
             }
         })

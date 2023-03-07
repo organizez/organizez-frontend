@@ -34,7 +34,7 @@
                 {{ data.item.author }}
               </template>
               <template #cell(image)="data">
-                <i>{{ data.item.image }}</i>
+                <i>{{ data.item.image.substring(0,18) + '...' }}</i>
               </template>
               <template #cell(shortDescription)="data">
                 {{ data.item.shortDescription }}
@@ -235,7 +235,7 @@ import $ from "jquery";
                 nameArticle: result.data[i].name_article,
                 dateArticle: result.data[i].date_article.substring(0,10),
                 author: result.data[i].author,
-                image: result.data[i].image.substring(0,18) + '...',
+                image: result.data[i].image,
                 shortDescription: result.data[i].short_description,
                 text: result.data[i].text,
               } 

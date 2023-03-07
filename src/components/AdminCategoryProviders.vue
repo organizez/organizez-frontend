@@ -25,7 +25,7 @@
                 {{data.item.category}}
               </template>
                <template #cell(categoryImage)="data">
-                {{data.item.categoryImage}}
+                {{data.item.categoryImage.substring(0,33) + "..."}}
               </template>
               <template #cell(servicesNumber)="data">
                 {{data.item.servicesNumber}}
@@ -164,7 +164,7 @@ import $ from "jquery";
               category = {
                 idCategory: result.data[i].id_category,
                 category: result.data[i].category,
-                categoryImage: result.data[i].category_image.substring(0,33) + "...",
+                categoryImage: result.data[i].category_image,
                 servicesNumber: result.data[i].services_number,
               } 
               this.categoriesProviders.push(category);                   

@@ -37,28 +37,31 @@
               {{data.item.location}}
             </template>
             <template #cell(image1Service)="data">
-              {{data.item.image1Service}}
+              {{data.item.image1Service.substring(0,18) + '...'}}
             </template>
              <template #cell(image2Service)="data">
-              {{data.item.image2Service}}
+              {{data.item.image2Service.substring(0,18) + '...'}}
             </template>
              <template #cell(image3Service)="data">
-              {{data.item.image3Service}}
+              {{data.item.image3Service.substring(0,18) + '...'}}
             </template>
              <template #cell(image4Service)="data">
-              {{data.item.image4Service}}
+              {{data.item.image4Service.substring(0,18) + '...'}}
             </template>
             <template #cell(siteLink)="data">
-              {{data.item.siteLink}}
+              {{data.item.siteLink.substring(0,18) + '...'}}
             </template>
-            <template #cell(capacity)="data">
-              {{data.item.capacity}}
+            <template #cell(minimumCapacity)="data">
+              {{data.item.minimumCapacity}}
+            </template>
+            <template #cell(maximumCapacity)="data">
+              {{data.item.maximumCapacity}}
             </template>
              <template #cell(shortDescription)="data">
-              {{data.item.shortDescription}}
+              {{data.item.shortDescription.substring(0,18) + '...'}}
             </template>
              <template #cell(longDescription)="data">
-              {{data.item.longDescription}}
+              {{data.item.longDescription.substring(0,18) + '...'}}
             </template>
              <template #cell(company)="data">
               {{data.item.company}}
@@ -123,9 +126,15 @@
                 <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="addedService.idCategory" :options="categoriesServices" class="select-form"></b-select>             
               </b-col>
-               <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="capacity" class="label-form">Capacitate:</label>
-                <b-form-input id="capacity" class="input-form" placeholder="Capacitate" v-model="addedService.capacity"></b-form-input>
+            </b-row>
+              <b-row class="row-form">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="minimumCapacity" class="label-form">Capacitate minimă:</label>
+                <b-form-input id="minimumCapacity" class="input-form" placeholder="Capacitate minimă" v-model="addedService.minimumCapacity"></b-form-input>
+              </b-col>
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="maximumCapacity" class="label-form">Capacitate maximă:</label>
+                <b-form-input id="maximumCapacity" class="input-form" placeholder="Capacitate maximă" v-model="addedService.maximumCapacity"></b-form-input>
               </b-col>
             </b-row>
             <b-row class="row-form">
@@ -224,10 +233,6 @@
                 <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="editedService.idCategory" :options="categoriesServices" class="select-form"></b-select>             
               </b-col>
-             <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="capacity" class="label-form">Capacitate:</label>
-                <b-form-input id="capacity" class="input-form" placeholder="Capacitate" v-model="editedService.capacity"></b-form-input>
-              </b-col>
               <!-- <b-col class="col-form left">
                 <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span></label>
                  <b-form-file v-model="addedService.image" class="mt-3" ></b-form-file>
@@ -243,7 +248,17 @@
                   </template>
               </b-col> -->
             </b-row>
-             <b-row class="row-form">
+            <b-row class="row-form">
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="minimumCapacity" class="label-form">Capacitate minimă:</label>
+                <b-form-input id="minimumCapacity" class="input-form" placeholder="Capacitate minimă" v-model="editedService.minimumCapacity"></b-form-input>
+              </b-col>
+              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="maximumCapacity" class="label-form">Capacitate maximă:</label>
+                <b-form-input id="maximumCapacity" class="input-form" placeholder="Capacitate maximă" v-model="editedService.maximumCapacity"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="row-form">
               <b-col class="col-form left">
                 <label for="image1Service" class="label-form">Imagine 1<span class="mandatory-field">*</span>:</label>
                 <b-form-textarea id="textarea-form" placeholder="Imagine 1" v-model="editedService.image1Service"></b-form-textarea>
@@ -303,7 +318,7 @@ import $ from "jquery";
         services: [],
         fieldsTable: ['Index', { key: 'nameService', label: 'Name Service'}, { key: 'location', label: 'Location'}, { key: 'image1Service', label: 'Image 1'}, 
         { key: 'image2Service', label: 'Image 2'}, { key: 'image3Service', label: 'Image 3'}, { key: 'image4Service', label: 'Image 4'}, { key: 'shortDescription', label: 'Short Description'}, { key: 'longDescription', label: 'Long Description'},
-        { key: 'siteLink', label: 'Site Link'}, { key: 'capacity', label: 'Capacity'}, { key: 'company', label: 'Company'}, { key: 'category', label: 'Category'},
+        { key: 'siteLink', label: 'Site Link'}, { key: 'minimumCapacity', label: 'Capacitate minimă'}, { key: 'maximumCapacity', label: 'Capacitate maximă'}, { key: 'company', label: 'Company'}, { key: 'category', label: 'Category'},
         { key: 'city', label: 'City'},{ key: 'action', label: 'Acțiune'}],
         currentPage: 1,
         perPageServices: 15,
@@ -319,7 +334,8 @@ import $ from "jquery";
           shortDescription: "",
           longDescription: "",
           siteLink: "",
-          capacity: "",
+          minimumCapacity: "",
+          maximumCapacity: "",
           idProvider: "",
           company: "",
           idCity: "",
@@ -339,7 +355,8 @@ import $ from "jquery";
           shortDescription: "",
           longDescription: "",
           siteLink: "",
-          capacity: "",
+          minimumCapacity: "",
+          maximumCapacity: "",
           idProvider: "",
           company: "",
           idCity: "",
@@ -398,7 +415,8 @@ import $ from "jquery";
               shortDescription: "",
               longDescription: "",
               siteLink: "",
-              capacity: "",
+              minimumCapacity: "",
+              maximumCapacity: "",
               id_provider: 0,
               company: "",
               id_city: 0,
@@ -411,14 +429,15 @@ import $ from "jquery";
                 idService: result.data[i].id_service,
                 nameService: result.data[i].name_service,
                 location: result.data[i].location,
-                image1Service: result.data[i].image1_service.substring(0,18) + '...',
-                image2Service: result.data[i].image2_service.substring(0,18) + '...',
-                image3Service: result.data[i].image3_service.substring(0,18) + '...',
-                image4Service: result.data[i].image4_service.substring(0,18) + '...',
-                shortDescription: result.data[i].short_description.substring(0,18) + '...',
-                longDescription: result.data[i].long_description.substring(0,18) + '...',
-                siteLink: result.data[i].site_link.substring(0,18) + '...',
-                capacity: result.data[i].capacity,
+                image1Service: result.data[i].image1_service,
+                image2Service: result.data[i].image2_service,
+                image3Service: result.data[i].image3_service,
+                image4Service: result.data[i].image4_service,
+                shortDescription: result.data[i].short_description,
+                longDescription: result.data[i].long_description,
+                siteLink: result.data[i].site_link,
+                minimumCapacity: result.data[i].minimum_capacity,
+                maximumCapacity: result.data[i].maximum_capacity,
                 idProvider: result.data[i].id_provider,
                 company: result.data[i].company,
                 idCity: result.data[i].id_city,
@@ -455,7 +474,8 @@ import $ from "jquery";
           city: "",
           idCategory: "",
           category: "",
-          capacity: ""
+          minimumCapacity: "",
+          maximumCapacity: "",
         }
       },
       getCategoriesServices() {
@@ -549,7 +569,8 @@ import $ from "jquery";
             city: "",
             idCategory: "",
             category: "",
-            capacity: ""
+            minimumCapacity: "",
+            maximumCapacity: "",
         }
         this.actionInfoModal = "adding";
         this.titleInfoModal = "Adăugare serviciu";
@@ -579,8 +600,10 @@ import $ from "jquery";
           idProvider: service.idProvider,
           idCity: service.idCity,
           idCategory: service.idCategory,
-          capacity: service.capacity
+          minimumCapacity: service.minimumCapacity,
+          maximumCapacity: service.maximumCapacity,
         }
+        console.log(this.editedService);
       },
       updateService() {
         axios({
@@ -624,7 +647,8 @@ import $ from "jquery";
           city: "",
           idCategory: "",
           category: "",
-          capacity: ""
+          minimumCapacity: "",
+          maximumCapacity: "",
         }
       },
       initiateDeleteService(idService, nameService) {

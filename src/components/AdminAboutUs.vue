@@ -21,7 +21,7 @@
                 {{data.item.textAboutUs}}
               </template>
               <template #cell(imageAboutUs)="data">
-                {{data.item.imageAboutUs}}
+                {{data.item.imageAboutUs.substring(0,55) + "..."}}
               </template>
               <template #cell()="data">
                 <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon"  @click="editAboutUs(data.item)"/>
@@ -118,7 +118,7 @@ import $ from "jquery";
                     idAboutUs: result.data[0].id_about_us,
                     titleAboutUs: result.data[0].title_about_us,
                     textAboutUs: result.data[0].text_about_us,
-                    imageAboutUs: result.data[0].image_about_us.substring(0,55) + "...",
+                    imageAboutUs: result.data[0].image_about_us,
                 }
         this.aboutUs.push(ab);
         }
