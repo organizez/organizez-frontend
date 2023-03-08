@@ -49,8 +49,40 @@
                   <p class="text-content-tab"><span class="title-content-tab">Capacitate: </span>{{service.minimumCapacity}} - {{service.maximumCapacity}} persoane</p>                 
                 </b-row>
                <b-row class="row-service-tab">
-                  <b-button class="contact-client-button main-button" type="submit" v-on:click="submitEmail">Contactează {{service.nameService}}</b-button>
-                </b-row>
+                  <b-button  v-b-modal.modal-prevent-closing class="contact-client-button main-button" type="submit" v-on:click="submitEmail">Contactează {{service.nameService}}</b-button>
+
+                      <b-modal class="modal-service-details"
+                        id="modal-prevent-closing"
+                        ref="modal"
+                        title="Formular contact"
+                        @show="resetModal"
+                        @hidden="resetModal"
+                        @ok="handleOk"
+                      >
+                        <div class="contactForm-form">
+                          <b-row class="row-form">
+                            <b-col class="col-form left">
+                            <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
+                            <b-form-input id="email" class="input-form" type="email" v-model="email" ></b-form-input>
+                            </b-col>
+                          </b-row>
+                          <b-row class="row-form">
+                            <b-col class="col-form left">
+                              <label for="details" class="label-form">Mesaj:</label>
+                              <b-form-textarea id="textarea-form" v-model="details"></b-form-textarea>            
+                            </b-col>
+                          </b-row>
+                          </div>
+                            <template #modal-footer="{ addContactForm, cancel }">
+                            <b-button class="button-send-form" size="sm" variant="success"  type="submit" v-on:click="addContactForm">
+                              Trimite
+                            </b-button>
+                            <b-button class="button-cancel-form" size="sm" variant="danger" @click="cancel()">
+                              Închide
+                            </b-button>
+                            </template>
+                      </b-modal>
+                      </b-row>
               </b-tab>
             </b-tabs>
           </b-row>
@@ -71,7 +103,9 @@ import axios from 'axios';
       Footer
     },
     data() {
-      return {   
+      return { 
+        email: '',
+        details: '',
         idUser: "",
         idService: 0,
         service: {
@@ -131,6 +165,34 @@ import axios from 'axios';
             }
         })
       },
+        checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid
+        return valid
+      },
+      resetModal() {
+        this.name = ''
+        this.details = ''
+        this.nameState = null
+      },
+      handleOk(bvModalEvent) {
+        // Prevent modal from closing
+        bvModalEvent.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+      },
+      handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedEmail.push(this.email)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-prevent-closing')
+        })
+      }
 
     },
     mounted() {
@@ -268,4 +330,76 @@ import axios from 'axios';
       width: 90%;
     }
   }
+  .modal-service-details{
+        font-size: 22px;
+        text-align: left;
+        font-weight: 100;
+        color: #9c876e !important;
+        font-family: 'Petrona';
+  }
+ .contactForm-form {
+        width: 100% !important;
+        margin: auto;
+        padding: 30px;
+        background-color: rgba(255, 255, 255);
+        padding-bottom: 50px;
+        font-size: 22px;
+        text-align: left;
+        font-weight: 100;
+        color: #9c876e !important;
+        font-family: 'Petrona';
+    }
+    .contactForm-form .input-form {
+        margin: 0 12px !important;
+    }
+    .contactForm-form .col-form {
+        text-align: left !important;
+    }
+    .col-form .input-form {
+        margin: 0 !important;
+    }
+    .buttons {
+        margin: 30px 0 0 0 !important;
+    }
+    .button-send-form {
+       margin: 30px 0 0 0 !important;
+        width: 20% !important;
+        margin: 10px auto 0 auto;
+        padding: 10px !important;
+        background-color: #3a5a40 !important;
+        text-align: left;
+        font-weight: 200;
+        font-family: 'Petrona';
+    }
+     .button-cancel-form {
+       margin: 30px 0 0 10px !important;
+        width: 20% !important;
+        margin: 10px auto 0 auto;
+        padding: 10px !important;
+        background-color: #e11c1c !important;
+        text-align: left;
+        font-weight: 200;
+        font-family: 'Petrona';
+    }
+     .submit-form {
+        width: 50% !important;
+        margin: 10px auto 0 auto;
+        padding: 10px !important;
+        background-color: #3a5a40 !important;
+    }
+    .submit-form:focus, .submit-register.focus, .submit-register:active, .submit-register.active, .submit-register:focus:active {
+        border-color: #3a5a40 !important;
+        box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
+    } 
+
+    @media only screen and (max-width: 992px) {
+     .contactForm-form {
+        width: 95% !important;
+    }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 768px) {
+      .contactForm-form {
+        width: 75% !important;
+    }
+    }
 </style>
