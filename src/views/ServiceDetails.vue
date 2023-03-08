@@ -12,7 +12,7 @@
               <b-img-lazy v-bind="propsImage" :src="service.image1" fluid alt="image" class="image-service" v-b-modal.serviceGallery></b-img-lazy>
             </b-col>   
             <b-col class="col-service image" sm="12" md="12" lg="6" xl="6">
-              <b-img-lazy v-bind="propsImage" :src="service.image1" fluid alt="image" class="image-service" v-b-modal.serviceGallery></b-img-lazy>
+              <b-img-lazy v-bind="propsImage" :src="service.image2" fluid alt="image" class="image-service" v-b-modal.serviceGallery></b-img-lazy>
             </b-col>        
           </b-row>
           <b-row class="row-service">
@@ -178,7 +178,7 @@ import axios from 'axios';
   }
   .image-service {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     padding: 0px !important;
     box-shadow: 3px 0 5px 0 #ccc;
   }
