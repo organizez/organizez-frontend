@@ -41,41 +41,15 @@
           </b-row>
           <b-row class="row-service">
             <b-tabs class="tabs-service">
-              <b-tab title="Descriere" active class="tab-service">
-                <p class="long-description-service">{{service.longDescription}}</p>
-              </b-tab>
-              <b-tab title="Informații suplimentare" class="tab-service">
+              <b-tab title="Detalii" class="tab-service">
                 <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
-                    <p class="title-content-tab">Site:</p>
-                  </b-col>
-                  <b-col class="col-service-tab" sm="12" md="12" lg="6" xl="10">
-                    <p class="text-content-tab site"><i>{{service.siteLink}}</i></p>
-                  </b-col>                  
+                  <p class="long-description-service">{{service.longDescription}}</p>
                 </b-row>
                 <b-row class="row-service-tab" v-if="service.category == 'Restaurante'">
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
-                    <p class="title-content-tab">Capacitate:</p>
-                  </b-col>
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
-                    <p class="text-content-tab">{{service.minimumCapacity}} - {{service.maximumCapacity}} persoane</p>
-                  </b-col>                  
+                  <p class="text-content-tab"><span class="title-content-tab">Capacitate: </span>{{service.minimumCapacity}} - {{service.maximumCapacity}} persoane</p>                 
                 </b-row>
-                <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
-                    <p class="title-content-tab">Categorie:</p>
-                  </b-col>
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
-                    <p class="text-content-tab">{{service.category}}</p>
-                  </b-col>                  
-                </b-row>
-                <b-row class="row-service-tab">
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="2">
-                    <p class="title-content-tab">Furnizor:</p>
-                  </b-col>
-                  <b-col class="col-service-tab" sm="12" md="6" lg="6" xl="10">
-                    <p class="text-content-tab">{{service.company}}</p>
-                  </b-col>                  
+               <b-row class="row-service-tab">
+                  <b-button class="contact-client-button main-button" type="submit" v-on:click="submitEmail">Contactează {{service.nameService}}</b-button>
                 </b-row>
               </b-tab>
             </b-tabs>
@@ -136,7 +110,7 @@ import axios from 'axios';
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServiceById/" + this.idService
+          url: "http://localhost:3000/services/getServiceById/" + this.idService
         }).then(result => {
           console.log(result)
             this.service = {
@@ -171,6 +145,9 @@ import axios from 'axios';
   }
   .row-service {
     margin: 0 0 20px 0 !important;
+  }
+  .col-service-tab {
+    padding: 0px !important;
   }
   .col-service.image {
     padding: 15px;
@@ -247,7 +224,7 @@ import axios from 'axios';
     font-size: 16px;
   }
   .tabs-service .tab-content {
-    padding: 25px 16px !important;
+    padding: 25px !important;
     border-right: 1px solid #dee2e6;
     border-left: 1px solid #dee2e6;
     border-bottom: 1px solid #dee2e6;
@@ -256,8 +233,8 @@ import axios from 'axios';
     font-size: 16px;
     text-align: left;
     color: #000000;
-    margin-bottom: 0px !important;    
-    padding: 10px 0 0 0 !important;
+    margin-bottom: 0px !important;   
+    padding-bottom: 20px; 
   }
   .title-content-tab {
     font-size: 16px;
@@ -279,19 +256,16 @@ import axios from 'axios';
   .text-content-tab.site:hover {
     font-weight: 600;
   }
-    @media only screen and (max-width: 768px) {
-      .service-details-container {
-        width: 90%;
-      }
-
+  .contact-client-button {
+    width: auto !important;
+    margin: 15px auto 10px auto !important;
+    padding: 5px 20px !important;
+    background-color: #3a5a40 !important;
+    border-radius: 0px !important;
+  }
+  @media only screen and (max-width: 768px) {
+    .service-details-container {
+      width: 90%;
     }
-    @media only screen and (max-width: 768px) and (min-width: 576px) {
-
-    }
-    @media only screen and (max-width: 992px) and (min-width: 768px) {
-
-    }
-    @media only screen and (max-width: 1200px) and (min-width: 992px) {
-
-    }
+  }
 </style>
