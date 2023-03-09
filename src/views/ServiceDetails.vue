@@ -49,17 +49,13 @@
                   <p class="text-content-tab"><span class="title-content-tab">Capacitate: </span>{{service.minimumCapacity}} - {{service.maximumCapacity}} persoane</p>                 
                 </b-row>
                <b-row class="row-service-tab">
-                  <b-button  v-b-modal.modal-prevent-closing class="contact-client-button main-button" type="submit" v-on:click="submitEmail">Contactează {{service.nameService}}</b-button>
+                  <b-button  v-b-modal.modal-prevent-closing class="contact-client-button main-button" type="submit">Contactează {{service.nameService}}</b-button>
 
                       <b-modal class="modal-service-details"
                         id="modal-prevent-closing"
                         ref="modal"
-                        title="Formular contact"
-                        @show="resetModal"
-                        @hidden="resetModal"
-                        @ok="handleOk"
-                      >
-                        <div class="contactForm-form">
+                        title="Formular de contact">
+                        <div class="contact-form-modal">
                           <b-row class="row-form">
                             <b-col class="col-form left">
                             <label for="email" class="label-form">Email<span class="mandatory-field">*</span>:</label>
@@ -69,15 +65,15 @@
                           <b-row class="row-form">
                             <b-col class="col-form left">
                               <label for="details" class="label-form">Mesaj:</label>
-                              <b-form-textarea id="textarea-form" v-model="details"></b-form-textarea>            
+                              <b-form-textarea id="textarea-form" class="input-form" v-model="details"></b-form-textarea>            
                             </b-col>
                           </b-row>
                           </div>
-                            <template #modal-footer="{ addContactForm, cancel }">
-                            <b-button class="button-send-form" size="sm" variant="success"  type="submit" v-on:click="addContactForm">
+                            <template #modal-footer>
+                            <b-button class="button-send-form main-button" type="submit" v-on:click="sendContactFormEmail()">
                               Trimite
                             </b-button>
-                            <b-button class="button-cancel-form" size="sm" variant="danger" @click="cancel()">
+                            <b-button class="button-cancel-form second-button" @click="cancel()">
                               Închide
                             </b-button>
                             </template>
@@ -95,7 +91,7 @@ import UnauthenticatedUserHeader from "../components/UnauthenticatedUserHeader.v
 import AuthenticatedUserHeader from '../components/AuthenticatedUserHeader.vue';
 import Footer from "../components/Footer.vue";
 import axios from 'axios';
-// import $ from "jquery";
+import $ from "jquery";
  export default {
     components: {
       AuthenticatedUserHeader,
@@ -144,7 +140,7 @@ import axios from 'axios';
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "http://localhost:3000/services/getServiceById/" + this.idService
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServiceById/" + this.idService
         }).then(result => {
           console.log(result)
             this.service = {
@@ -165,7 +161,26 @@ import axios from 'axios';
             }
         })
       },
-        checkFormValidity() {
+      sendContactFormEmail() {
+        let emailData = {
+          email: this.email,
+          details: this.details
+        }
+        axios({
+          method: 'post',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/contact-form-email',
+          mode: 'no-cors',
+          headers: {
+            "Accept": "application/json;odata=verbose",
+            "X-RequestDigest": $("#__REQUESTDIGEST").val()
+          },
+          contentType: "application/json;odata=verbose",
+          data: emailData
+        }).then(result => {
+          this.$refs['modal'].hide()
+        })
+      },
+      checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
         this.nameState = valid
         return valid
@@ -175,24 +190,24 @@ import axios from 'axios';
         this.details = ''
         this.nameState = null
       },
-      handleOk(bvModalEvent) {
-        // Prevent modal from closing
-        bvModalEvent.preventDefault()
-        // Trigger submit handler
-        this.handleSubmit()
-      },
-      handleSubmit() {
-        // Exit when the form isn't valid
-        if (!this.checkFormValidity()) {
-          return
-        }
-        // Push the name to submitted names
-        this.submittedEmail.push(this.email)
-        // Hide the modal manually
-        this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent-closing')
-        })
-      }
+      // handleOk(bvModalEvent) {
+      //   // Prevent modal from closing
+      //   bvModalEvent.preventDefault()
+      //   // Trigger submit handler
+      //   // this.handleSubmit()
+      // },
+      // handleSubmit() {
+      //   // Exit when the form isn't valid
+      //   if (!this.checkFormValidity()) {
+      //     return
+      //   }
+      //   // Push the name to submitted names
+      //   this.submittedEmail.push(this.email)
+      //   // Hide the modal manually
+      //   this.$nextTick(() => {
+      //     this.$bvModal.hide('modal-prevent-closing')
+      //   })
+      // }
 
     },
     mounted() {
@@ -337,22 +352,26 @@ import axios from 'axios';
         color: #9c876e !important;
         font-family: 'Petrona';
   }
- .contactForm-form {
+ .contact-form-modal {
         width: 100% !important;
         margin: auto;
-        padding: 30px;
+        padding: 10px;
         background-color: rgba(255, 255, 255);
         padding-bottom: 50px;
-        font-size: 22px;
+        font-size: 16px;
         text-align: left;
         font-weight: 100;
-        color: #9c876e !important;
-        font-family: 'Petrona';
+        font-family: 'Petrona' !important;
     }
-    .contactForm-form .input-form {
+    .modal-title {
+        font-family: 'Petrona' !important;
+        color: #9c876e !important;
+        font-size: 20px;
+    }
+    .contact-form-modal .input-form {
         margin: 0 12px !important;
     }
-    .contactForm-form .col-form {
+    .contact-form-modal .col-form {
         text-align: left !important;
     }
     .col-form .input-form {
@@ -362,24 +381,17 @@ import axios from 'axios';
         margin: 30px 0 0 0 !important;
     }
     .button-send-form {
-       margin: 30px 0 0 0 !important;
-        width: 20% !important;
-        margin: 10px auto 0 auto;
-        padding: 10px !important;
-        background-color: #3a5a40 !important;
-        text-align: left;
-        font-weight: 200;
-        font-family: 'Petrona';
+      width: auto !important;
+      padding: 5px 20px !important;
+      background-color: #3a5a40 !important;
+      border-radius: 0px !important;
     }
-     .button-cancel-form {
-       margin: 30px 0 0 10px !important;
-        width: 20% !important;
-        margin: 10px auto 0 auto;
-        padding: 10px !important;
-        background-color: #e11c1c !important;
-        text-align: left;
-        font-weight: 200;
-        font-family: 'Petrona';
+    .button-cancel-form {
+      width: auto !important;
+      padding: 5px 20px !important;
+      background-color: #bd9a7a !important;
+      border-color: #c3a995 !important;
+      border-radius: 0px !important;
     }
      .submit-form {
         width: 50% !important;
@@ -393,12 +405,12 @@ import axios from 'axios';
     } 
 
     @media only screen and (max-width: 992px) {
-     .contactForm-form {
+     .contact-form-modal {
         width: 95% !important;
     }
     }
     @media only screen and (max-width: 1200px) and (min-width: 768px) {
-      .contactForm-form {
+      .contact-form-modal {
         width: 75% !important;
     }
     }
