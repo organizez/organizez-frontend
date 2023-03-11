@@ -14,36 +14,67 @@
     border-color: #a99985 !important;
     box-shadow: 0 0 0 0.25rem rgb(169 153 133 / 20%) !important;
 }
+.title-admin {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    padding: 0px !important;
+  }
+.table-section {
+    padding: 20px 50px;
+    margin: 0px !important;
+}
+.row-admin-form, .col-admin-form {
+    padding: 0px !important;
+    margin: 0px !important;
+    text-align: left;
+}
+.row-admin-form {
+    column-gap: 4%;
+}
+.col-admin-form {
+    width: 48% !important;
+}
+.input-admin-form {
+    padding: 10px !important;
+    margin: 0px !important;
+}
 .admin-buttons {
+    column-gap: 0px !important;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 }
 
 .action-admin-button {
-    width: fit-content !important;
-    padding: 10px 15px !important;
+    width: auto !important;
+    padding: 10px 20px !important;
+    margin-right: 30px !important;
     background-color: #3a5a40 !important;
-    margin-right: 20px !important;
+    border-radius: 0px !important;
+    cursor: pointer;
 }
 
 .close-admin-button {
-    width: fit-content !important;
-    padding: 10px 15px !important;
-    background-color: #bcb8b1 !important;
-    border-color: #a5a5a5 !important;
+    width: auto !important;
+    padding: 10px 20px !important;
+    background-color: #9c876e !important;
+    border-radius: 0px !important;
+    border-color: #a99985 !important;
+    cursor: pointer;
 }
 
 .plus-icon {
     padding-right: 5px !important;
 }
 
-.row-admin-component {
+.row-admin {
     margin: 0 !important;
-    padding-bottom: 30px;
+    padding: 0 0 30px 0 !important;
 }
 
-.row-admin-component.add-button {
+.row-admin.add-button {
     justify-content: flex-end !important;
 }
 
@@ -157,7 +188,7 @@
     flex-shrink: initial !important;
 }
 
-.input-form:focus {
+.input-form:focus, .input-admin-form:focus  {
     border-color: #a3b18a !important;
     box-shadow: 0 0 0 0.25rem rgb(88 129 87 / 20%) !important;
 }
@@ -182,10 +213,14 @@
 .spinner .position-absolute .position-absolute:nth-child(2) {
     top: 20% !important;
 }
+.edit-form-section {
+    margin: 0px !important;
+    padding: 20px 50px !important;
+}
 .admin-pagination-table {
     justify-content: flex-end;
     margin: 0px !important;
-    padding-right: 0px;
+    padding-right: 0px !important;
 }
 .admin-pagination-table .page-link {
     color: #000000 !important;

@@ -1,5 +1,6 @@
 <template>
-    <div class="admin-dashboard-component">
+    <div class="admin-dashboard">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-form-file
         v-model="file"
         :state="Boolean(file)"
@@ -11,12 +12,16 @@
     </div>
 </template>
 <script>
+import AdminHeader from "../../components/AdminHeader.vue";
 import { S3 } from "@aws-sdk/client-s3";
 import { CreateBucketCommand } from "@aws-sdk/client-s3";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+    components: {
+        AdminHeader
+    },
     data() {
       return {
         file: [],
@@ -40,43 +45,42 @@ import $ from "jquery";
           }
       });
 
-      // const bucketParams = { Bucket: "myBucket-test" };
+      const bucketParams = { Bucket: "customers" };
 
-      // Creates the new Space.
-      // const run = async () => {
-      //   try {
-      //     const data = await s3Client.send(new CreateBucketCommand(bucketParams));
-      //     console.log("Success", data);
-      //     return data;
-      //   } catch (err) {
-      //     console.log("Error", err);
-      //   }
-      // };
-
-      // run();
-  
-      const bucketParams = {
-        Bucket: "myBucket-test",
-        Key: "example.png",
-        Body: this.file
+      const run = async () => {
+        try {
+          const data = await s3Client.send(new CreateBucketCommand(bucketParams));
+          console.log("Success", data);
+          return data;
+        } catch (err) {
+          console.log("Error", err);
+        }
       };
-  
-const run = async () => {
-  try {
-    const data = await s3Client.send(new PutObjectCommand(bucketParams));
-    console.log(
-      "Successfully uploaded object: " +
-        bucketParams.Bucket +
-        "/" +
-        bucketParams.Key
-    );
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
-};
 
-run();
+      run();
+  
+//       const bucketParams = {
+//         Bucket: "myBucket-test",
+//         Key: "example.png",
+//         Body: this.file
+//       };
+  
+// const run = async () => {
+//   try {
+//     const data = await s3Client.send(new PutObjectCommand(bucketParams));
+//     console.log(
+//       "Successfully uploaded object: " +
+//         bucketParams.Bucket +
+//         "/" +
+//         bucketParams.Key
+//     );
+//     return data;
+//   } catch (err) {
+//     console.log("Error", err);
+//   }
+// };
+
+// run();
       },
       addImage() {
         console.log(this.file)

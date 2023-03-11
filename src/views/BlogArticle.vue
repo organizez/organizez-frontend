@@ -54,7 +54,7 @@ import moment from 'moment';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogArticleById/" + this.idBlogArticle
+                url: "http://localhost:3000/blog/getBlogArticleById/" + this.idBlogArticle
             }).then(result => {
                 console.log(result)
                 this.nameArticle = result.data.name_article,

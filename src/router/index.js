@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
-import AdminArea from '../views/AdminArea.vue'
 import EventForm from '../views/EventForm.vue'
 import ContactForm from '../views/ContactForm.vue'
 import Services from '../views/Services.vue'
@@ -14,14 +13,75 @@ import BlogArticle from '../views/BlogArticle.vue'
 import AboutUs from '../views/AboutUs.vue'
 import DataPrivacyPolicy from '../views/DataPrivacyPolicy.vue'
 import TermsConditions from '../views/TermsConditions.vue'
+import DashboardAdministration from '../views/administration/DashboardAdministration.vue'
+import UsersAdministration from '../views/administration/user-administration/UsersAdministration.vue'
+import CategoriesAdministration from '../views/administration/customers-services-categories-administration/CategoriesAdministration'
+import CustomersAdministration from '../views/administration/customers-administration/CustomersAdministration'
+import PortofolioAdministration from '../views/administration/portofolio-administration/PortofolioAdministration.vue'
+import BlogAdministration from '../views/administration/blog-administration/BlogAdministration.vue'
+import BlogAdding from '../views/administration/blog-administration/BlogAdding.vue'
+import BlogEditing from '../views/administration/blog-administration/BlogEditing.vue'
+import AboutUsAdministration from '../views/administration/AboutUsAdministration.vue'
+import DataPrivacyPolicyAdministration from '../views/administration/DataPrivacyPolicyAdministration.vue'
+import TermsConditionsAdministration from '../views/administration/TermsConditionsAdministration.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/administrare/:idUser',
-        name: 'admin',
-        component: AdminArea
+        name: 'dashboard-administration',
+        component: DashboardAdministration
+    },
+    {
+        path: '/administrare/utilizatori/:idUser',
+        name: 'users-administration',
+        component: UsersAdministration
+    },
+    {
+        path: '/administrare/categorii/:idUser',
+        name: 'categorii-administration',
+        component: CategoriesAdministration
+    },
+    {
+        path: '/administrare/clienti/:idUser',
+        name: 'clienti-administration',
+        component: CustomersAdministration
+    },
+    {
+        path: '/administrare/portofoliu/:idUser',
+        name: 'portofolio-administration',
+        component: PortofolioAdministration
+    },
+    {
+        path: '/administrare/blog/:idUser',
+        name: 'blog-administration',
+        component: BlogAdministration
+    },
+    {
+        path: '/administrare/adaugare-blog/:idBlogArticle/:idUser',
+        name: 'blog-adaugare',
+        component: BlogAdding
+    },
+    {
+        path: '/administrare/editare-blog/:idBlogArticle/:idUser',
+        name: 'blog-editare',
+        component: BlogEditing
+    },
+    {
+        path: '/administrare/despre-noi/:idUser',
+        name: 'about-us-administration',
+        component: AboutUsAdministration
+    },
+    {
+        path: '/administrare/politica-de-confidentialitate-a-datelor/:idUser',
+        name: 'data-privacy-policy-administration',
+        component: DataPrivacyPolicyAdministration
+    },
+    {
+        path: '/administrare/termeni-si-conditii/:idUser',
+        name: 'terms-and-conditions-administration',
+        component: TermsConditionsAdministration
     },
     {
         path: '/autentificare',

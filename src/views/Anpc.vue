@@ -37,7 +37,7 @@ import Footer from "../components/Footer.vue";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/anpc/getAnpc/"
+                url: "http://localhost:3000/anpc/getAnpc/"
             }).then(result => {
                 console.log(result)
                 this.titleAnpc = result.data[0].title_anpc,
