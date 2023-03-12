@@ -17,6 +17,8 @@ import DashboardAdministration from '../views/administration/DashboardAdministra
 import UsersAdministration from '../views/administration/user-administration/UsersAdministration.vue'
 import CategoriesAdministration from '../views/administration/customers-services-categories-administration/CategoriesAdministration'
 import CustomersAdministration from '../views/administration/customers-administration/CustomersAdministration'
+import CustomersEditing from '../views/administration/customers-administration/CustomersEditing'
+import CustomersAdding from '../views/administration/customers-administration/CustomersAdding'
 import PortofolioAdministration from '../views/administration/portofolio-administration/PortofolioAdministration.vue'
 import PortofolioAdding from '../views/administration/portofolio-administration/PortofolioAdding.vue'
 import PortofolioEditing from '../views/administration/portofolio-administration/PortofolioEditing.vue'
@@ -48,6 +50,16 @@ const routes = [{
         path: '/administrare/clienti/:idUser',
         name: 'clienti-administration',
         component: CustomersAdministration
+    },
+    {
+        path: '/administrare/adaugare-client/:idUser',
+        name: 'clienti-adaugare',
+        component: CustomersAdding
+    },
+    {
+        path: '/administrare/editare-client/:idClient/:idUser',
+        name: 'clienti-editare',
+        component: CustomersEditing
     },
     {
         path: '/administrare/portofoliu/:idUser',

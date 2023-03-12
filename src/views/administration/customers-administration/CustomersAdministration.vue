@@ -1,12 +1,12 @@
 <template>
-    <div class="admin-providers-component">
-      <b-row class="table-section" v-if="enabledAddProvider === false && enabledEditProvider === false">
-        <p class="title-admin-component">Furnizori <span class="small-element-title">({{providersNumber}})</span></p>
-        <b-row class="row-admin-component add-button"> 
-           <b-button class="initiate-add-button" v-on:click="initiateAddProvider()"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare furnizor</b-button>
+    <div class="admin-customers">
+      <b-row class="table-section">
+        <p class="title-admin">Clienți <span class="small-element-title">({{customersNumber}})</span></p>
+        <b-row class="row-admin add-button"> 
+           <b-button class="initiate-add-button" @click="redirectToPage('/administrare/adaugare-client/' + $route.params.idUser)"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare furnizor</b-button>
         </b-row>
-        <b-row class="row-admin-component">
-          <b-table bordered striped :fields="fieldsTable" :items="providers" :busy="isLoading" responsive="sm" class="providers-table">
+        <b-row class="row-admin">
+          <b-table bordered striped :fields="fieldsTable" :items="customers" :busy="isLoading" responsive="sm" class="customers-table">
               <template #table-busy>
                 <div class="text-center text-danger my-2">
                   <b-spinner class="align-middle"></b-spinner>
@@ -14,10 +14,31 @@
                 </div>
               </template>
               <template #head(index)>Index</template>
-              <template #head(company)>Company</template>
+              <template #head(company)>Nume companie</template>
               <template #head(completeNameRepresentative)>Nume Reprezentant</template>
               <template #head(emailRepresentative)>Email Reprezentant</template>
-              <template #head(addressCompany)>Adresa companiei</template>
+              <template #head(phoneRepresentative)>Telefon Reprezentant</template>
+              <template #head(subscriptionType)>Tip abonament</template>
+              <template #head(name)>Denumire</template>
+              <template #head(location)>Locație</template>
+              <template #head(website)>Site</template>
+              <template #head(phone)>Telefon companie</template>
+              <template #head(shortDescription)>Descriere scurtă</template>
+              <template #head(longDescription)>Descriere detaliată</template>
+              <template #head(image1)>Imagine 1</template>
+              <template #head(image2)>Imagine 2</template>
+              <template #head(image3)>Imagine 3</template>
+              <template #head(image4)>Imagine 4</template>
+              <template #head(image5)>Imagine 5</template>
+              <template #head(image6)>Imagine 6</template>
+              <template #head(image7)>Imagine 7</template>
+              <template #head(image8)>Imagine 8</template>
+              <template #head(image9)>Imagine 9</template>
+              <template #head(image10)>Imagine 10</template>
+              <template #head(minimumCapacity)>Capacitate minimă</template>
+              <template #head(maximumCapacity)>Capacitate maximă</template>
+              <template #head(numberHall)>Număr săli</template>
+              <template #head(category)>Categorie</template>
               <template #head(action)>Acțiune</template>
               <template #cell(index)="data">
                 <b>{{ data.index + iteration + 1 }}</b>
@@ -31,93 +52,86 @@
               <template #cell(emailRepresentative)="data">
                 {{ data.item.emailRepresentative }}
               </template>
-              <template #cell(addressCompany)="data">
-                {{ data.item.addressCompany }}
+              <template #cell(phoneRepresentative)="data">
+                {{ data.item.phoneRepresentative }}
               </template>
-              <template #cell()="data">
-                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon"  @click="editProvider(data.item)"/>
-                <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteProvider(data.item.idProvider, data.item.company)"/>
+              <template #cell(subscriptionType)="data">
+                {{ data.item.subscriptionType }}
+              </template>
+              <template #cell(name)="data">
+                {{ data.item.name }}
+              </template>
+              <template #cell(location)="data">
+                {{ data.item.location }}
+              </template>
+              <template #cell(website)="data">
+                {{ data.item.website }}
+              </template>
+              <template #cell(phone)="data">
+                {{ data.item.phone }}
+              </template>
+              <template #cell(shortDescription)="data">
+                {{ substring(data.item.shortDescription, 200) }}
+              </template>
+              <template #cell(longDescription)="data">
+                {{ substring(data.item.longDescription, 300) }}
+              </template>
+              <template #cell(image1)="data">
+                {{ substring(data.item.image1, 50) }}
+              </template>
+              <template #cell(image2)="data">
+                {{ substring(data.item.image2, 50) }}
+              </template>
+              <template #cell(image3)="data">
+                {{ substring(data.item.image3, 50) }}
+              </template>
+              <template #cell(image4)="data">
+                {{ substring(data.item.image4, 50) }}
+              </template>
+              <template #cell(image5)="data">
+                {{ substring(data.item.image5, 50) }}
+              </template>
+              <template #cell(image6)="data">
+                {{ substring(data.item.image6, 50) }}
+              </template>
+              <template #cell(image7)="data">
+                {{ substring(data.item.image7, 50) }}
+              </template>
+              <template #cell(image8)="data">
+                {{ substring(data.item.image8, 50) }}
+              </template>
+              <template #cell(image9)="data">
+                {{ substring(data.item.image9, 50) }}
+              </template>
+              <template #cell(image10)="data">
+                {{ substring(data.item.image10, 50)}}
+              </template>
+             <template #cell(minimumCapacity)="data">
+                {{ data.item.minimumCapacity }}
+              </template>
+              <template #cell(maximumCapacity)="data">
+                {{ data.item.maximumCapacity }}
+              </template>
+              <template #cell(numberHall)="data">
+                {{ data.item.numberHall }}
+              </template>
+              <template #cell(category)="data">
+                {{ data.item.category }}
+              </template>
+              <template #cell()="">
+                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idcustomer + '/' + $route.params.idUser)"/>
+                <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteCustomer()"/>
               </template>
           </b-table>
         </b-row>
-        <b-row class="row-admin-component">
+        <b-row class="row-admin">
           <b-pagination
             v-model="currentPage"
-            :total-rows="providersNumber"
-            :per-page="perPageProviders"
-            @input="getProviders()"
+            :total-rows="customersNumber"
+            :per-page="perPageCustomers"
+            @input="getCustomers()"
             class="admin-pagination-table"
           ></b-pagination>
-        </b-row>
-      </b-row>
-      <b-row class="add-form-section" v-else-if="enabledAddProvider === true && enabledEditProvider === false">
-        <p class="title-admin-component">Adăugare furnizor</p>
-        <b-row class="row-admin-component">
-            <b-row class="row-form">
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="company" class="label-form">Companie<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="company" class="input-form" placeholder="Companie" v-model="addedProvider.company"></b-form-input>
-              </b-col>
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="email" class="label-form">Email Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="addedProvider.emailRepresentative"></b-form-input>
-              </b-col>
-            </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="firstName" class="label-form">Prenume Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="firstName" class="input-form" placeholder="Prenume Reprezentant" v-model="addedProvider.firstNameRepresentative"></b-form-input>
-              </b-col>
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="lastName" class="label-form">Nume Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="lastName" class="input-form" placeholder="Nume" v-model="addedProvider.lastNameRepresentative"></b-form-input>              
-              </b-col>
-            </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left">
-                <label for="adressCompany" class="label-form">Adresa Companiei<span class="mandatory-field">*</span>:</label>
-                <b-form-textarea id="textarea-form" placeholder="Adresa Companiei" v-model="addedProvider.addressCompany"></b-form-textarea>            
-              </b-col>
-            </b-row>          
-            <b-row class="row-form admin-buttons">
-                <b-button class="action-admin-button" v-on:click="addProvider()">Adăugare furnizor</b-button>
-                <b-button class="close-admin-button" v-on:click="closeAddProvider()">Close</b-button>
-            </b-row>
-        </b-row>
-      </b-row>
-      <b-row class="edit-form-section" v-else-if="enabledEditProvider === true && enabledAddProvider === false">
-        <p class="title-admin-component">Editare furnizor</p>
-        <b-row class="row-admin-component">
-            <b-row class="row-form">
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="company" class="label-form">Companie<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="company" class="input-form" placeholder="Companie" v-model="editedProvider.company"></b-form-input>
-              </b-col>
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="email" class="label-form">Email Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="email" class="input-form" type="email" placeholder="Adresa de e-mail" v-model="editedProvider.emailRepresentative"></b-form-input>
-              </b-col>
-            </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="firstName" class="label-form">Prenume Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="firstName" class="input-form" placeholder="Prenume Reprezentant" v-model="editedProvider.firstNameRepresentative"></b-form-input>
-              </b-col>
-              <b-col class="col-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="lastName" class="label-form">Nume Reprezentant<span class="mandatory-field">*</span>:</label>
-                <b-form-input id="lastName" class="input-form" placeholder="Nume" v-model="editedProvider.lastNameRepresentative"></b-form-input>              
-              </b-col>
-            </b-row>
-            <b-row class="row-form">
-              <b-col class="col-form left">
-                <label for="adressCompany" class="label-form">Adresa Companiei<span class="mandatory-field">*</span>:</label>
-                <b-form-textarea id="textarea-form" placeholder="Adresa Companiei" v-model="editedProvider.addressCompany"></b-form-textarea>            
-              </b-col>
-            </b-row>
-            <b-row class="row-form admin-buttons">
-                <b-button class="action-admin-button" v-on:click="updateProvider()">Actualizare furnizor</b-button>
-                <b-button class="close-admin-button" v-on:click="closeEditProvider()">Close</b-button>
-            </b-row>
         </b-row>
       </b-row>
       <b-row>
@@ -138,33 +152,21 @@ import $ from "jquery";
  export default {
     data() {
       return {
-        providersNumber: "",
+        customersNumber: "",
         isLoading: true,
-        providers: [],
-        fieldsTable: ['Index', { key: 'company', label: 'Company' }, { key: 'completeNameRepresentative', label: 'Name Representative'}, 
-        { key: 'emailRepresentative', label: 'Email Representative'}, { key: 'addressCompany', label: 'Address'},
-        { key: 'action', label: 'Acțiune'}],
+        customers: [],
+        fieldsTable: 
+        ['Index', { key: 'company', label: 'Companie' }, { key: 'completeNameRepresentative', label: 'Nume Reprezentant'}, { key: 'emailRepresentative', label: 'Email Reprezentant'}, 
+        { key: 'emailRepresentative', label: 'Email Reprezentant'}, { key: 'phoneRepresentative', label: 'Telefon Reprezentant'}, { key: 'subscriptionType', label: 'Tip abonament'},
+        { key: 'name', label: 'Denumire'}, { key: 'location', label: 'Locație'}, { key: 'website', label: 'Site'}, { key: 'phone', label: 'Telefon'}, { key: 'shortDescription', label: 'Descriere Scurtă'}, 
+        { key: 'longDescription', label: 'Descriere Lungă'}, { key: 'image1', label: 'Imagine 1'}, { key: 'image2', label: 'Imagine 2'}, { key: 'image3', label: 'Imagine 3'}, { key: 'image4', label: 'Imagine 4'}, 
+        { key: 'image5', label: 'Imagine 5'}, { key: 'image6', label: 'Imagine 6'}, { key: 'image7', label: 'Imagine 7'}, { key: 'image8', label: 'Imagine 8'}, { key: 'image9', label: 'Imagine 9'}, { key: 'image10', label: 'Imagine 11'},
+        { key: 'minimumCapacity', label: 'Capacitate minimă'}, { key: 'maximumCapacity', label: 'Capacitate maximă'}, { key: 'numberHall', label: 'Număr săli'},
+        { key: 'category', label: 'Capacitate'}, { key: 'action', label: 'Acțiune'}],
         currentPage: 1,
-        perPageProviders: 15,
+        perPageCustomers: 15,
         iteration: 0,
-        enabledAddProvider: false,
-        addedProvider: {
-          company: "",
-          firstNameRepresentative: "",
-          lastNameRepresentative: "",
-          emailRepresentative: "",
-          addressCompany: "",
-        },
-        enabledEditProvider: false,
-        editedProvider: {
-          idProvider: 0,
-          company: "",
-          firstNameRepresentative: "",
-          lastNameRepresentative: "",
-          emailRepresentative: "",
-          addressCompany: "",
-        },
-        idDeletedProvider: "",
+        idDeletedCustomer: "",
         titleInfoModal: "",
         textInfoModal: "",
         actionInfoModal: "",
@@ -175,49 +177,88 @@ import $ from "jquery";
       }
     },
     methods: {
-      getProvidersNumber() {
+      getCustomersNumber() {
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/providers/getProvidersNumber"
+          url: "http://localhost:3000/customers/getCustomersNumber"
         }).then(result => {
-          this.providersNumber = result.data[0].providers_number;
-          this.getProviders();
+          this.customersNumber = result.data.customers_number;
+          this.getCustomers();
         })
       },
-      getProviders() {
+      getCustomers() {
         let thisRef = this;
-        this.iteration = (this.currentPage - 1) * this.perPageProviders;
+        this.iteration = (this.currentPage - 1) * this.perPageCustomers;
         if(this.isLoading !== true) {
           this.isLoading = true;
         }
-        this.providers = [];
+        this.customers = [];
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/providers/getAllProviders/" + this.iteration
+          url: "http://localhost:3000/customers/getAllCustomers/" + this.iteration
         }).then(result => {
+          console.log(result)
           if(result.data.length > 0) {
-            let provider = {
-              idProvider: 0,
-              company: "",
-              firstNameRepresentative: "",
-              lastNameRepresentative: "",
-              completeNameRepresentative: "",
-              emailRepresentative: "",
-              addressCompany: "",
+            let customer = {
+                idCustomer: 0,
+                company: "",
+                completeNameRepresentative: "",
+                emailRepresentative: "",
+                phoneRepresentative: "",
+                subscriptionType: "",
+                name: "",
+                location: "",
+                website: "",
+                phone: "",
+                shortDescription: "",
+                longDescription: "",
+                image1: "",
+                image2: "",
+                image3: "",
+                image4: "",
+                image5: "",
+                image6: "",
+                image7: "",
+                image8: "",
+                image9: "",
+                image10: "",
+                minimumCapacity: "",
+                maximumCapacity: "",
+                numberHall: "",
+                category: ""
             }
             for(var i = 0; i < result.data.length; i++) {
-              provider = {
-                idProvider: result.data[i].id_provider,
-                company: result.data[i].company,
-                firstNameRepresentative: result.data[i].first_name_representative,
-                lastNameRepresentative: result.data[i].last_name_representative,
+              customer = {
+                idCustomer: result.data[i].id_customer,
+                company: result.data[i].name_company,
                 completeNameRepresentative: result.data[i].name_representative,
                 emailRepresentative: result.data[i].email_representative,
-                addressCompany: result.data[i].address_company,
+                phoneRepresentative: result.data[i].phone_representative,
+                subscriptionType: result.data[i].subscription_type,
+                name: result.data[i].name,
+                location: result.data[i].location,
+                website: result.data[i].website,
+                phone: result.data[i].phone,
+                shortDescription: result.data[i].short_description,
+                longDescription: result.data[i].long_description,
+                image1: result.data[i].image1,
+                image2: result.data[i].image2,
+                image3: result.data[i].image3,
+                image4: result.data[i].image4,
+                image5: result.data[i].image5,
+                image6: result.data[i].image6,
+                image7: result.data[i].image7,
+                image8: result.data[i].image8,
+                image9: result.data[i].image9,
+                image10: result.data[i].image10,
+                minimumCapacity: result.data[i].minimum_capacity,
+                maximumCapacity: result.data[i].maximum_capacity,
+                numberHall: result.data[i].number_hall,
+                category: result.data[i].category
               } 
-              this.providers.push(provider);                   
+              this.customers.push(customer);                   
             }
             setTimeout(function() {
               thisRef.isLoading = false;
@@ -225,105 +266,29 @@ import $ from "jquery";
           }
         })
       },
-      initiateAddProvider() {
-        this.enabledAddProvider = true;
-      },
-      closeAddProvider() {
-        this.enabledAddProvider = false;
-        this.addedProvider = {
-          company: "",
-          firstNameRepresentative: "",
-          lastNameRepresentative: "",
-          emailRepresentative: "",
-          addressCompany: "",
+      substring(item, strings) {
+        if(item !== "" && item !== null && item !== undefined) {
+          return item.substring(0,strings) + '...';
+        } else {
+          return item;
         }
       },
-      addProvider() {
-        axios({
-          method: 'post',
-          url: 'http://localhost:3000/providers/addProvider',
-          mode: 'no-cors',
-          headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-          },
-          contentType: "application/json;odata=verbose",
-          data: this.addedProvider
-        }).then(result => {
-          this.addedProvider = {
-            company: "",
-            firstNameRepresentative: "",
-            lastNameRepresentative: "",
-            emailRepresentative: "",
-            addressCompany: "",
-          }
-          this.actionInfoModal = "adding";
-          this.titleInfoModal = "Adăugare furnizor";
-          this.textInfoModal = "Furnizorul a fost adăugat cu succes!";
-          this.showInfoModal = true;
-        }).catch(error => {
-          this.actionInfoModal = "adding";
-          this.titleInfoModal = "Adăugare furnizor";
-          this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
-          this.showInfoModal = true;
-        })
+      redirectToPage(path) {
+        this.$router.push(path);
       },
-      editProvider(provider) {
-        this.enabledAddProvider = false;
-        this.enabledEditProvider = true;
-        this.editedProvider = {
-          idProvider: provider.idProvider,
-          company: provider.company,
-          firstNameRepresentative: provider.firstNameRepresentative,
-          lastNameRepresentative: provider.lastNameRepresentative,
-          emailRepresentative: provider.emailRepresentative,
-          addressCompany: provider.addressCompany,
-        }
+      initiateAddCustomer() {
+        this.enabledAddCustomer = true;
       },
-      updateProvider() {
-        axios({
-          method: 'put',
-          url: 'http://localhost:3000/providers/updateProvider',
-          mode: 'no-cors',
-          headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-          },
-          contentType: "application/json;odata=verbose",
-          data: this.editedProvider
-        }).then(result => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
-          this.textInfoModal = "Furnizorul a fost actualizat cu succes!";
-          this.showInfoModal = true;
-        }).catch(error => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
-          this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
-          this.showInfoModal = true;
-        })
-      },
-      closeEditProvider() {
-        this.enabledEditProvider = false;
-        this.editedProvider = {
-          idProvider: "",
-          company: "",
-          firstNameRepresentative: "",
-          lastNameRepresentative: "",
-          emailRepresentative: "",
-          addressCompany: "",
-        }
-      },
-      initiateDeleteProvider(idProvider, companyProvider) {
+      initiateDeleteCustomer(idCustomer, companyCustomer) {
         this.titleConfirmationModal = "Confirmare ștergere furnizor"
-        this.textConfirmationModal = "Sigur doriți să ștergeți furnizorul " + companyProvider + "?";
+        this.textConfirmationModal = "Sigur doriți să ștergeți furnizorul " + companyCustomer + "?";
         this.showConfirmationModal = true;
-        this.idDeletedProvider = idProvider;
+        this.idDeletedCustomer = idCustomer;
       },
-      deleteProvider() {
+      deleteCustomer() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/providers/deleteProvider/' + this.idDeletedProvider,
+          url: 'http://localhost:3000/customers/deleteCustomer/' + this.idDeletedCustomer,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -343,42 +308,30 @@ import $ from "jquery";
         })
       },
       okInfoModal() {
-        switch(this.actionInfoModal) {
-          case "adding":
-            this.enabledAddProvider = false;
-            this.getProviders();
-            break;
-          case "updating":
-            this.enabledEditProvider = false;
-            this.getProviders();
-            break;
-          case "deleting":
-            this.idDeletedProvider = 0;
-            this.getProviders();
-            break;
-        }
+        this.idDeletedCustomer = 0;
+        this.getCustomers();
       },
       okConfirmationModal() {
-        this.deleteProvider();
+        this.deleteCustomer();
       }
     },
     mounted() {
-      this.getProvidersNumber();
+      this.getCustomersNumber();
     }
   }
 </script>
 <style>
-    .admin-providers-component {
+    .admin-customers {
       padding: 30px;
     }
-    .providers-table {
+    .customers-table {
       padding: 0 !important;
-      overflow: overlay;
+      overflow: auto !important;
     }
-    .providers-table th:first-child  {
+    .customers-table th:first-child  {
       width: 5% !important;
     }
-    .providers-table th:last-child, .providers-table td:last-child  {
+    .customers-table th:last-child, .customers-table td:last-child  {
       text-align: center !important;
     }
 </style>

@@ -1,7 +1,9 @@
 <template>
-    <div class="admin-users-component">
-        <p class="title-admin-component">Utilizatori <span class="small-element-title">({{usersNumber}})</span></p>
-        <b-row class="row-admin-component">
+    <div class="admin-users">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
+      <b-row class="table-section">
+        <p class="title-admin">Utilizatori <span class="small-element-title">({{usersNumber}})</span></p>
+        <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="users" :busy="isLoading" responsive="sm" class="users-table">
               <template #table-busy>
                 <div class="text-center text-danger my-2">
@@ -31,7 +33,7 @@
               </template>
           </b-table>
         </b-row>
-        <b-row class="row-admin-component">
+        <b-row class="row-admin">
           <b-pagination
             v-model="currentPage"
             :total-rows="usersNumber"
@@ -40,13 +42,16 @@
             class="admin-pagination-table"
           ></b-pagination>
         </b-row>
+      </b-row>
     </div>
 </template>
 <script>
+import AdminHeader from "../../../components/AdminHeader.vue";
 import axios from 'axios';
 // import $ from "jquery";
  export default {
     components: {
+      AdminHeader
     },
     data() {
         return {
@@ -116,7 +121,7 @@ import axios from 'axios';
 </script>
 
 <style>
-    .title-admin-component {
+    .title-admin {
       text-align: left;
       font-size: 16px;
       font-weight: 600;
@@ -129,8 +134,8 @@ import axios from 'axios';
     .sr-only {
       display: none !important;
     }
-    .admin-users-component {
-      padding: 30px;
+    .admin-users {
+      padding: 0px;
     }
     .users-table {
       padding: 0 !important;

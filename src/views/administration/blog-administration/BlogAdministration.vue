@@ -101,7 +101,7 @@ import $ from "jquery";
       }
     },
     methods: {
-        getBlogsNumber() {
+      getBlogsNumber() {
           axios({
             method: "get",
             headers: {"accept":"application/json"},
