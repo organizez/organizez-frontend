@@ -60,6 +60,46 @@
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file1" :state="Boolean(file1)" placeholder="Alegeți imaginea 1" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file2" :state="Boolean(file2)" placeholder="Alegeți imaginea 2" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file3" :state="Boolean(file3)" placeholder="Alegeți imaginea 3" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file4" :state="Boolean(file4)" placeholder="Alegeți imaginea 4" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file5" :state="Boolean(file5)" placeholder="Alegeți imaginea 5" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file6" :state="Boolean(file6)" placeholder="Alegeți imaginea 6" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file7" :state="Boolean(file7)" placeholder="Alegeți imaginea 7" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file8" :state="Boolean(file8)" placeholder="Alegeți imaginea 8" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file9" :state="Boolean(file9)" placeholder="Alegeți imaginea 9" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <b-form-file v-model="file10" :state="Boolean(file10)" placeholder="Alegeți imaginea 10" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="minimum-capacity" class="label-form">Capacitate minimă:</label>
                 <b-form-input id="minimum-capacity" class="input-admin-form" placeholder="Capacitate minimă" v-model="addedCustomer.minimumCapacity"></b-form-input>
               </b-col>
@@ -85,26 +125,26 @@
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="addedCustomer.idCategory" :options="categoriesServices" @change="getFacilitiesOptionsByCategory()" class="select-admin-form"></b-select>             
+                <b-select v-model="addedCustomer.idCategory" :options="categoriesServices" @change="getFacilitiesOptionsByCategory(addedCustomer.idCategory)" class="select-admin-form"></b-select>             
               </b-col>
             </b-row>
             <b-row>
               <b-form-group
-                label="Individual inline checkboxes"
+                label="Facilități"
                 v-slot="{ ariaDescribedby }">
                 <b-form-checkbox
+                  :aria-describedby="ariaDescribedby"
                   v-for="option in facilitiesOptions"
                   v-model="selectedFacilitiesOptions"
                   :key="option.value"
                   :value="option.value"
-                  :aria-describedby="ariaDescribedby"
-                  name="flavour-4a"
-                  inline>
+                  class="checkbox-facility">
                   {{ option.text }}
                 </b-form-checkbox>
               </b-form-group>
             </b-row>
             <b-row class="row-admin-form admin-buttons">
+                <b-button class="action-admin-button" v-on:click="uploadImages()">Adăugare furnizor</b-button>
                 <b-button class="action-admin-button" v-on:click="addCustomer()">Adăugare furnizor</b-button>
                 <b-button class="close-admin-button" v-on:click="closeAddCustomer()">Close</b-button>
             </b-row>
@@ -118,6 +158,10 @@
   </div>
 </template>
 <script>
+import { S3 } from "@aws-sdk/client-s3";
+import { CreateBucketCommand } from "@aws-sdk/client-s3";
+import spaceConfig from "../../../../digital-ocean-space-config";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import AdminHeader from "../../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
@@ -157,6 +201,16 @@ import $ from "jquery";
           idCity: "",
           idCategory: "",
         },
+        file1: [],
+        file2: [],
+        file3: [],
+        file4: [],
+        file5: [],
+        file6: [],
+        file7: [],
+        file8: [],
+        file9: [],
+        file10: [],
         selectedFacilitiesOptions: [],
         categoriesServices: [],
         facilitiesOptions: [],
@@ -210,6 +264,33 @@ import $ from "jquery";
           }
         })
       },
+      uploadImages() {
+        console.log(this.file1)
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file1 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file1.name,
+            Body: this.file1,
+            ACL:'public-read'
+          };
+          const run = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            run();
+          }
+
+      },
       addCustomer() {
         axios({
           method: 'post',
@@ -262,11 +343,14 @@ import $ from "jquery";
         })
       },
       getFacilitiesOptionsByCategory(idCategory) {
+        this.facilitiesOptions = [];
+        this.selectedFacilitiesOptions = [];
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/facilities/getFacilititesyCategory/" + idCategory
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
+          console.log(result)
           if(result.data.length > 0) {
             let facility = {
               value: 0,
@@ -305,5 +389,13 @@ import $ from "jquery";
     }
     .customers-table th:last-child, .customers-table td:last-child  {
       text-align: center !important;
+    }
+    .checkbox-facility .custom-control-label, legend {
+      text-align: left !important;
+      color: #000000 !important;
+      font-size: 16px !important;
+    }
+    .form-group {
+      padding: 0px !important;
     }
 </style>
