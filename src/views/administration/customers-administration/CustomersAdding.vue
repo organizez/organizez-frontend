@@ -276,7 +276,7 @@ import $ from "jquery";
             Body: this.file1,
             ACL:'public-read'
           };
-          const run = async () => {
+          const runImage1 = async () => {
              try {
                const data = await s3Client.send(new PutObjectCommand(bucketParams));
                let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
@@ -287,7 +287,187 @@ import $ from "jquery";
               }
             };
 
-            run();
+            runImage1();
+          }
+        if(this.file2 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file2.name,
+            Body: this.file2,
+            ACL:'public-read'
+          };
+          const runImage2 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage2();
+          }
+       if(this.file3 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file3.name,
+            Body: this.file3,
+            ACL:'public-read'
+          };
+          const runImage3 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage3();
+          }
+        if(this.file4 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file4.name,
+            Body: this.file4,
+            ACL:'public-read'
+          };
+          const runImage4 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage4();
+          }
+        if(this.file5 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file5.name,
+            Body: this.file5,
+            ACL:'public-read'
+          };
+          const runImage5 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage5();
+          }  
+        if(this.file6 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file6.name,
+            Body: this.file6,
+            ACL:'public-read'
+          };
+          const runImage6 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage6();
+          }
+        if(this.file7 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file7.name,
+            Body: this.file7,
+            ACL:'public-read'
+          };
+          const runImage7 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage7();
+          }
+        if(this.file8 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file8.name,
+            Body: this.file8,
+            ACL:'public-read'
+          };
+          const runImage8 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage8();
+          }
+        if(this.file9 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file9.name,
+            Body: this.file9,
+            ACL:'public-read'
+          };
+          const runImage9 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage9();
+          }
+        if(this.file10 !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file10.name,
+            Body: this.file10,
+            ACL:'public-read'
+          };
+          const runImage10 = async () => {
+             try {
+               const data = await s3Client.send(new PutObjectCommand(bucketParams));
+               let image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                 console.log(image);
+                 return data;
+               } catch (err) {
+                console.log("Error", err);
+              }
+            };
+
+            runImage10();
           }
 
       },
