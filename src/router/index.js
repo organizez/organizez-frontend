@@ -59,7 +59,7 @@ const routes = [
         component: BlogAdministration
     },
     {
-        path: '/administrare/adaugare-blog/:idBlogArticle/:idUser',
+        path: '/administrare/adaugare-blog/:idUser',
         name: 'blog-adaugare',
         component: BlogAdding
     },

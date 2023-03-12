@@ -4,7 +4,7 @@
       <b-row class="table-section">
         <p class="title-admin">Bloguri <span class="small-element-title">({{blogsNumber}})</span></p>
         <b-row class="row-admin add-button"> 
-           <b-button class="initiate-add-button" v-on:click="redirectToPage('/administrare/adaugare-blog/' + data.item.idArticle + '/' + $route.params.idUser)"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare blog</b-button>
+           <b-button class="initiate-add-button" v-on:click="redirectToPage('/administrare/adaugare-blog/' + $route.params.idUser)"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare blog</b-button>
         </b-row>
         <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="blogs" :busy="isLoading" responsive="sm" class="blogs-table">

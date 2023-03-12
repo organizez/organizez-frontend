@@ -26,16 +26,14 @@
                 </b-col>
                 </b-row>
                 <b-row class="row-admin-form">
-                <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                    <label for="shortDescription" class="label-form">Descriere scurtă<span class="mandatory-field">*</span>:</label>
-                    <b-form-textarea id="textarea-form" rows="4" class="input-admin-form" placeholder="Descriere scurtă" v-model="blogArticle.shortDescription"></b-form-textarea>            
-                </b-col>
-                </b-row>
-                <b-row class="row-admin-form">
-                <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                    <label for="text" class="label-form">Text<span class="mandatory-field">*</span>:</label>
-                    <b-form-textarea id="textarea-form" rows="8" class="input-admin-form" placeholder="Text" v-model="blogArticle.text"></b-form-textarea>            
-                </b-col>
+                    <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                        <label for="shortDescription" class="label-form">Descriere scurtă<span class="mandatory-field">*</span>:</label>
+                        <b-form-textarea id="textarea-form" rows="8" class="input-admin-form" placeholder="Descriere scurtă" v-model="blogArticle.shortDescription"></b-form-textarea>            
+                    </b-col>
+                    <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                        <label for="text" class="label-form">Text<span class="mandatory-field">*</span>:</label>
+                        <b-form-textarea id="textarea-form" rows="8" class="input-admin-form" placeholder="Text" v-model="blogArticle.text"></b-form-textarea>            
+                    </b-col>
                 </b-row>
                 <b-row>
                     <b-form-file
