@@ -18,6 +18,8 @@ import UsersAdministration from '../views/administration/user-administration/Use
 import CategoriesAdministration from '../views/administration/customers-services-categories-administration/CategoriesAdministration'
 import CustomersAdministration from '../views/administration/customers-administration/CustomersAdministration'
 import PortofolioAdministration from '../views/administration/portofolio-administration/PortofolioAdministration.vue'
+import PortofolioAdding from '../views/administration/portofolio-administration/PortofolioAdding.vue'
+import PortofolioEditing from '../views/administration/portofolio-administration/PortofolioEditing.vue'
 import BlogAdministration from '../views/administration/blog-administration/BlogAdministration.vue'
 import BlogAdding from '../views/administration/blog-administration/BlogAdding.vue'
 import BlogEditing from '../views/administration/blog-administration/BlogEditing.vue'
@@ -27,8 +29,7 @@ import TermsConditionsAdministration from '../views/administration/TermsConditio
 
 Vue.use(VueRouter)
 
-const routes = [
-    {
+const routes = [{
         path: '/administrare/:idUser',
         name: 'dashboard-administration',
         component: DashboardAdministration
@@ -52,6 +53,16 @@ const routes = [
         path: '/administrare/portofoliu/:idUser',
         name: 'portofolio-administration',
         component: PortofolioAdministration
+    },
+    {
+        path: '/administrare/adaugare-portofoliu/:idUser',
+        name: 'portofoliu-adaugare',
+        component: PortofolioAdding
+    },
+    {
+        path: '/administrare/editare-portofoliu/:idImage/:idUser',
+        name: 'portofoliu-editare',
+        component: PortofolioEditing
     },
     {
         path: '/administrare/blog/:idUser',
