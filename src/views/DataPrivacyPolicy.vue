@@ -44,7 +44,7 @@ import Footer from "../components/Footer.vue";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "https://squid-app-q7qzv.ondigitalocean.app/be/dataPrivacyPolicy/getDataPrivacyPolicy/"
+                url: "http://localhost:3000/dataPrivacyPolicy/getDataPrivacyPolicy/"
             }).then(result => {
                 console.log(result)
                 this.titleDataPrivacyPolicy = result.data[0].title_data_privacy_policy,

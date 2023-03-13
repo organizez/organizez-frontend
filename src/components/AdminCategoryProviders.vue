@@ -135,7 +135,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getCategoriesServicesNumber"
+          url: "http://localhost:3000/categoriesServices/getCategoriesServicesNumber"
         }).then(result => {
           this.categoriesNumber = result.data[0].categories_number;
           this.getCategoriesProviders();
@@ -151,7 +151,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices/" + this.iteration
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let category = {
@@ -187,7 +187,7 @@ import $ from "jquery";
       addCategory() {
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/addCategoriesServices',
+          url: 'http://localhost:3000/categoriesServices/addCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -223,7 +223,7 @@ import $ from "jquery";
       updateCategory() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/updateCategoriesServices',
+          url: 'http://localhost:3000/categoriesServices/updateCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -267,7 +267,7 @@ import $ from "jquery";
       deleteCategoryProvider() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
+          url: 'http://localhost:3000/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

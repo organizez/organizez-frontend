@@ -2,7 +2,7 @@
     <div class="admin-customers">
       <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="add-form-section">
-        <p class="title-admin">Editing clienți</p>
+        <p class="title-admin">Editare client</p>
         <b-row class="row-admin">
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="12" xl="12">
@@ -235,7 +235,6 @@ import $ from "jquery";
         file8: [],
         file9: [],
         file10: [],
-        selectedFacilitiesOptions: [],
         categoriesServices: [],
         facilitiesOptions: [],
         cities: [],
@@ -254,9 +253,9 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomerById/" + this.$route.params.idCustomerService
+          url: "http://localhost:3000/customers/getCustomerById/" + this.$route.params.idCustomerService
         }).then(result => {
-          console.log(result)
+          console.log("customer", result)
           this.editedCustomer = {
             idCustomer: result.data.id_customer,
             company: result.data.name_company,
@@ -265,6 +264,7 @@ import $ from "jquery";
             emailRepresentative: result.data.email_representative,
             phoneRepresentative: result.data.phone_representative,
             subscriptionType: result.data.subscription_type,
+            idCustomerService: result.data.id_customer_service,
             name: result.data.name,
             location: result.data.location,
             website: result.data.website,
@@ -285,7 +285,8 @@ import $ from "jquery";
             maximumCapacity: result.data.maximum_capacity,
             numberHall: result.data.number_hall,
             idCity: result.data.id_city,
-            idCategory: result.data.id_category
+            idCategory: result.data.id_category,
+            selectedFacilitiesOptions: []
           }
           this.getFacilitiesOptionsByCategory(this.editedCustomer.idCategory);
         })
@@ -294,7 +295,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
+          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -315,7 +316,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -334,11 +335,10 @@ import $ from "jquery";
       },
       getFacilitiesOptionsByCategory(idCategory) {
         this.facilitiesOptions = [];
-        this.selectedFacilitiesOptions = [];
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -353,6 +353,19 @@ import $ from "jquery";
               }
               this.facilitiesOptions.push(facility);
             }
+          }
+        })
+      },
+      getFacilitiesOptionsByCustomer() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/facilities/getFacilititesByCustomerService/" + this.$route.params.idCustomerService
+        }).then(result => {
+          console.log("facilities", result)
+          for(var i = 0; i < result.data.length; i++) { 
+            console.log(this.editedCustomer)
+            this.editedCustomer.selectedFacilitiesOptions.push(result.data[i].id_facility);
           }
         })
       },
@@ -652,7 +665,7 @@ import $ from "jquery";
       updateCustomer() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/updateCustomer',
+          url: 'http://localhost:3000/customers/updateCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -661,13 +674,11 @@ import $ from "jquery";
           contentType: "application/json;odata=verbose",
           data: this.editedCustomer
         }).then(result => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
-          this.textInfoModal = "Furnizorul a fost actualizat cu succes!";
+          this.titleInfoModal = "Actualizare client";
+          this.textInfoModal = "Clientul a fost actualizat cu succes!";
           this.showInfoModal = true;
         }).catch(error => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
+          this.titleInfoModal = "Actualizare client";
           this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
           this.showInfoModal = true;
         })
@@ -678,6 +689,7 @@ import $ from "jquery";
     },
     mounted() {
       this.getCustomerById();
+      this.getFacilitiesOptionsByCustomer();
       this.getCategories();
       this.getCities();
     }

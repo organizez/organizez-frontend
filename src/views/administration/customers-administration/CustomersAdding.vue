@@ -155,7 +155,7 @@
         </b-row>
       </b-row>
       <b-row>
-        <b-modal id="admin-info-modal" v-model="showInfoModal" :title="titleInfoModal" ok-only >
+        <b-modal id="admin-info-modal" v-model="showInfoModal" :title="titleInfoModal" ok-only @ok="okInfoModal">
           <p>{{textInfoModal}}</p>
         </b-modal>
       </b-row>
@@ -235,7 +235,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
+          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -256,7 +256,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -566,11 +566,9 @@ import $ from "jquery";
         }
       },
       addCustomer() {
-        console.log(this.addedCustomer)
-        let thisRef = this;
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/addCustomer',
+          url: 'http://localhost:3000/customers/addCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -613,10 +611,6 @@ import $ from "jquery";
           this.titleInfoModal = "Adăugare furnizor";
           this.textInfoModal = "Furnizorul a fost adăugat cu succes!";
           this.showInfoModal = true;
-          setTimeout(function() {
-              thisRef.$router.push('/administrare/clienti/' + thisRef.$route.params.idUser);
-          }, 1000);
-          
         }).catch(error => {
             this.titleInfoModal = "Adăugare furnizor";
             this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
@@ -629,7 +623,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -650,6 +644,9 @@ import $ from "jquery";
       closeAddCustomer() {
         this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
       },
+      okInfoModal() {
+        this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
+      }
     },
     mounted() {
       this.getCategories();

@@ -83,7 +83,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/getImagesNumber"
+          url: "http://localhost:3000/portofolio/getImagesNumber"
         }).then(result => {
           this.imagesNumber = result.data[0].images_number;
           this.getImages();
@@ -99,7 +99,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/getAllImages/" + this.iteration
+          url: "http://localhost:3000/portofolio/getAllImages/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let image = {
@@ -131,7 +131,7 @@ import $ from "jquery";
       deleteImage() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/deleteImage/' + this.idDeletedImage,
+          url: 'http://localhost:3000/portofolio/deleteImage/' + this.idDeletedImage,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

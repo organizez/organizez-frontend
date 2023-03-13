@@ -82,7 +82,7 @@ import $ from "jquery";
         }
         axios({
           method: "post",
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/uploadFilesDigitalOcean/addImage",
+          url: "http://localhost:3000/uploadFilesDigitalOcean/addImage",
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

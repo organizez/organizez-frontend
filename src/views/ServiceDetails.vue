@@ -140,7 +140,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServiceById/" + this.idService
+          url: "http://localhost:3000/customers/getCustomerById/1"
         }).then(result => {
           console.log(result)
             this.service = {
@@ -168,7 +168,7 @@ import $ from "jquery";
         }
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/contact-form-email',
+          url: 'http://localhost:3000/contact-form-email',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

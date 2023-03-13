@@ -93,7 +93,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/dataPrivacyPolicy/getDataPrivacyPolicy"
+          url: "http://localhost:3000/dataPrivacyPolicy/getDataPrivacyPolicy"
         }).then(result => {
           if(result.data.length > 0) {
             let dataPrivacyPolicy = {
@@ -125,7 +125,7 @@ import $ from "jquery";
       updateDataPrivacyPolicy() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/dataPrivacyPolicy/updateDataPrivacyPolicy',
+          url: 'http://localhost:3000/dataPrivacyPolicy/updateDataPrivacyPolicy',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
