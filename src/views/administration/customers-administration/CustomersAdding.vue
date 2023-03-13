@@ -2,7 +2,7 @@
     <div class="admin-customers">
       <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="add-form-section">
-        <p class="title-admin">Adăugare furnizor</p>
+        <p class="title-admin">Adăugare clienți</p>
         <b-row class="row-admin">
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="12" xl="12">
@@ -57,7 +57,7 @@
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="website" class="label-form">Telefon site:</label>
-                <b-form-input id="website" class="input-admin-form" placeholder="Site" v-model="addedCustomer.phone"></b-form-input>
+                <b-form-input id="website" class="input-admin-form" placeholder="Telefon" v-model="addedCustomer.phone"></b-form-input>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
@@ -132,22 +132,22 @@
                 <p v-else>Nu există facilități pentru categoria selectată</p>
               </b-col>
             </b-row>
-              <b-row class="row-admin-form" v-if="addedCustomer.idCategory === 4">
-                <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="4">
-                  <label for="minimum-capacity" class="label-form">Capacitate minimă:</label>
-                  <b-form-input id="minimum-capacity" class="input-admin-form" placeholder="Capacitate minimă" v-model="addedCustomer.minimumCapacity"></b-form-input>
-                </b-col>
-                <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="4">
-                  <label for="maximum-capacity" class="label-form">Capacitate maximă:</label>
-                  <b-form-input id="maximum-capacity" class="input-admin-form" placeholder="Capacitate maximă" v-model="addedCustomer.maximumCapacity"></b-form-input>
-                </b-col>
-                <b-row class="row-admin-form" v-if="addedCustomer.idCategory === 4">
-                  <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="4">
-                    <label for="number-hall" class="label-form">Număr săli:</label>
-                    <b-form-input id="number-hall" class="input-admin-form" placeholder="Număr săli" v-model="addedCustomer.numberHall"></b-form-input>
-                  </b-col>
-              </b-row> 
+            <b-row class="row-admin-form" v-if="addedCustomer.idCategory === 4">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="minimum-capacity" class="label-form">Capacitate minimă:</label>
+                <b-form-input id="minimum-capacity" class="input-admin-form" placeholder="Capacitate minimă" v-model="addedCustomer.minimumCapacity"></b-form-input>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="maximum-capacity" class="label-form">Capacitate maximă:</label>
+                <b-form-input id="maximum-capacity" class="input-admin-form" placeholder="Capacitate maximă" v-model="addedCustomer.maximumCapacity"></b-form-input>
+              </b-col>
             </b-row>  
+            <b-row class="row-admin-form" v-if="addedCustomer.idCategory === 4">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="number-hall" class="label-form">Număr săli:</label>
+                <b-form-input id="number-hall" class="input-admin-form" placeholder="Număr săli" v-model="addedCustomer.numberHall"></b-form-input>
+              </b-col>
+            </b-row> 
             <b-row class="row-admin-form admin-buttons">
                 <b-button class="action-admin-button" v-on:click="addCustomer()">Adăugare client</b-button>
                 <b-button class="close-admin-button" v-on:click="closeAddCustomer()">Close</b-button>
@@ -277,45 +277,49 @@ import $ from "jquery";
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file !== []) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: file.name
-          };
-          const deleteImage = async () => {
-            try {
-              const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
-                return data;
-              } catch (err) {
-                console.log("Error", err);
-              }
+        if(file !== null && file !== undefined) {
+          if(file.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: file.name
             };
-          deleteImage();
+            const deleteImage = async () => {
+              try {
+                const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
+                  return data;
+                } catch (err) {
+                  console.log("Error", err);
+                }
+              };
+            deleteImage();
+          }
         }
       },
       uploadImage1() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file1.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file1.name,
-            Body: this.file1,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image1 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 1! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+       if(this.file1 !== null && this.file1 !== undefined) {
+          if(this.file1.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file1.name,
+              Body: this.file1,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image1 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 1! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage2() {

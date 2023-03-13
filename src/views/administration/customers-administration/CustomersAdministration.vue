@@ -1,5 +1,6 @@
 <template>
     <div class="admin-customers">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="table-section">
         <p class="title-admin">Clienți <span class="small-element-title">({{customersNumber}})</span></p>
         <b-row class="row-admin add-button"> 
@@ -147,9 +148,13 @@
   </div>
 </template>
 <script>
+import AdminHeader from "../../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+    components: {
+      AdminHeader
+    },
     data() {
       return {
         customersNumber: "",
