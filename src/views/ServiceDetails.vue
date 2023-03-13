@@ -24,17 +24,65 @@
                 img-width="1024"
                 img-height="450"
                 style="text-shadow: 1px 1px 2px #333;">
-                <b-carousel-slide
+                <b-carousel-slide v-if="service.image1 !== ''"
                   :img-src="service.image1"
                 ></b-carousel-slide>
-                <b-carousel-slide
+                <b-carousel-slide v-if="service.image2 !== ''"
                   :img-src="service.image2"
                 ></b-carousel-slide>
-                <b-carousel-slide 
+                <b-carousel-slide v-if="service.image3 !== ''"
                   :img-src="service.image3"
                 ></b-carousel-slide>        
-                <b-carousel-slide
+                <b-carousel-slide v-if="service.image4 !== ''"
                   :img-src="service.image4"
+                ></b-carousel-slide> 
+                <b-carousel-slide v-if="service.image5 !== ''"
+                  :img-src="service.image5"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image6 !== ''"
+                  :img-src="service.image6"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image7 !== ''"
+                  :img-src="service.image7"
+                ></b-carousel-slide>        
+                <b-carousel-slide v-if="service.image8 !== ''"
+                  :img-src="service.image8"
+                ></b-carousel-slide> 
+                <b-carousel-slide v-if="service.image9 !== ''"
+                  :img-src="service.image9"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image10 !== ''"
+                  :img-src="service.image10"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image11 !== ''"
+                  :img-src="service.image11"
+                ></b-carousel-slide>        
+                <b-carousel-slide v-if="service.image12 !== ''"
+                  :img-src="service.image12"
+                ></b-carousel-slide> 
+                <b-carousel-slide v-if="service.image13 !== ''"
+                  :img-src="service.image13"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image14 !== ''"
+                  :img-src="service.image14"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image15 !== ''"
+                  :img-src="service.image15"
+                ></b-carousel-slide>        
+                <b-carousel-slide v-if="service.image16 !== ''"
+                  :img-src="service.image16"
+                ></b-carousel-slide> 
+                <b-carousel-slide v-if="service.image17 !== ''"
+                  :img-src="service.image17"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image18 !== ''"
+                  :img-src="service.image18"
+                ></b-carousel-slide>
+                <b-carousel-slide v-if="service.image19 !== ''"
+                  :img-src="service.image19"
+                ></b-carousel-slide>        
+                <b-carousel-slide v-if="service.image20 !== ''"
+                  :img-src="service.image20"
                 ></b-carousel-slide> 
               </b-carousel>
             </b-modal>         
@@ -105,20 +153,45 @@ import $ from "jquery";
         idUser: "",
         idService: 0,
         service: {
-          idService: 0,
-          nameService: "",
+          idCustomer: 0,
+          company: "",
+          firstNameRepresentative: "",
+          lastNameRepresentative: "",
+          emailRepresentative: "",
+          phoneRepresentative: "",
+          subscriptionType: "basic",
+          name: "",
+          location: "",
+          website: "",
+          phone: "",
+          shortDescription: "",
+          longDescription: "",
           image1: "",
           image2: "",
           image3: "",
           image4: "",
-          shortDescription: "",
-          longDescription: "",
-          siteLink: "",
-          company: "",
-          category: "",
-          location: "",
-          minimumCapacity: "",
-          maximumCapacity: "",
+          image5: "",
+          image6: "",
+          image7: "",
+          image8: "",
+          image9: "",
+          image10: "",
+          image11: "",
+          image12: "",
+          image13: "",
+          image14: "",
+          image15: "",
+          image16: "",
+          image17: "",
+          image18: "",
+          image19: "",
+          image20: "",
+          minimumCapacity: 0,
+          maximumCapacity: 0,
+          numberHall: 0,
+          idCity: 1,
+          idCategory: 1,
+          selectedFacilitiesOptions: []
         },
         propsImage: {
           blankColor: '#f6f2f0',
@@ -140,25 +213,50 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "http://localhost:3000/customers/getCustomerById/1"
+          url: "http://localhost:3000/customers/getCustomerById/" + this.idService
         }).then(result => {
-          console.log(result)
-            this.service = {
-              idService: result.data.id_service,
-              nameService: result.data.name_service,
-              image1: result.data.image1_service,
-              image2: result.data.image2_service,
-              image3: result.data.image3_service,
-              image4: result.data.image4_service,
-              shortDescription: result.data.short_description,
-              longDescription: result.data.long_description,
-              siteLink: result.data.site_link,
-              company: result.data.company,
-              category: result.data.category,
-              minimumCapacity: result.data.minimum_capacity,
-              maximumCapacity: result.data.maximum_capacity,
-              location: result.data.location + ', ' + result.data.city 
-            }
+          this.service = {
+            idCustomer: result.data.id_customer,
+            company: result.data.name_company,
+            firstNameRepresentative: result.data.first_name_representative,
+            lastNameRepresentative: result.data.last_name_representative,
+            emailRepresentative: result.data.email_representative,
+            phoneRepresentative: result.data.phone_representative,
+            subscriptionType: result.data.subscription_type,
+            idCustomerService: result.data.id_customer_service,
+            nameService: result.data.name,
+            location: result.data.location,
+            website: result.data.website,
+            phone: result.data.phone,
+            shortDescription: result.data.short_description,
+            longDescription: result.data.long_description,
+            image1: result.data.image1,
+            image2: result.data.image2,
+            image3: result.data.image3,
+            image4: result.data.image4,
+            image5: result.data.image5,
+            image6: result.data.image6,
+            image7: result.data.image7,
+            image8: result.data.image8,
+            image9: result.data.image9,
+            image10: result.data.image10,
+            image11: result.data.image11,
+            image12: result.data.image12,
+            image13: result.data.image13,
+            image14: result.data.image14,
+            image15: result.data.image15,
+            image16: result.data.image16,
+            image17: result.data.image17,
+            image18: result.data.image18,
+            image19: result.data.image19,
+            image20: result.data.image20,
+            minimumCapacity: result.data.minimum_capacity,
+            maximumCapacity: result.data.maximum_capacity,
+            numberHall: result.data.number_hall,
+            idCity: result.data.id_city,
+            idCategory: result.data.id_category,
+            selectedFacilitiesOptions: []
+          }
         })
       },
       sendContactFormEmail() {
@@ -189,26 +287,7 @@ import $ from "jquery";
         this.name = ''
         this.details = ''
         this.nameState = null
-      },
-      // handleOk(bvModalEvent) {
-      //   // Prevent modal from closing
-      //   bvModalEvent.preventDefault()
-      //   // Trigger submit handler
-      //   // this.handleSubmit()
-      // },
-      // handleSubmit() {
-      //   // Exit when the form isn't valid
-      //   if (!this.checkFormValidity()) {
-      //     return
-      //   }
-      //   // Push the name to submitted names
-      //   this.submittedEmail.push(this.email)
-      //   // Hide the modal manually
-      //   this.$nextTick(() => {
-      //     this.$bvModal.hide('modal-prevent-closing')
-      //   })
-      // }
-
+      }
     },
     mounted() {
       this.getParams();
