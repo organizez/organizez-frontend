@@ -4,7 +4,7 @@
       <b-row class="table-section">
         <p class="title-admin">Clienți <span class="small-element-title">({{customersNumber}})</span></p>
         <b-row class="row-admin add-button"> 
-           <b-button class="initiate-add-button" @click="redirectToPage('/administrare/adaugare-client/' + $route.params.idUser)"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare furnizor</b-button>
+           <b-button class="initiate-add-button" @click="redirectToPage('/administrare/adaugare-client/' + $route.params.idUser)"><font-awesome-icon class="plus-icon" icon="fa-solid fa-plus"/>Adăugare client</b-button>
         </b-row>
         <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="customers" :busy="isLoading" responsive="sm" class="customers-table">
@@ -160,8 +160,8 @@
                 {{ data.item.category }}
               </template>
               <template #cell()="data">
-                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idCustomer + '/' + $route.params.idUser)"/>
-                <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteCustomer()"/>
+                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idCustomer + '/' + data.item.idCustomerService + '/'+ $route.params.idUser)"/>
+                <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteCustomer(data.item.idCustomer, data.item.idCustomerService, data.item.company)"/>
               </template>
           </b-table>
         </b-row>
@@ -214,6 +214,7 @@ import $ from "jquery";
         perPageCustomers: 15,
         iteration: 0,
         idDeletedCustomer: "",
+        idDeletedCustomerService: "",
         titleInfoModal: "",
         textInfoModal: "",
         actionInfoModal: "",
@@ -255,6 +256,7 @@ import $ from "jquery";
                 emailRepresentative: "",
                 phoneRepresentative: "",
                 subscriptionType: "",
+                idCustomerService: 0,
                 name: "",
                 location: "",
                 website: "",
@@ -294,6 +296,7 @@ import $ from "jquery";
                 emailRepresentative: result.data[i].email_representative,
                 phoneRepresentative: result.data[i].phone_representative,
                 subscriptionType: result.data[i].subscription_type,
+                idCustomerService: result.data[i].id_customer_service,
                 name: result.data[i].name,
                 location: result.data[i].location,
                 website: result.data[i].website,
@@ -343,19 +346,18 @@ import $ from "jquery";
       redirectToPage(path) {
         this.$router.push(path);
       },
-      initiateAddCustomer() {
-        this.enabledAddCustomer = true;
-      },
-      initiateDeleteCustomer(idCustomer, companyCustomer) {
-        this.titleConfirmationModal = "Confirmare ștergere furnizor"
-        this.textConfirmationModal = "Sigur doriți să ștergeți furnizorul " + companyCustomer + "?";
+      initiateDeleteCustomer(idCustomer, idDeletedCustomerService, companyCustomer) {
+        console.log(idCustomer, idDeletedCustomerService)
+        this.titleConfirmationModal = "Confirmare ștergere client"
+        this.textConfirmationModal = "Sigur doriți să ștergeți clientul " + companyCustomer + "?";
         this.showConfirmationModal = true;
         this.idDeletedCustomer = idCustomer;
+        this.idDeletedCustomerService = idDeletedCustomerService;
       },
       deleteCustomer() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/customers/deleteCustomer/' + this.idDeletedCustomer,
+          url: 'http://localhost:3000/customers/deleteCustomer/' + this.idDeletedCustomer + '/' + this.idDeletedCustomerService,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -363,13 +365,11 @@ import $ from "jquery";
           },
           contentType: "application/json;odata=verbose",
         }).then(result => {
-          this.actionInfoModal = "deleting";
-          this.titleInfoModal = "Ștergere furnizor";
-          this.textInfoModal = "Furnizorul a fost șters cu succes!";
+          this.titleInfoModal = "Ștergere client";
+          this.textInfoModal = "Clientul a fost șters cu succes!";
           this.showInfoModal = true;
         }).catch(error => {
-          this.actionInfoModal = "deleting";
-          this.titleInfoModal = "Ștergere furnizor";
+          this.titleInfoModal = "Ștergere client";
           this.textInfoModal = "A apărut o eroare la acțiunea de ștergere! Vă rugăm reîncercați";
           this.showInfoModal = true;
         })

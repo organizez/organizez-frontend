@@ -2,7 +2,7 @@
     <div class="admin-customers">
       <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="add-form-section">
-        <p class="title-admin">Editing clienți</p>
+        <p class="title-admin">Editare client</p>
         <b-row class="row-admin">
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="12" xl="12">
@@ -72,42 +72,62 @@
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file1" :state="Boolean(file1)" @change="deleteImage(file1)" @input="uploadImage1()" placeholder="Alegeți imaginea 1" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 1</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 1" v-model="editedCustomer.image1"></b-form-input>
+                <b-form-file v-model="file1" :state="Boolean(file1)" @change="deleteImage(file1)" @input="uploadImage1()" placeholder="Schimbați imaginea 1" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file2" :state="Boolean(file2)" @change="deleteImage(file2)" @input="uploadImage2()" placeholder="Alegeți imaginea 2" drop-placeholder="Trageți imaginea aici"></b-form-file>
-              </b-col>
-            </b-row>  
-            <b-row class="row-admin-form">
-              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file3" :state="Boolean(file3)" @change="deleteImage(file3)" @input="uploadImage3()" placeholder="Alegeți imaginea 3" drop-placeholder="Trageți imaginea aici"></b-form-file>
-              </b-col>
-              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file4" :state="Boolean(file4)" @change="deleteImage(file4)" @input="uploadImage4()" placeholder="Alegeți imaginea 4" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 2</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 2" v-model="editedCustomer.image2"></b-form-input>
+                <b-form-file v-model="file2" :state="Boolean(file2)" @change="deleteImage(file2)" @input="uploadImage2()" placeholder="Schimbați imaginea 2" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file5" :state="Boolean(file5)" @change="deleteImage(file5)" @input="uploadImage5()" placeholder="Alegeți imaginea 5" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 3</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 3" v-model="editedCustomer.image3"></b-form-input>
+                <b-form-file v-model="file3" :state="Boolean(file3)" @change="deleteImage(file3)" @input="uploadImage3()" placeholder="Schimbați imaginea 3" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file6" :state="Boolean(file6)" @change="deleteImage(file6)" @input="uploadImage6()" placeholder="Alegeți imaginea 6" drop-placeholder="Trageți imaginea aici"></b-form-file>
-              </b-col>
-            </b-row>  
-            <b-row class="row-admin-form">
-              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file7" :state="Boolean(file7)" @change="deleteImage(file7)" @input="uploadImage7()" placeholder="Alegeți imaginea 7" drop-placeholder="Trageți imaginea aici"></b-form-file>
-              </b-col>
-              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file8" :state="Boolean(file8)" @change="deleteImage(file8)" @input="uploadImage8()" placeholder="Alegeți imaginea 8" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 4</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 4" v-model="editedCustomer.image4"></b-form-input>
+                <b-form-file v-model="file4" :state="Boolean(file4)" @change="deleteImage(file4)" @input="uploadImage4()" placeholder="Schimbați imaginea 4" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file9" :state="Boolean(file9)" @change="deleteImage(file9)" @input="uploadImage9()" placeholder="Alegeți imaginea 9" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 5</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 5" v-model="editedCustomer.image5"></b-form-input>
+                <b-form-file v-model="file5" :state="Boolean(file5)" @change="deleteImage(file5)" @input="uploadImage5()" placeholder="Schimbați imaginea 5" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <b-form-file v-model="file10" :state="Boolean(file10)" @change="deleteImage(file10)" @input="uploadImage10()" placeholder="Alegeți imaginea 10" drop-placeholder="Trageți imaginea aici"></b-form-file>
+                <label  class="label-form">Schimbare imagine 6</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 6" v-model="editedCustomer.image6"></b-form-input>
+                <b-form-file v-model="file6" :state="Boolean(file6)" @change="deleteImage(file6)" @input="uploadImage6()" placeholder="Schimbați imaginea 6" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label  class="label-form">Schimbare imagine 7</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 7" v-model="editedCustomer.image7"></b-form-input>
+                <b-form-file v-model="file7" :state="Boolean(file7)" @change="deleteImage(file7)" @input="uploadImage7()" placeholder="Schimbați imaginea 7" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label  class="label-form">Schimbare imagine 8</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 8" v-model="editedCustomer.image8"></b-form-input>
+                <b-form-file v-model="file8" :state="Boolean(file8)" @change="deleteImage(file8)" @input="uploadImage8()" placeholder="Schimbați imaginea 8" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+            </b-row>  
+            <b-row class="row-admin-form">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label class="label-form">Schimbare imagine 9</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 9" v-model="editedCustomer.image9"></b-form-input>
+                <b-form-file v-model="file9" :state="Boolean(file9)" @change="deleteImage(file9)" @input="uploadImage9()" placeholder="Schimbați imaginea 9" drop-placeholder="Trageți imaginea aici"></b-form-file>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label class="label-form">Schimbare imagine 10</label>
+                <b-form-input class="input-admin-form input-image" disabled placeholder="Imagine 10" v-model="editedCustomer.image10"></b-form-input>
+                <b-form-file v-model="file10" :state="Boolean(file10)" @change="deleteImage(file10)" @input="uploadImage10()" placeholder="Schimbați imaginea 10" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
@@ -149,8 +169,8 @@
               </b-col>
             </b-row> 
             <b-row class="row-admin-form admin-buttons">
-                <b-button class="action-admin-button" v-on:click="addCustomer()">Adăugare client</b-button>
-                <b-button class="close-admin-button" v-on:click="closeAddCustomer()">Close</b-button>
+                <b-button class="action-admin-button" v-on:click="updateCustomer()">Editare client</b-button>
+                <b-button class="close-admin-button" v-on:click="closeEditCustomer()">Close</b-button>
             </b-row>
         </b-row>
       </b-row>
@@ -215,7 +235,6 @@ import $ from "jquery";
         file8: [],
         file9: [],
         file10: [],
-        selectedFacilitiesOptions: [],
         categoriesServices: [],
         facilitiesOptions: [],
         cities: [],
@@ -230,14 +249,417 @@ import $ from "jquery";
       }
     },
     methods: {
-      editCustomer(customer) {
-        this.editedCustomer = {
-          idCustomer: customer.idCustomer,
-          company: customer.company,
-          firstNameRepresentative: customer.firstNameRepresentative,
-          lastNameRepresentative: customer.lastNameRepresentative,
-          emailRepresentative: customer.emailRepresentative,
-          addressCompany: customer.addressCompany,
+      getCustomerById() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/customers/getCustomerById/" + this.$route.params.idCustomerService
+        }).then(result => {
+          console.log("customer", result)
+          this.editedCustomer = {
+            idCustomer: result.data.id_customer,
+            company: result.data.name_company,
+            firstNameRepresentative: result.data.first_name_representative,
+            lastNameRepresentative: result.data.last_name_representative,
+            emailRepresentative: result.data.email_representative,
+            phoneRepresentative: result.data.phone_representative,
+            subscriptionType: result.data.subscription_type,
+            idCustomerService: result.data.id_customer_service,
+            name: result.data.name,
+            location: result.data.location,
+            website: result.data.website,
+            phone: result.data.phone,
+            shortDescription: result.data.short_description,
+            longDescription: result.data.long_description,
+            image1: result.data.image1,
+            image2: result.data.image2,
+            image3: result.data.image3,
+            image4: result.data.image4,
+            image5: result.data.image5,
+            image6: result.data.image6,
+            image7: result.data.image7,
+            image8: result.data.image8,
+            image9: result.data.image9,
+            image10: result.data.image10,
+            minimumCapacity: result.data.minimum_capacity,
+            maximumCapacity: result.data.maximum_capacity,
+            numberHall: result.data.number_hall,
+            idCity: result.data.id_city,
+            idCategory: result.data.id_category,
+            selectedFacilitiesOptions: []
+          }
+          this.getFacilitiesOptionsByCategory(this.editedCustomer.idCategory);
+        })
+      },
+      getCategories() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
+        }).then(result => {
+          if(result.data.length > 0) {
+            let categoriesServices = {
+              value: 0,
+              text: ""
+            }
+            for(var i = 0; i < result.data.length; i++) {
+              categoriesServices = {
+                value: result.data[i].id_category,
+                text: result.data[i].category
+              }
+              this.categoriesServices.push(categoriesServices);
+            }
+          }
+        })
+      },
+      getCities() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/cities/getAllCities"
+        }).then(result => {
+          if(result.data.length > 0) {
+            let city = {
+              value: 0,
+              text: ""
+            }
+            for(var i = 0; i < result.data.length; i++) {
+              city = {
+                value: result.data[i].id_city,
+                text: result.data[i].city
+              }
+              this.cities.push(city);
+            }
+          }
+        })
+      },
+      getFacilitiesOptionsByCategory(idCategory) {
+        this.facilitiesOptions = [];
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
+         }).then(result => {
+          console.log(result)
+          if(result.data.length > 0) {
+            let facility = {
+              value: 0,
+              text: ""
+            }
+            for(var i = 0; i < result.data.length; i++) {
+              facility = {
+                value: result.data[i].id_facility,
+                text: result.data[i].facility
+              }
+              this.facilitiesOptions.push(facility);
+            }
+          }
+        })
+      },
+      getFacilitiesOptionsByCustomer() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "http://localhost:3000/facilities/getFacilititesByCustomerService/" + this.$route.params.idCustomerService
+        }).then(result => {
+          console.log("facilities", result)
+          for(var i = 0; i < result.data.length; i++) { 
+            console.log(this.editedCustomer)
+            this.editedCustomer.selectedFacilitiesOptions.push(result.data[i].id_facility);
+          }
+        })
+      },
+      deleteImage(file) {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(file !== null && file !== undefined) {
+          if(file.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: file.name
+            };
+            const deleteImage = async () => {
+              try {
+                const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
+                  return data;
+                } catch (err) {
+                  console.log("Error", err);
+                }
+              };
+            deleteImage();
+          }
+        }
+      },
+      uploadImage1() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+       if(this.file1 !== null && this.file1 !== undefined) {
+          if(this.file1.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file1.name,
+              Body: this.file1,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image1 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 1! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+                  console.log(err)
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage2() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file2 !== null && this.file2 !== undefined) {
+          if(this.file2.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file2.name,
+              Body: this.file2,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image2 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 2! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+       }
+      },
+      uploadImage3() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file3 !== null && this.file3 !== undefined) {
+          if(this.file3.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file3.name,
+              Body: this.file3,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image3 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 3! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage4() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file4 !== null && this.file4 !== undefined) {
+          if(this.file4.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file4.name,
+              Body: this.file4,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image4 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 4! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage5() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file5 !== null && this.file5 !== undefined) {
+          if(this.file5.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file5.name,
+              Body: this.file5,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image5 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 5! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage6() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file6 !== null && this.file6 !== undefined) {
+          if(this.file6.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file6.name,
+              Body: this.file6,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image6 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 6! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage7() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file7 !== null && this.file7 !== undefined) {
+          if(this.file7.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file7.name,
+              Body: this.file7,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image7 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 7! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage8() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file8 !== null && this.file8 !== undefined) {
+          if(this.file8.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file8.name,
+              Body: this.file8,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image8 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 8! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage9() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file9 !== null && this.file9 !== undefined) {
+          if(this.file9.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file9.name,
+              Body: this.file9,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image9 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 9! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+        }
+      },
+      uploadImage10() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file10 !== null && this.file10 !== undefined) {
+          if(this.file10.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file10.name,
+              Body: this.file10,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.editedCustomer.image10 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 10! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       updateCustomer() {
@@ -252,33 +674,24 @@ import $ from "jquery";
           contentType: "application/json;odata=verbose",
           data: this.editedCustomer
         }).then(result => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
-          this.textInfoModal = "Furnizorul a fost actualizat cu succes!";
+          this.titleInfoModal = "Actualizare client";
+          this.textInfoModal = "Clientul a fost actualizat cu succes!";
           this.showInfoModal = true;
         }).catch(error => {
-          this.actionInfoModal = "updating";
-          this.titleInfoModal = "Actualizare furnizor";
+          this.titleInfoModal = "Actualizare client";
           this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
           this.showInfoModal = true;
         })
       },
       closeEditCustomer() {
-        this.editedCustomer = {
-          idCustomer: "",
-          company: "",
-          firstNameRepresentative: "",
-          lastNameRepresentative: "",
-          emailRepresentative: "",
-          addressCompany: "",
-        }
+        this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
       },
-      okInfoModal() {
-        this.getCustomers();
-      }
     },
     mounted() {
-     
+      this.getCustomerById();
+      this.getFacilitiesOptionsByCustomer();
+      this.getCategories();
+      this.getCities();
     }
   }
 </script>
@@ -295,5 +708,8 @@ import $ from "jquery";
     }
     .customers-table th:last-child, .customers-table td:last-child  {
       text-align: center !important;
+    }
+    .input-admin-form.input-image {
+      margin-bottom: 20px !important;
     }
 </style>

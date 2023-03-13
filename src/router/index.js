@@ -69,7 +69,7 @@ const routes = [{
         component: CustomersAdding
     },
     {
-        path: '/administrare/editare-client/:idClient/:idUser',
+        path: '/administrare/editare-client/:idCustomer/:idCustomerService/:idUser',
         name: 'clienti-editare',
         component: CustomersEditing
     },

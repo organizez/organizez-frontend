@@ -140,7 +140,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept": "application/json"},
-          url: "http://localhost:3000/services/getServiceById/" + this.idService
+          url: "http://localhost:3000/customers/getCustomerById/1"
         }).then(result => {
           console.log(result)
             this.service = {
