@@ -120,7 +120,7 @@
                 {{ data.item.category }}
               </template>
               <template #cell()="data">
-                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idCustomer + '/' + $route.params.idUser)"/>
+                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idCustomer + '/' + data.item.idCustomerService + '/'+ $route.params.idUser)"/>
                 <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteCustomer()"/>
               </template>
           </b-table>
@@ -213,6 +213,7 @@ import $ from "jquery";
                 emailRepresentative: "",
                 phoneRepresentative: "",
                 subscriptionType: "",
+                idCustomerService: 0,
                 name: "",
                 location: "",
                 website: "",
@@ -242,6 +243,7 @@ import $ from "jquery";
                 emailRepresentative: result.data[i].email_representative,
                 phoneRepresentative: result.data[i].phone_representative,
                 subscriptionType: result.data[i].subscription_type,
+                idCustomerService: result.data[i].id_customer_service,
                 name: result.data[i].name,
                 location: result.data[i].location,
                 website: result.data[i].website,

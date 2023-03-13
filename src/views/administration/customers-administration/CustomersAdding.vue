@@ -326,229 +326,248 @@ import $ from "jquery";
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file1.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file2.name,
-            Body: this.file2,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image2 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 2! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
-        }
+        if(this.file2 !== null && this.file2 !== undefined) {
+          if(this.file2.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file2.name,
+              Body: this.file2,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image2 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 2! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
+       }
       },
       uploadImage3() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file3.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file3.name,
-            Body: this.file3,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image3 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 3! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file3 !== null && this.file3 !== undefined) {
+          if(this.file3.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file3.name,
+              Body: this.file3,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image3 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 3! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage4() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file4.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file4.name,
-            Body: this.file4,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image4 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 4! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file4 !== null && this.file4 !== undefined) {
+          if(this.file4.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file4.name,
+              Body: this.file4,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image4 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 4! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage5() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file5.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file5.name,
-            Body: this.file5,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image5 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 5! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file5 !== null && this.file5 !== undefined) {
+          if(this.file5.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file5.name,
+              Body: this.file5,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image5 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 5! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage6() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file6.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file6.name,
-            Body: this.file6,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image6 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 6! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file6 !== null && this.file6 !== undefined) {
+          if(this.file6.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file6.name,
+              Body: this.file6,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image6 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 6! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage7() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file7.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file7.name,
-            Body: this.file7,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image7 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 7! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file7 !== null && this.file7 !== undefined) {
+          if(this.file7.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file7.name,
+              Body: this.file7,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image7 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 7! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage8() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file8.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file8.name,
-            Body: this.file8,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image8 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 8! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file8 !== null && this.file8 !== undefined) {
+          if(this.file8.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file8.name,
+              Body: this.file8,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image8 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 8! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage9() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file8.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file9.name,
-            Body: this.file9,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image9 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 9! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file9 !== null && this.file9 !== undefined) {
+          if(this.file9.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file9.name,
+              Body: this.file9,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image9 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 9! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       uploadImage10() {
         const s3Client = new S3(
           spaceConfig.spaceConfig
         );
-        if(this.file10.length !== 0) {
-          const bucketParams = {
-            Bucket: "myBucket-test",
-            Key: this.file10.name,
-            Body: this.file10,
-            ACL:'public-read'
-          };
-          const runImage = async () => {
-            try {
-              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
-                this.addedCustomer.image10 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
-              });
-            } catch (err) {
-                this.titleInfoModal = "Încărcare imagine";
-                this.textInfoModal = "A apărut o eroare la încărcarea imaginii 10! Vă rugăm reîncercați";
-                this.showInfoModal = true;
-            }
-          };
-          runImage();
+        if(this.file10 !== null && this.file10 !== undefined) {
+          if(this.file10.length !== 0) {
+            const bucketParams = {
+              Bucket: "myBucket-test",
+              Key: this.file10.name,
+              Body: this.file10,
+              ACL:'public-read'
+            };
+            const runImage = async () => {
+              try {
+                await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                  this.addedCustomer.image10 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key);
+                });
+              } catch (err) {
+                  this.titleInfoModal = "Încărcare imagine";
+                  this.textInfoModal = "A apărut o eroare la încărcarea imaginii 10! Vă rugăm reîncercați";
+                  this.showInfoModal = true;
+              }
+            };
+            runImage();
+          }
         }
       },
       addCustomer() {
         console.log(this.addedCustomer)
+        let thisRef = this;
         axios({
           method: 'post',
           url: 'http://localhost:3000/customers/addCustomer',
@@ -594,6 +613,10 @@ import $ from "jquery";
           this.titleInfoModal = "Adăugare furnizor";
           this.textInfoModal = "Furnizorul a fost adăugat cu succes!";
           this.showInfoModal = true;
+          setTimeout(function() {
+              thisRef.$router.push('/administrare/clienti/' + thisRef.$route.params.idUser);
+          }, 1000);
+          
         }).catch(error => {
             this.titleInfoModal = "Adăugare furnizor";
             this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
@@ -623,7 +646,10 @@ import $ from "jquery";
             }
           }
         })
-      }
+      },
+      closeAddCustomer() {
+        this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
+      },
     },
     mounted() {
       this.getCategories();
