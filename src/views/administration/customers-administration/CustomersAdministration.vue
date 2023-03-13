@@ -118,8 +118,8 @@
               <template #cell(category)="data">
                 {{ data.item.category }}
               </template>
-              <template #cell()="">
-                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idcustomer + '/' + $route.params.idUser)"/>
+              <template #cell()="data">
+                <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon" @click="redirectToPage('/administrare/editare-client/' + data.item.idCustomer + '/' + $route.params.idUser)"/>
                 <font-awesome-icon icon="fa-solid fa-trash-can" class="trash-icon" @click="initiateDeleteCustomer()"/>
               </template>
           </b-table>
