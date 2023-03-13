@@ -65,7 +65,7 @@ import $ from "jquery";
           axios({
             method: "get",
             headers: {"accept":"application/json"},
-            url: "http://localhost:3000/categoriesServices/getCategoryServiceById/" + this.idCategory
+            url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getCategoryServiceById/" + this.idCategory
           }).then(result => {
             this.editedCategory = {
                 idCategory: result.data.id_category,
@@ -89,7 +89,7 @@ import $ from "jquery";
       updateCategory() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/categoriesServices/updateCategoriesServices',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/updateCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

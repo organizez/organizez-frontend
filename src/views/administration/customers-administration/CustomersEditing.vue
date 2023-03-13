@@ -254,7 +254,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/customers/getCustomerById/" + this.$route.params.idCustomerService
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomerById/" + this.$route.params.idCustomerService
         }).then(result => {
           console.log(result)
           this.editedCustomer = {
@@ -294,7 +294,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -315,7 +315,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/cities/getAllCities"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -338,7 +338,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -652,7 +652,7 @@ import $ from "jquery";
       updateCustomer() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/customers/updateCustomer',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/updateCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
