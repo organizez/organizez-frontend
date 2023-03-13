@@ -16,6 +16,8 @@ import TermsConditions from '../views/TermsConditions.vue'
 import DashboardAdministration from '../views/administration/DashboardAdministration.vue'
 import UsersAdministration from '../views/administration/user-administration/UsersAdministration.vue'
 import CategoriesAdministration from '../views/administration/customers-services-categories-administration/CategoriesAdministration'
+import CategoriesAdding from '../views/administration/customers-services-categories-administration/CategoriesAdding'
+import CategoriesEditing from '../views/administration/customers-services-categories-administration/CategoriesEditing'
 import CustomersAdministration from '../views/administration/customers-administration/CustomersAdministration'
 import CustomersEditing from '../views/administration/customers-administration/CustomersEditing'
 import CustomersAdding from '../views/administration/customers-administration/CustomersAdding'
@@ -45,6 +47,16 @@ const routes = [{
         path: '/administrare/categorii/:idUser',
         name: 'categorii-administration',
         component: CategoriesAdministration
+    },
+    {
+        path: '/administrare/adaugare-categorie/:idUser',
+        name: 'categorie-adaugare',
+        component: CategoriesAdding
+    },
+    {
+        path: '/administrare/editare-categorie/:idCategory/:idUser',
+        name: 'categorie-editare',
+        component: CategoriesEditing
     },
     {
         path: '/administrare/clienti/:idUser',
