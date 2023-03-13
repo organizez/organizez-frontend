@@ -36,6 +36,16 @@
               <template #head(image8)>Imagine 8</template>
               <template #head(image9)>Imagine 9</template>
               <template #head(image10)>Imagine 10</template>
+              <template #head(image11)>Imagine 11</template>
+              <template #head(image12)>Imagine 12</template>
+              <template #head(image13)>Imagine 13</template>
+              <template #head(image14)>Imagine 14</template>
+              <template #head(image15)>Imagine 15</template>
+              <template #head(image16)>Imagine 16</template>
+              <template #head(image17)>Imagine 17</template>
+              <template #head(image18)>Imagine 18</template>
+              <template #head(image19)>Imagine 19</template>
+              <template #head(image20)>Imagine 20</template>
               <template #head(minimumCapacity)>Capacitate minimă</template>
               <template #head(maximumCapacity)>Capacitate maximă</template>
               <template #head(numberHall)>Număr săli</template>
@@ -107,6 +117,36 @@
               <template #cell(image10)="data">
                 {{ substring(data.item.image10, 50)}}
               </template>
+              <template #cell(image11)="data">
+                {{ substring(data.item.image11, 50) }}
+              </template>
+              <template #cell(image12)="data">
+                {{ substring(data.item.image12, 50) }}
+              </template>
+              <template #cell(image13)="data">
+                {{ substring(data.item.image13, 50) }}
+              </template>
+              <template #cell(image14)="data">
+                {{ substring(data.item.image14, 50) }}
+              </template>
+              <template #cell(image15)="data">
+                {{ substring(data.item.image15, 50) }}
+              </template>
+              <template #cell(image16)="data">
+                {{ substring(data.item.image16, 50) }}
+              </template>
+              <template #cell(image17)="data">
+                {{ substring(data.item.image17, 50) }}
+              </template>
+              <template #cell(image18)="data">
+                {{ substring(data.item.image18, 50) }}
+              </template>
+              <template #cell(image19)="data">
+                {{ substring(data.item.image19, 50) }}
+              </template>
+              <template #cell(image20)="data">
+                {{ substring(data.item.image20, 50)}}
+              </template>
              <template #cell(minimumCapacity)="data">
                 {{ data.item.minimumCapacity }}
               </template>
@@ -165,7 +205,9 @@ import $ from "jquery";
         { key: 'emailRepresentative', label: 'Email Reprezentant'}, { key: 'phoneRepresentative', label: 'Telefon Reprezentant'}, { key: 'subscriptionType', label: 'Tip abonament'},
         { key: 'name', label: 'Denumire'}, { key: 'location', label: 'Locație'}, { key: 'website', label: 'Site'}, { key: 'phone', label: 'Telefon'}, { key: 'shortDescription', label: 'Descriere Scurtă'}, 
         { key: 'longDescription', label: 'Descriere Lungă'}, { key: 'image1', label: 'Imagine 1'}, { key: 'image2', label: 'Imagine 2'}, { key: 'image3', label: 'Imagine 3'}, { key: 'image4', label: 'Imagine 4'}, 
-        { key: 'image5', label: 'Imagine 5'}, { key: 'image6', label: 'Imagine 6'}, { key: 'image7', label: 'Imagine 7'}, { key: 'image8', label: 'Imagine 8'}, { key: 'image9', label: 'Imagine 9'}, { key: 'image10', label: 'Imagine 11'},
+        { key: 'image5', label: 'Imagine 5'}, { key: 'image6', label: 'Imagine 6'}, { key: 'image7', label: 'Imagine 7'}, { key: 'image8', label: 'Imagine 8'}, { key: 'image9', label: 'Imagine 9'}, { key: 'image10', label: 'Imagine 10'},
+        { key: 'image11', label: 'Imagine 11'}, { key: 'image12', label: 'Imagine 12'}, { key: 'image13', label: 'Imagine 13'}, { key: 'image14', label: 'Imagine 14'}, 
+        { key: 'image15', label: 'Imagine 15'}, { key: 'image16', label: 'Imagine 16'}, { key: 'image17', label: 'Imagine 17'}, { key: 'image18', label: 'Imagine 18'}, { key: 'image19', label: 'Imagine 19'}, { key: 'image20', label: 'Imagine 20'},
         { key: 'minimumCapacity', label: 'Capacitate minimă'}, { key: 'maximumCapacity', label: 'Capacitate maximă'}, { key: 'numberHall', label: 'Număr săli'},
         { key: 'category', label: 'Capacitate'}, { key: 'action', label: 'Acțiune'}],
         currentPage: 1,
@@ -231,6 +273,16 @@ import $ from "jquery";
                 image8: "",
                 image9: "",
                 image10: "",
+                image11: "",
+                image12: "",
+                image13: "",
+                image14: "",
+                image15: "",
+                image16: "",
+                image17: "",
+                image18: "",
+                image19: "",
+                image20: "",
                 minimumCapacity: "",
                 maximumCapacity: "",
                 numberHall: "",
@@ -261,6 +313,16 @@ import $ from "jquery";
                 image8: result.data[i].image8,
                 image9: result.data[i].image9,
                 image10: result.data[i].image10,
+                image11: result.data[i].image11,
+                image12: result.data[i].image12,
+                image13: result.data[i].image13,
+                image14: result.data[i].image14,
+                image15: result.data[i].image15,
+                image16: result.data[i].image16,
+                image17: result.data[i].image17,
+                image18: result.data[i].image18,
+                image19: result.data[i].image19,
+                image20: result.data[i].image20,
                 minimumCapacity: result.data[i].minimum_capacity,
                 maximumCapacity: result.data[i].maximum_capacity,
                 numberHall: result.data[i].number_hall,
