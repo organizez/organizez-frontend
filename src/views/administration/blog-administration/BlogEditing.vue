@@ -22,7 +22,7 @@
                 </b-col>
                 <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                     <label for="image" class="label-form">Imagine<span class="mandatory-field">*</span>:</label>
-                    <b-form-input id="image" class="input-admin-form" tyep="image" placeholder="Imagine" v-model="blogArticle.image"></b-form-input>              
+                    <b-form-file v-model="file1" :state="Boolean(file1)" @change="deleteImage(file1)" @input="uploadImage()" placeholder="Alegeți o imagine" drop-placeholder="Trageți imaginea aici"></b-form-file>
                 </b-col>
                 </b-row>
                 <b-row class="row-admin-form">
@@ -34,14 +34,6 @@
                         <label for="text" class="label-form">Text<span class="mandatory-field">*</span>:</label>
                         <b-form-textarea id="textarea-form" rows="8" class="input-admin-form" placeholder="Text" v-model="blogArticle.text"></b-form-textarea>            
                     </b-col>
-                </b-row>
-                <b-row>
-                    <b-form-file
-                        v-model="file"
-                        :state="Boolean(file)"
-                        placeholder="Choose a file or drop it here..."
-                        drop-placeholder="Drop file here..."
-                    ></b-form-file>
                 </b-row>
                 <b-row class="row-admin-form admin-buttons">
                     <b-button class="action-admin-button" v-on:click="updateBlog()">Actualizare blog</b-button>
@@ -118,53 +110,77 @@ import $ from "jquery";
             })
         },
         updateBlog() {
-            const s3Client = new S3(
-                spaceConfig.spaceConfig
-            );
-            const bucketParams = {
-                Bucket: "myBucket-test",
-                Key: "test.png",
-                Body: this.file
-            };
-            const run = async () => {
-                try {
-                        const data = await s3Client.send(new PutObjectCommand(bucketParams));
-                        console.log(
-                        "Successfully uploaded object: " +
-                            bucketParams.Bucket +
-                            "/" +
-                            bucketParams.Key
-                        );
-                    return data;
-                } catch (err) {
-                    console.log("Error", err);
-                }
-            };
-
-            run();
-            // axios({
-            //     method: 'put',
-            //     url: 'http://localhost:3000/blog/updateBlog',
-            //     mode: 'no-cors',
-            //     headers: {
-            //         "Accept": "application/json;odata=verbose",
-            //         "X-RequestDigest": $("#__REQUESTDIGEST").val()
-            //     },
-            //     contentType: "application/json;odata=verbose",
-            //     data: this.blogArticle
-            // }).then(result => {
-            //     this.titleInfoModal = "Actualizare blog";
-            //     this.textInfoModal = "Blogul a fost actualizat cu succes!";
-            //     this.showInfoModal = true;
-            // }).catch(error => {
-            //     this.titleInfoModal = "Actualizare blog";
-            //     this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
-            //     this.showInfoModal = true;
-            // })
+            axios({
+                method: 'put',
+                url: 'http://localhost:3000/blog/updateBlog',
+                mode: 'no-cors',
+                headers: {
+                    "Accept": "application/json;odata=verbose",
+                    "X-RequestDigest": $("#__REQUESTDIGEST").val()
+                },
+                contentType: "application/json;odata=verbose",
+                data: this.blogArticle
+            }).then(result => {
+                this.titleInfoModal = "Actualizare blog";
+                this.textInfoModal = "Blogul a fost actualizat cu succes!";
+                this.showInfoModal = true;
+            }).catch(error => {
+                this.titleInfoModal = "Actualizare blog";
+                this.textInfoModal = "A apărut o eroare la acțiunea de actualizare! Vă rugăm reîncercați";
+                this.showInfoModal = true;
+            })
         },
         closeEditBlog() {
             this.$router.push('/administrare/blog/' + this.idUser);
+        },
+        
+        deleteImage(file) {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file !== []) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: file.name
+          };
+          const deleteImage = async () => {
+            try {
+              const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
+                return data;
+              } catch (err) {
+                console.log("Error", err);
+              }
+            };
+          deleteImage();
         }
+      },
+      uploadImage() {
+        const s3Client = new S3(
+          spaceConfig.spaceConfig
+        );
+        if(this.file1 !== null && this.file1 !== undefined) {
+        if(this.file1.length !== 0) {
+          const bucketParams = {
+            Bucket: "myBucket-test",
+            Key: this.file1.name,
+            Body: this.file1,
+            ACL:'public-read'
+          };
+          const runImage = async () => {
+            try {
+              await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
+                this.blogArticle.image = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+              });
+            } catch (err) {
+                this.titleInfoModal = "Încărcare imagine";
+                this.textInfoModal = "A apărut o eroare la încărcarea imaginii! Vă rugăm reîncercați";
+                this.showInfoModal = true;
+            }
+          };
+          runImage();
+        }
+        }
+      },
     },
     mounted() {
         console.log(spaceConfig.spaceConfig)

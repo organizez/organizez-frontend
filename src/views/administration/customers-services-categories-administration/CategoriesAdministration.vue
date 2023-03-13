@@ -15,7 +15,7 @@
                 </div>
               </template>
               <template #head(index)>Index</template>
-              <template #head(category)>Categorie Furnizori</template>
+              <template #head(category)>Categorie Serviciu</template>
               <template #head(servicesNumber)>Număr de servicii</template>
               <template #head(categoryImage)>Imagine</template>
               <template #head(action)>Acțiune</template>
@@ -151,7 +151,7 @@ import $ from "jquery";
       deleteCategoryProvider() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/categoriesServices/deleteCategorie/' + this.idDeletedCategory,
+          url: 'http://localhost:3000/categoriesServices/deleteCategory/' + this.idDeletedCategory,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

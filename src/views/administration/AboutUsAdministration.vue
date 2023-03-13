@@ -1,8 +1,9 @@
 <template>
     <div class="admin-aboutUs-component">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="table-section" v-if="enabledEditAboutUs === false">
-        <p class="title-admin-component">Despre noi</p>
-        <b-row class="row-admin-component">
+        <p class="title-admin">Despre noi</p>
+        <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="aboutUs" :busy="isLoading" responsive="sm" class="aboutUs-table">
               <template #table-busy>
                 <div class="text-center text-danger my-2">
@@ -70,9 +71,13 @@
     </div>
 </template>
 <script>
+import AdminHeader from "../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+   components: {
+      AdminHeader
+    },
     data() {
       return {
         aboutUs: [],
@@ -183,7 +188,7 @@ import $ from "jquery";
 </script>
 <style>
  .admin-aboutUs-component {
-      padding: 30px;
+      padding: 0px;
     }
     .aboutUs-table {
       padding: 0 !important;

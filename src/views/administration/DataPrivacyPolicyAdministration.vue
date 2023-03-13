@@ -1,8 +1,9 @@
 <template>
     <div class="admin-dataPrivacyPolicy-component">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="table-section" v-if="enabledEditDataPrivacyPolicy === false">
-        <p class="title-admin-component">Politică de confidențialitate a datelor</p>
-        <b-row class="row-admin-component">
+        <p class="title-admin">Politică de confidențialitate a datelor</p>
+        <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="dataPrivacyPolicies" :busy="isLoading" responsive="sm" class="dataPrivacyPolicy-table">
               <template #table-busy>
                 <div class="text-center text-danger my-2">
@@ -60,9 +61,13 @@
     </div>
 </template>
 <script>
+import AdminHeader from "../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+    components: {
+      AdminHeader
+    },
     data() {
       return {
         dataPrivacyPolicies: [],
@@ -167,7 +172,7 @@ import $ from "jquery";
 </script>
 <style>
  .admin-dataPrivacyPolicy-component {
-      padding: 30px;
+      padding: 0px;
     }
     .dataPrivacyPolicy-table {
       padding: 0 !important;

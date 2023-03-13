@@ -28,118 +28,53 @@
     </div>
 </template>
 <script>
+import { S3 } from "@aws-sdk/client-s3";
+import spaceConfig from "../../../../digital-ocean-space-config";
+import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand } from "@aws-sdk/client-s3";
+import AdminHeader from "../../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+   components: {
+      AdminHeader
+    },
     data() {
       return {
-        categoriesNumber: "",
-        isLoading: true,
-        fieldsCategoriesTable: ['Index', { key: 'category', label: 'Categorie'}, { key: 'categoryImage', label: 'Imagine'}, { key: 'servicesNumber', label: 'Număr de servicii'}, { key: 'action', label: 'Acțiune'}],
-        categoriesProviders: [],
-        currentPage: 1,
-        perPageCategories: 15,
-        iteration: 0,
-        enabledAddCategory: false,
-        addedCategory: {
-          category: "",
-          categoryImage: ""
-        },
-        enabledEditCategory: false,
+        file1: [],
         editedCategory: {
-          idCategory: "",
+          idCategory: 0,
           category: "",
           categoryImage: ""
         },
-        idDeletedCategory: "",
+        isLoading: true,
         titleInfoModal: "",
         textInfoModal: "",
         actionInfoModal: "",
-        showInfoModal: false,
-        titleConfirmationModal: "",
-        textConfirmationModal: "",
-        showConfirmationModal: false,      
+        showInfoModal: false,   
       }
     },
     methods: {
-      getCategoriesProvidersNumber() {
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoriesServices/getCategoriesServicesNumber"
-        }).then(result => {
-          this.categoriesNumber = result.data[0].categories_number;
-          this.getCategoriesProviders();
-        })
-      },
-      getCategoriesProviders() {
-        let thisRef = this;
-        this.iteration = (this.currentPage - 1) * this.perPageCategories;
-        if(this.isLoading !== true) {
-          this.isLoading = true;
-        }
-        this.categoriesProviders = [];
-        axios({
-          method: "get",
-          headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices/" + this.iteration
-        }).then(result => {
-          if(result.data.length > 0) {
-            let category = {
-              idCategory: 0,
-              category: "",
-              categoryImage: "",
-              servicesNumber: 0
+        getParams() {
+            this.idUser = this.$route.params.idUser;
+            this.idCategory = this.$route.params.idCategory;
+            this.getCategoryService();
+        },
+        getCategoryService() {
+          let thisRef = this;
+          axios({
+            method: "get",
+            headers: {"accept":"application/json"},
+            url: "http://localhost:3000/categoriesServices/getCategoryServiceById/" + this.idCategory
+          }).then(result => {
+            this.editedCategory = {
+                idCategory: result.data.id_category,
+                category: result.data.category,
+                categoryImage: result.data.category_image
             }
-            for(var i = 0; i < result.data.length; i++) {
-              category = {
-                idCategory: result.data[i].id_category,
-                category: result.data[i].category,
-                categoryImage: result.data[i].category_image,
-                servicesNumber: result.data[i].services_number,
-              } 
-              this.categoriesProviders.push(category);                   
-            }
-            setTimeout(function() {
-              thisRef.isLoading = false;
-            }, 1000);
-          }
-        })
-      },
-      initiateAddCategory() {
-        this.enabledAddCategory = true;
-      },
-      closeAddCategory(category) {
-        this.enabledAddCategory = false;
-        this.addedCategory = {
-          category: ""
-        }
-      },
-      addCategory() {
-        axios({
-          method: 'post',
-          url: 'http://localhost:3000/categoriesServices/addCategoriesServices',
-          mode: 'no-cors',
-          headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-          },
-          contentType: "application/json;odata=verbose",
-          data: this.addedCategory
-        }).then(result => {
-          this.addedCategory = {
-            category: "",
-            categoryImage: ""
-          }
-          this.actionInfoModal = "adding";
-          this.titleInfoModal = "Adăugare categorie";
-          this.textInfoModal = "Categoria a fost adăugată cu succes!";
-          this.showInfoModal = true;
-        }).catch(error => {
-          this.actionInfoModal = "adding";
-          this.titleInfoModal = "Adăugare categorie";
-          this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
-          this.showInfoModal = true;
+              setTimeout(function() {
+                thisRef.isLoading = false;
+              }, 1000);
         })
       },
       editCategory(categoryProvider) {
@@ -175,76 +110,12 @@ import $ from "jquery";
         })
       },
       closeEditCategory() {
-        this.enabledEditCategory = false;
-        this.editCategory = {
-          idCategory: "",
-          category: "",
-          categoryImage: ""
-        }
+        this.$router.push('/administrare/categorii/' + this.idUser);
+       
       },
-      initiateDeleteCategory(idCategory, categoryProvider, servicesNumber) {
-        if(servicesNumber === 0) {
-          this.titleConfirmationModal = "Confirmare ștergere categorie"
-          this.textConfirmationModal = "Sigur doriți să ștergeți categoria " + categoryProvider + "?";
-          this.showConfirmationModal = true;
-          this.idDeletedCategory = idCategory;
-        } else {
-          this.titleConfirmationModal = "Ștergere categorie"
-          this.textConfirmationModal = "Categoria " + categoryProvider + " nu poate fi ștearsă, întrucât este utilizată în " + servicesNumber + " servicii. Vă rugăm actualizați serviciile înainte de ștergerea categoriei.";
-          this.showConfirmationModal = true;
-        }
-
-      },
-      deleteCategoryProvider() {
-        axios({
-          method: 'delete',
-          url: 'http://localhost:3000/categoriesServices/deleteCategoriesServices/' + this.idDeletedCategory,
-          mode: 'no-cors',
-          headers: {
-            "Accept": "application/json;odata=verbose",
-            "X-RequestDigest": $("#__REQUESTDIGEST").val()
-          },
-          contentType: "application/json;odata=verbose",
-        }).then(result => {
-          this.actionInfoModal = "deleting";
-          this.titleInfoModal = "Ștergere categorie";
-          this.textInfoModal = "Categoria a fost ștearsă cu succes!";
-          this.showInfoModal = true;
-        }).catch(error => {
-          this.actionInfoModal = "deleting";
-          this.titleInfoModal = "Ștergere categorie";
-          this.textInfoModal = "A apărut o eroare la acțiunea de ștergere! Vă rugăm reîncercați";
-          this.showInfoModal = true;
-        })
-      },
-      okInfoModal() {
-        switch(this.actionInfoModal) {
-          case "adding":
-            this.enabledAddCategory = false;
-            this.getCategoriesProviders();
-            break;
-          case "updating":
-            this.enabledEditCategory = false;
-            this.getCategoriesProviders();
-            break;
-          case "deleting":
-            this.idDeletedCategory = "";
-            this.getCategoriesProviders();
-            break;
-        }
-      },
-      okConfirmationModal() {
-        console.log(this.idDeletedCategory)
-        if(this.idDeletedCategory !== "") {
-          this.deleteCategoryProvider();
-        } 
-      },
-      cancelConfirmationModal() {
-        this.idDeletedCategory = "";
-      }
     },
     mounted() {
-      this.getCategoriesProvidersNumber();
+      this.getParams(); 
     }
   }
 </script>

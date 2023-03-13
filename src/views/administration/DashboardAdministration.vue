@@ -1,14 +1,6 @@
 <template>
     <div class="admin-dashboard">
       <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
-      <b-form-file
-        v-model="file"
-        :state="Boolean(file)"
-        placeholder="Choose a file or drop it here..."
-        drop-placeholder="Drop file here..."
-        
-      ></b-form-file>
-      <b-button class="initiate-add-button" v-on:click="upload()">Adăugare fisier</b-button>
     </div>
 </template>
 <script>

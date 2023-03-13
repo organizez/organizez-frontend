@@ -1,8 +1,9 @@
 <template>
     <div class="admin-termsConditions-component">
+      <Admin-Header :idUser="$route.params.idUser"></Admin-Header>
       <b-row class="table-section" v-if="enabledEditTermsConditions === false">
-        <p class="title-admin-component">Termeni și condiții</p>
-        <b-row class="row-admin-component">
+        <p class="title-admin">Termeni și condiții</p>
+        <b-row class="row-admin">
           <b-table bordered striped :fields="fieldsTable" :items="termsConditions" :busy="isLoading" responsive="sm" class="termsConditions-table">
               <template #table-busy>
                 <div class="text-center text-danger my-2">
@@ -17,7 +18,7 @@
                 {{data.item.titleTermsConditions}}
               </template>
              <template #cell(textTermsConditions)="data">
-                {{data.item.textTermsConditions}}
+                {{data.item.textTermsConditions.substring(0,3000) + "..."}}
               </template>
               <template #cell()="data">
                 <font-awesome-icon icon="fa-solid fa-pencil" class="pencil-icon"  @click="editTermsConditions(data.item)"/>
@@ -60,9 +61,13 @@
     </div>
 </template>
 <script>
+import AdminHeader from "../../components/AdminHeader.vue";
 import axios from 'axios';
 import $ from "jquery";
  export default {
+   components: {
+      AdminHeader
+    },
     data() {
       return {
         termsConditions: [],
@@ -167,7 +172,7 @@ import $ from "jquery";
 </script>
 <style>
  .admin-termsConditions-component {
-      padding: 30px;
+      padding: 0px;
     }
     .termsConditions-table {
       padding: 0 !important;
