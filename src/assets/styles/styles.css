@@ -26,16 +26,21 @@
     margin: 0px !important;
 }
 .row-admin-form, .col-admin-form {
-    padding: 0px !important;
     margin: 0px !important;
     text-align: left;
 }
-.row-admin-form {
+.col-admin-form {
+    text-align: left;
+}
+.select-admin-form {
+    padding: 10px !important;
+}
+/* .row-admin-form {
     column-gap: 4%;
 }
 .col-admin-form {
     width: 48% !important;
-}
+} */
 .input-admin-form {
     padding: 10px !important;
     margin: 0px !important;
