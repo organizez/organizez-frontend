@@ -181,7 +181,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/counties/getDistinctCounties"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/counties/getDistinctCounties"
         }).then(result => {
           if(result.data.length > 0) {
             let county = {
@@ -203,7 +203,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices"
         }).then(result => {
           if(result.data.length > 0) {
             let categoryProviders = {
@@ -228,7 +228,7 @@ import VueHorizontalList from "vue-horizontal-list";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/blog/getBlogsByDate"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogsByDate"
         }).then(result => {
           
             if(result.data.length > 0) {

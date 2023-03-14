@@ -233,7 +233,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/customers/getCustomersNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomersNumber"
         }).then(result => {
           this.customersNumber = result.data.customers_number;
           this.getCustomers();
@@ -249,7 +249,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/customers/getAllCustomers/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getAllCustomers/" + this.iteration
         }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -363,7 +363,7 @@ import $ from "jquery";
       deleteCustomer() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/customers/deleteCustomer/' + this.idDeletedCustomer + '/' + this.idDeletedCustomerService,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/deleteCustomer/' + this.idDeletedCustomer + '/' + this.idDeletedCustomerService,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

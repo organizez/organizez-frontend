@@ -62,7 +62,7 @@ import $ from "jquery";
       addCategory() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/categoriesServices/addCategoriesServices',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/addCategoriesServices',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

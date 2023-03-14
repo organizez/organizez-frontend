@@ -67,7 +67,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/portofolio/getImageById/" + this.idImage
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/getImageById/" + this.idImage
         }).then(result => {
            this.portofolioImage = {
               idImage: result.data.id_image,
@@ -81,7 +81,7 @@ import $ from "jquery";
       updateImage() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/portofolio/updateImage',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/updateImage',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

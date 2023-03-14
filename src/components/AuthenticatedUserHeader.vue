@@ -45,7 +45,7 @@ import axios from 'axios';
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: 'http://localhost:3000/users/getUser/' + this.idUser
+                url: 'https://squid-app-q7qzv.ondigitalocean.app/be/users/getUser/' + this.idUser
             }).then(result => {
                 this.firstNameUser = result.data[0].first_name;
             })

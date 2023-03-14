@@ -11,15 +11,15 @@
                 <b-overlay :show="isLoading" rounded="sm" class="spinner" spinner-type="grow">
                     <b-row class="service-found" v-for="service in services" :key="service.idService">
                         <b-row class="row-services-found" sm="12" md="12" lg="12" xl="12">
-                            <b-img :src="service.image" fluid alt="image" class="image-service-found"></b-img>
+                            <b-img :src="service.image1" fluid alt="image" class="image-service-found"></b-img>
                         </b-row>
                         <b-row class="row-services-found text" sm="12" md="12" lg="12" xl="12">
-                            <p class="title-service-found">{{service.nameService}}</p>
+                            <p class="title-service-found">{{service.name}}</p>
                             <p class="location-service-found"><font-awesome-icon class="location-icon" icon="fa-solid fa-location-dot" /> {{service.location}}</p>
                             <p class="description-service-found">{{service.shortDescription}}</p>
                         </b-row>
                         <b-row class="row-services-found button">
-                            <b-button class="view-service-button main-button" @click="redirectToService(service.idService)">Descoperă <font-awesome-icon icon="fa-solid fa-angle-right" class="angle-right-icon"/></b-button>
+                            <b-button class="view-service-button main-button" @click="redirectToService(service.idCustomerService)">Descoperă <font-awesome-icon icon="fa-solid fa-angle-right" class="angle-right-icon"/></b-button>
                         </b-row>
                     </b-row>
                 </b-overlay>
@@ -76,91 +76,205 @@ import $ from "jquery";
             if(this.$route.params.idServicesCategory !== undefined) {
                 this.idServicesCategory = this.$route.params.idServicesCategory;
             }   
-            if(this.idCounty === "0") {
-                if(this.idServicesCategory === "0") {
-                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndAllCategories";
-                    this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndAllCategories/" + this.iteration;
-                    this.titleServicesFound = "Toate serviciile";
-                } else {
-                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndSingleCategory/" + this.idServicesCategory;
-                    this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndSingleCategory/" + this.idServicesCategory + "/" + this.iteration;
-                }
-            } else {
-                if(this.idServicesCategory === "0") {
-                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberSingleCountyAndAllCategories/" + this.idCounty;
-                    this.getServicesRoute = "http://localhost:3000/services/getServicesSingleCountyAndAllCategories/" + this.idCounty + "/" + this.iteration;
-                } else {
-                    this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory;
-                    this.getServicesRoute = "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
-                }
-            }
-            this.getServicesNumber();         
+            // if(this.idCounty === "0") {
+            //     if(this.idServicesCategory === "0") {
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberAllCountiesAndAllCategories";
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesAllCountiesAndAllCategories/" + this.iteration;
+            //         this.titleServicesFound = "Toate serviciile";
+            //     } else {
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberAllCountiesAndSingleCategory/" + this.idServicesCategory;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesAllCountiesAndSingleCategory/" + this.idServicesCategory + "/" + this.iteration;
+            //     }
+            // } else {
+            //     if(this.idServicesCategory === "0") {
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberSingleCountyAndAllCategories/" + this.idCounty;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesSingleCountyAndAllCategories/" + this.idCounty + "/" + this.iteration;
+            //     } else {
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+            //     }
+            // }
+            // this.getServicesNumber();  
+            this.getCustomersNumber();      
         },
-        getServicesNumber() {
-            axios({
-                method: "get",
-                headers: {"accept": "application/json"},
-                url: this.getServicesNumberRoute
-            }).then(result => {
+        // getServicesNumber() {
+        //     axios({
+        //         method: "get",
+        //         headers: {"accept": "application/json"},
+        //         url: this.getServicesNumberRoute
+        //     }).then(result => {
                 
-                this.servicesNumber = result.data[0].services_number;
-                this.getServices();
-            })
-        },
-        getServices(){
+        //         this.servicesNumber = result.data[0].services_number;
+        //         this.getServices();
+        //     })
+        // },
+        // getServices(){
+        //     let thisRef = this;
+        //     this.iteration = (this.currentPage - 1) * this.perPageServices;
+        //     if(this.isLoading !== true) {
+        //         this.isLoading = true;
+        //     }
+        //     this.services = [];
+        //     axios({
+        //         method: "get",
+        //         headers: {"accept":"application/json"},
+        //         url: this.getServicesRoute 
+        //     }).then(result => {
+        //         if(this.idCounty !== "0" && this.idServicesCategory !== "0") {
+        //             this.county = result.data[0].county;
+        //             this.servicesCategory = result.data[0].category;
+        //             this.titleServicesFound = this.servicesCategory + " în " + this.county;
+        //         } else if(this.idCounty === "0" && this.idServicesCategory !== "0") {
+        //             this.servicesCategory = result.data[0].category;
+        //             this.titleServicesFound = this.servicesCategory;
+        //         } else if(this.idCounty !== "0" && this.idServicesCategory === "0") {
+        //             this.county = result.data[0].county;
+        //             this.titleServicesFound = "Toate serviciile din " + this.county;
+        //         }
+
+        //         if(result.data.length > 0) {
+        //             let service = {
+        //                 idService: 0,
+        //                 nameService: "",
+        //                 location: "",
+        //                 image: "",
+        //                 shortDescription: "",
+        //                 longDescription: "",
+        //                 id_provider: 0,
+        //                 company: ""
+        //             }
+        //             for(var i = 0; i < result.data.length; i++) {
+        //                 service = {
+        //                     idService: result.data[i].id_service,
+        //                     nameService: result.data[i].name_service,
+        //                     image: result.data[i].image1_service,
+        //                     shortDescription: result.data[i].short_description,
+        //                     company: result.data[i].company,
+        //                     location: result.data[i].location + ', ' + result.data[i].city 
+        //                 }
+        //                 this.services.push(service);
+        //             }
+        //             setTimeout(function() {
+        //                 thisRef.isLoading = false;
+        //             }, 2000);
+        //         } else {
+        //             thisRef.isLoading = false;
+        //         }
+        //     })
+        // },
+      getCustomersNumber() {
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomersNumber"
+        }).then(result => {
+          this.servicesNumber = result.data.customers_number;
+          this.getCustomers();
+        })
+      },
+      getCustomers() {
             let thisRef = this;
             this.iteration = (this.currentPage - 1) * this.perPageServices;
             if(this.isLoading !== true) {
                 this.isLoading = true;
             }
             this.services = [];
-            axios({
-                method: "get",
-                headers: {"accept":"application/json"},
-                url: this.getServicesRoute 
-            }).then(result => {
-                if(this.idCounty !== "0" && this.idServicesCategory !== "0") {
-                    this.county = result.data[0].county;
-                    this.servicesCategory = result.data[0].category;
-                    this.titleServicesFound = this.servicesCategory + " în " + this.county;
-                } else if(this.idCounty === "0" && this.idServicesCategory !== "0") {
-                    this.servicesCategory = result.data[0].category;
-                    this.titleServicesFound = this.servicesCategory;
-                } else if(this.idCounty !== "0" && this.idServicesCategory === "0") {
-                    this.county = result.data[0].county;
-                    this.titleServicesFound = "Toate serviciile din " + this.county;
-                }
-
-                if(result.data.length > 0) {
-                    let service = {
-                        idService: 0,
-                        nameService: "",
-                        location: "",
-                        image: "",
-                        shortDescription: "",
-                        longDescription: "",
-                        id_provider: 0,
-                        company: ""
-                    }
-                    for(var i = 0; i < result.data.length; i++) {
-                        service = {
-                            idService: result.data[i].id_service,
-                            nameService: result.data[i].name_service,
-                            image: result.data[i].image1_service,
-                            shortDescription: result.data[i].short_description,
-                            company: result.data[i].company,
-                            location: result.data[i].location + ', ' + result.data[i].city 
-                        }
-                        this.services.push(service);
-                    }
-                    setTimeout(function() {
-                        thisRef.isLoading = false;
-                    }, 2000);
-                } else {
-                    thisRef.isLoading = false;
-                }
-            })
-        },
+        axios({
+          method: "get",
+          headers: {"accept":"application/json"},
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getAllCustomers/" + this.iteration
+        }).then(result => {
+          console.log(result)
+          if(result.data.length > 0) {
+            let customer = {
+                idCustomer: 0,
+                company: "",
+                completeNameRepresentative: "",
+                emailRepresentative: "",
+                phoneRepresentative: "",
+                subscriptionType: "",
+                idCustomerService: 0,
+                name: "",
+                location: "",
+                city: "",
+                website: "",
+                phone: "",
+                shortDescription: "",
+                longDescription: "",
+                image1: "",
+                image2: "",
+                image3: "",
+                image4: "",
+                image5: "",
+                image6: "",
+                image7: "",
+                image8: "",
+                image9: "",
+                image10: "",
+                image11: "",
+                image12: "",
+                image13: "",
+                image14: "",
+                image15: "",
+                image16: "",
+                image17: "",
+                image18: "",
+                image19: "",
+                image20: "",
+                minimumCapacity: "",
+                maximumCapacity: "",
+                numberHall: "",
+                category: ""
+            }
+            for(var i = 0; i < result.data.length; i++) {
+              customer = {
+                idCustomer: result.data[i].id_customer,
+                company: result.data[i].name_company,
+                completeNameRepresentative: result.data[i].name_representative,
+                emailRepresentative: result.data[i].email_representative,
+                phoneRepresentative: result.data[i].phone_representative,
+                subscriptionType: result.data[i].subscription_type,
+                idCustomerService: result.data[i].id_customer_service,
+                name: result.data[i].name,
+                location: result.data[i].location,
+                city: result.data[i].city,
+                website: result.data[i].website,
+                phone: result.data[i].phone,
+                shortDescription: result.data[i].short_description,
+                longDescription: result.data[i].long_description,
+                image1: result.data[i].image1,
+                image2: result.data[i].image2,
+                image3: result.data[i].image3,
+                image4: result.data[i].image4,
+                image5: result.data[i].image5,
+                image6: result.data[i].image6,
+                image7: result.data[i].image7,
+                image8: result.data[i].image8,
+                image9: result.data[i].image9,
+                image10: result.data[i].image10,
+                image11: result.data[i].image11,
+                image12: result.data[i].image12,
+                image13: result.data[i].image13,
+                image14: result.data[i].image14,
+                image15: result.data[i].image15,
+                image16: result.data[i].image16,
+                image17: result.data[i].image17,
+                image18: result.data[i].image18,
+                image19: result.data[i].image19,
+                image20: result.data[i].image20,
+                minimumCapacity: result.data[i].minimum_capacity,
+                maximumCapacity: result.data[i].maximum_capacity,
+                numberHall: result.data[i].number_hall,
+                category: result.data[i].category
+              } 
+              this.services.push(customer);                   
+            }
+            setTimeout(function() {
+              thisRef.isLoading = false;
+            }, 1000);
+          }
+        })
+      },
         redirectToService(idService) {
             if(this.idUser !== undefined) {
                 this.$router.push('/serviciu/' + idService + '/' + this.idUser);
