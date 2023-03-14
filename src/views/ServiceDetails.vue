@@ -313,6 +313,7 @@ import $ from "jquery";
     width: 100% !important;
     height: 100% !important;
     padding: 0px !important;
+    object-fit: cover;
     box-shadow: 3px 0 5px 0 #ccc;
   }
   #serviceGallery .modal-xl {
