@@ -305,7 +305,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -326,7 +326,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/counties/getAllCounties"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/counties/getAllCounties"
         }).then(result => {
           if(result.data.length > 0) {
             let county = {
@@ -911,7 +911,7 @@ import $ from "jquery";
       addCustomer() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/customers/addCustomer',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/addCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -967,7 +967,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {

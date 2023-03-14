@@ -109,7 +109,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/aboutUs/getAboutUs"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/aboutUs/getAboutUs"
         }).then(result => {
           if(result.data.length > 0) {
             let ab = {
@@ -145,7 +145,7 @@ import $ from "jquery";
       updateAboutUs() {
         axios({
           method: 'put',
-          url: 'http://localhost:3000/aboutUs/updateAboutUs',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/aboutUs/updateAboutUs',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

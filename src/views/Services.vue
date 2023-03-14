@@ -78,20 +78,20 @@ import $ from "jquery";
             }   
             // if(this.idCounty === "0") {
             //     if(this.idServicesCategory === "0") {
-            //         this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndAllCategories";
-            //         this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndAllCategories/" + this.iteration;
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberAllCountiesAndAllCategories";
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesAllCountiesAndAllCategories/" + this.iteration;
             //         this.titleServicesFound = "Toate serviciile";
             //     } else {
-            //         this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberAllCountiesAndSingleCategory/" + this.idServicesCategory;
-            //         this.getServicesRoute = "http://localhost:3000/services/getServicesAllCountiesAndSingleCategory/" + this.idServicesCategory + "/" + this.iteration;
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberAllCountiesAndSingleCategory/" + this.idServicesCategory;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesAllCountiesAndSingleCategory/" + this.idServicesCategory + "/" + this.iteration;
             //     }
             // } else {
             //     if(this.idServicesCategory === "0") {
-            //         this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberSingleCountyAndAllCategories/" + this.idCounty;
-            //         this.getServicesRoute = "http://localhost:3000/services/getServicesSingleCountyAndAllCategories/" + this.idCounty + "/" + this.iteration;
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberSingleCountyAndAllCategories/" + this.idCounty;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesSingleCountyAndAllCategories/" + this.idCounty + "/" + this.iteration;
             //     } else {
-            //         this.getServicesNumberRoute = "http://localhost:3000/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory;
-            //         this.getServicesRoute = "http://localhost:3000/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
+            //         this.getServicesNumberRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesNumberByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory;
+            //         this.getServicesRoute = "https://squid-app-q7qzv.ondigitalocean.app/be/services/getServicesByCountyAndCategory/" + this.idCounty + "/" + this.idServicesCategory + "/" + this.iteration 
             //     }
             // }
             // this.getServicesNumber();  
@@ -166,7 +166,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/customers/getCustomersNumber"
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomersNumber"
         }).then(result => {
           this.servicesNumber = result.data.customers_number;
           this.getCustomers();
@@ -182,7 +182,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/customers/getAllCustomers/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getAllCustomers/" + this.iteration
         }).then(result => {
           console.log(result)
           if(result.data.length > 0) {

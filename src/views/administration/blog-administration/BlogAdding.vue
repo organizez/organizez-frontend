@@ -91,7 +91,7 @@ import $ from "jquery";
       addBlog() {
         axios({
           method: 'post',
-          url: 'http://localhost:3000/blog/addBlog',
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/blog/addBlog',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

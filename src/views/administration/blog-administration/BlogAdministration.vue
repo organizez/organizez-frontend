@@ -105,7 +105,7 @@ import $ from "jquery";
           axios({
             method: "get",
             headers: {"accept":"application/json"},
-            url: "http://localhost:3000/blog/getBlogsNumber"
+            url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogsNumber"
           }).then(result => {
             this.blogsNumber = result.data[0].blogs_number;
             this.getBlogs();
@@ -121,7 +121,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/blog/getAllBlogs/" + this.iteration
+          url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getAllBlogs/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let blog = {
@@ -163,7 +163,7 @@ import $ from "jquery";
       deleteBlog() {
         axios({
           method: 'delete',
-          url: 'http://localhost:3000/blog/deleteBlog/' + this.idDeletedBlog,
+          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/blog/deleteBlog/' + this.idDeletedBlog,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

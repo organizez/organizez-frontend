@@ -93,7 +93,7 @@ import $ from "jquery";
             axios({
                 method: "get",
                 headers: {"accept":"application/json"},
-                url: "http://localhost:3000/blog/getBlogArticleById/" + this.idBlogArticle
+                url: "https://squid-app-q7qzv.ondigitalocean.app/be/blog/getBlogArticleById/" + this.idBlogArticle
             }).then(result => {
                 this.blogArticle = {
                     idArticle: result.data.id_article,
@@ -112,7 +112,7 @@ import $ from "jquery";
         updateBlog() {
             axios({
                 method: 'put',
-                url: 'http://localhost:3000/blog/updateBlog',
+                url: 'https://squid-app-q7qzv.ondigitalocean.app/be/blog/updateBlog',
                 mode: 'no-cors',
                 headers: {
                     "Accept": "application/json;odata=verbose",
