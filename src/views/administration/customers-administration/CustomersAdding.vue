@@ -5,9 +5,13 @@
         <p class="title-admin">Adăugare clienți</p>
         <b-row class="row-admin">
             <b-row class="row-admin-form">
-              <b-col class="col-admin-form left" sm="12" md="12" lg="12" xl="12">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Companie</label>
                 <b-form-input id="company" class="input-admin-form" placeholder="Companie" v-model="addedCustomer.company"></b-form-input>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="subscription-type" class="label-form">Tip abonament:</label>
+                <b-select v-model="addedCustomer.subscriptionType" :options="subscriptionTypes" class="select-admin-form"></b-select>    
               </b-col>
             </b-row>
             <b-row class="row-admin-form">
@@ -36,8 +40,8 @@
                 <b-form-input id="name" class="input-admin-form" placeholder="Denumire" v-model="addedCustomer.name"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="subscription-type" class="label-form">Tip abonament:</label>
-                <b-select v-model="addedCustomer.subscriptionType" :options="subscriptionTypes" class="select-admin-form"></b-select>    
+                <label for="website" class="label-form">Website:</label>
+                <b-form-input id="website" class="input-admin-form" placeholder="Site" v-model="addedCustomer.website"></b-form-input>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
@@ -52,14 +56,14 @@
             </b-row>    
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="website" class="label-form">Website:</label>
-                <b-form-input id="website" class="input-admin-form" placeholder="Site" v-model="addedCustomer.website"></b-form-input>
+                <label for="company-email" class="label-form">Email companie</label>
+                <b-form-input id="company-email" class="input-admin-form" placeholder="Email companie" v-model="addedCustomer.companyEmail"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="website" class="label-form">Telefon site:</label>
+                <label for="website" class="label-form">Telefon companie:</label>
                 <b-form-input id="website" class="input-admin-form" placeholder="Telefon" v-model="addedCustomer.phone"></b-form-input>
               </b-col>
-            </b-row>  
+            </b-row>   
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="short-description" class="label-form">Descriere scurtă:</label>
@@ -227,6 +231,7 @@ import $ from "jquery";
           location: "",
           website: "",
           phone: "",
+          companyEmail: "",
           shortDescription: "",
           longDescription: "",
           image1: "",
@@ -287,7 +292,8 @@ import $ from "jquery";
         titleInfoModal: "",
         textInfoModal: "",
         actionInfoModal: "",
-        showInfoModal: false   
+        showInfoModal: false,
+        action: ""
       }
     },
     methods: {
@@ -295,7 +301,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
+          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -316,7 +322,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -345,8 +351,10 @@ import $ from "jquery";
             };
             const deleteImage = async () => {
               try {
-                const data = await s3Client.send(new DeleteObjectCommand(bucketParams));
-                  return data;
+               await s3Client.send(new DeleteObjectCommand(bucketParams)).then(result => {
+                  console.log("delete")
+                });
+                
                 } catch (err) {
                   console.log("Error", err);
                 }
@@ -371,6 +379,7 @@ import $ from "jquery";
               try {
                 await s3Client.send(new PutObjectCommand(bucketParams)).then(result => {
                   this.addedCustomer.image1 = "https://organizez-images.fra1.digitaloceanspaces.com/" + bucketParams.Bucket + "/" + encodeURIComponent(bucketParams.Key)
+                console.log("insert")
                 });
               } catch (err) {
                   this.titleInfoModal = "Încărcare imagine";
@@ -898,7 +907,7 @@ import $ from "jquery";
       addCustomer() {
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/addCustomer',
+          url: 'http://localhost:3000/customers/addCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
@@ -938,11 +947,12 @@ import $ from "jquery";
           //   idCity: "",
           //   idCategory: "",
           // },
-          this.titleInfoModal = "Adăugare furnizor";
-          this.textInfoModal = "Furnizorul a fost adăugat cu succes!";
+          this.action = "adding";
+          this.titleInfoModal = "Adăugare client";
+          this.textInfoModal = "Clientul a fost adăugat cu succes!";
           this.showInfoModal = true;
         }).catch(error => {
-            this.titleInfoModal = "Adăugare furnizor";
+            this.titleInfoModal = "Adăugare client";
             this.textInfoModal = "A apărut o eroare la acțiunea de adăugare! Vă rugăm reîncercați";
             this.showInfoModal = true;
         })
@@ -953,7 +963,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -975,7 +985,9 @@ import $ from "jquery";
         this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
       },
       okInfoModal() {
-        this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
+        if(this.action === "adding") {
+          this.$router.push('/administrare/clienti/' + this.$route.params.idUser);
+        }
       }
     },
     mounted() {

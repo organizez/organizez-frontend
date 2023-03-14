@@ -93,7 +93,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/anpc/getAnpc"
+          url: "http://localhost:3000/anpc/getAnpc"
         }).then(result => {
           if(result.data.length > 0) {
             let item = {
@@ -125,7 +125,7 @@ import $ from "jquery";
       updateAnpc() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/anpc/updateAnpc',
+          url: 'http://localhost:3000/anpc/updateAnpc',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

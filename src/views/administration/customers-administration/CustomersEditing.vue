@@ -5,9 +5,13 @@
         <p class="title-admin">Editare client</p>
         <b-row class="row-admin">
             <b-row class="row-admin-form">
-              <b-col class="col-admin-form left" sm="12" md="12" lg="12" xl="12">
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
                 <label for="company" class="label-form">Companie</label>
                 <b-form-input id="company" class="input-admin-form" placeholder="Companie" v-model="editedCustomer.company"></b-form-input>
+              </b-col>
+              <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                <label for="subscription-type" class="label-form">Tip abonament:</label>
+                <b-select v-model="editedCustomer.subscriptionType" :options="subscriptionTypes" class="select-admin-form"></b-select>    
               </b-col>
             </b-row>
             <b-row class="row-admin-form">
@@ -36,8 +40,8 @@
                 <b-form-input id="name" class="input-admin-form" placeholder="Denumire" v-model="editedCustomer.name"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="subscription-type" class="label-form">Tip abonament:</label>
-                <b-select v-model="editedCustomer.subscriptionType" :options="subscriptionTypes" class="select-admin-form"></b-select>    
+                <label for="website" class="label-form">Website:</label>
+                <b-form-input id="website" class="input-admin-form" placeholder="Website" v-model="editedCustomer.website"></b-form-input>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
@@ -52,11 +56,11 @@
             </b-row>    
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="website" class="label-form">Website:</label>
-                <b-form-input id="website" class="input-admin-form" placeholder="Site" v-model="editedCustomer.website"></b-form-input>
+                <label for="company-email" class="label-form">Email companie:</label>
+                <b-form-input id="company-email" class="input-admin-form" placeholder="Email" v-model="editedCustomer.companyEmail"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="website" class="label-form">Telefon site:</label>
+                <label for="website" class="label-form">Telefon companie:</label>
                 <b-form-input id="website" class="input-admin-form" placeholder="Telefon" v-model="editedCustomer.phone"></b-form-input>
               </b-col>
             </b-row>  
@@ -266,6 +270,7 @@ import $ from "jquery";
           location: "",
           website: "",
           phone: "",
+          companyEmail: "",
           shortDescription: "",
           longDescription: "",
           image1: "",
@@ -333,7 +338,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/customers/getCustomerById/" + this.$route.params.idCustomerService
+          url: "http://localhost:3000/customers/getCustomerById/" + this.$route.params.idCustomerService
         }).then(result => {
           console.log("customer", result)
           this.editedCustomer = {
@@ -349,6 +354,7 @@ import $ from "jquery";
             location: result.data.location,
             website: result.data.website,
             phone: result.data.phone,
+            companyEmail: result.data.company_email,
             shortDescription: result.data.short_description,
             longDescription: result.data.long_description,
             image1: result.data.image1,
@@ -385,7 +391,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllServicesCategories"
+          url: "http://localhost:3000/categoriesServices/getAllServicesCategories"
         }).then(result => {
           if(result.data.length > 0) {
             let categoriesServices = {
@@ -406,7 +412,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/cities/getAllCities"
+          url: "http://localhost:3000/cities/getAllCities"
         }).then(result => {
           if(result.data.length > 0) {
             let city = {
@@ -428,7 +434,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCategory/" + idCategory
+          url: "http://localhost:3000/facilities/getFacilititesByCategory/" + idCategory
          }).then(result => {
           console.log(result)
           if(result.data.length > 0) {
@@ -450,7 +456,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/facilities/getFacilititesByCustomerService/" + this.$route.params.idCustomerService
+          url: "http://localhost:3000/facilities/getFacilititesByCustomerService/" + this.$route.params.idCustomerService
         }).then(result => {
           console.log("facilities", result)
           for(var i = 0; i < result.data.length; i++) { 
@@ -1052,7 +1058,7 @@ import $ from "jquery";
       updateCustomer() {
         axios({
           method: 'put',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/customers/updateCustomer',
+          url: 'http://localhost:3000/customers/updateCustomer',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

@@ -58,7 +58,7 @@ import $ from "jquery";
       addImage() {
         axios({
           method: 'post',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/portofolio/addImage',
+          url: 'http://localhost:3000/portofolio/addImage',
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",

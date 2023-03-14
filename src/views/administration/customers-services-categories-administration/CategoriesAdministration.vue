@@ -91,7 +91,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getCategoriesServicesNumber"
+          url: "http://localhost:3000/categoriesServices/getCategoriesServicesNumber"
         }).then(result => {
           this.categoriesNumber = result.data[0].categories_number;
           this.getCategoriesProviders();
@@ -107,7 +107,7 @@ import $ from "jquery";
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/getAllCategoriesServices/" + this.iteration
+          url: "http://localhost:3000/categoriesServices/getAllCategoriesServices/" + this.iteration
         }).then(result => {
           if(result.data.length > 0) {
             let category = {
@@ -151,7 +151,7 @@ import $ from "jquery";
       deleteCategoryProvider() {
         axios({
           method: 'delete',
-          url: 'https://squid-app-q7qzv.ondigitalocean.app/be/categoriesServices/deleteCategory/' + this.idDeletedCategory,
+          url: 'http://localhost:3000/categoriesServices/deleteCategory/' + this.idDeletedCategory,
           mode: 'no-cors',
           headers: {
             "Accept": "application/json;odata=verbose",
