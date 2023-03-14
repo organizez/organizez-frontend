@@ -6,7 +6,7 @@
         <b-row class="row-admin">
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="company" class="label-form">Companie</label>
+                <label style="color: #C68E17;" for="company" class="label-form">Companie</label>
                 <b-form-input id="company" class="input-admin-form" placeholder="Companie" v-model="addedCustomer.company"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
@@ -46,12 +46,12 @@
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="location" class="label-form">Locație:</label>
-                <b-form-input id="location" class="input-admin-form" placeholder="Locație" v-model="addedCustomer.location"></b-form-input>
+                <label style="color: #C68E17;" for="location" class="label-form">Locație:</label>
+                <b-form-input id="location" class="input-admin-form" placeholder="Oraș, stradă, număr" v-model="addedCustomer.location"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="addedCustomer.idCity"  :options="cities" class="select-admin-form"></b-select>             
+                <label for="counties" class="label-form">Județ<span class="mandatory-field">*</span>:</label>
+                <b-select v-model="addedCustomer.idCunty"  :options="counties" class="select-admin-form"></b-select>             
               </b-col>
             </b-row>    
             <b-row class="row-admin-form">
@@ -66,7 +66,7 @@
             </b-row>   
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="short-description" class="label-form">Descriere scurtă:</label>
+                <label style="color: #C68E17;" for="short-description" class="label-form">Descriere scurtă:</label>
                 <b-form-textarea id="textarea-form" rows="8" class="input-admin-form" placeholder="Descriere scurtă" v-model="addedCustomer.shortDescription"></b-form-textarea>            
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
@@ -76,17 +76,21 @@
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                 <label style="color: #C68E17;" for="image1" class="label-form">Imagine 1:</label>
                 <b-form-file v-model="file1" :state="Boolean(file1)" @change="deleteImage(file1)" @input="uploadImage1()" placeholder="Alegeți imaginea 1" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                 <label style="color: #C68E17;" for="image2" class="label-form">Imagine 2:</label>
                 <b-form-file v-model="file2" :state="Boolean(file2)" @change="deleteImage(file2)" @input="uploadImage2()" placeholder="Alegeți imaginea 2" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                 <label style="color: #C68E17;" for="image3" class="label-form">Imagine 3:</label>
                 <b-form-file v-model="file3" :state="Boolean(file3)" @change="deleteImage(file3)" @input="uploadImage3()" placeholder="Alegeți imaginea 3" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
+                 <label style="color: #C68E17;" for="image4" class="label-form">Imagine 4:</label>
                 <b-form-file v-model="file4" :state="Boolean(file4)" @change="deleteImage(file4)" @input="uploadImage4()" placeholder="Alegeți imaginea 4" drop-placeholder="Trageți imaginea aici"></b-form-file>
               </b-col>
             </b-row>  
@@ -156,7 +160,7 @@
             </b-row>  
             <b-row class="row-admin-form">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
+                <label style="color: #C68E17;" for="category" class="label-form">Categorie<span class="mandatory-field">*</span>:</label>
                 <b-select v-model="addedCustomer.idCategory" :options="categoriesServices" @change="getFacilitiesOptionsByCategory(addedCustomer.idCategory)" class="select-admin-form"></b-select>             
               </b-col>
               <b-col class="col-admin-form text" sm="12" md="12" lg="6" xl="6">
@@ -178,11 +182,11 @@
             </b-row>
             <b-row class="row-admin-form" v-if="addedCustomer.idCategory === 4">
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="minimum-capacity" class="label-form">Capacitate minimă:</label>
+                <label style="color: #C68E17;" for="minimum-capacity" class="label-form">Capacitate minimă:</label>
                 <b-form-input id="minimum-capacity" class="input-admin-form" placeholder="Capacitate minimă" v-model="addedCustomer.minimumCapacity"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="maximum-capacity" class="label-form">Capacitate maximă:</label>
+                <label style="color: #C68E17;" for="maximum-capacity" class="label-form">Capacitate maximă:</label>
                 <b-form-input id="maximum-capacity" class="input-admin-form" placeholder="Capacitate maximă" v-model="addedCustomer.maximumCapacity"></b-form-input>
               </b-col>
             </b-row>  
@@ -257,7 +261,7 @@ import $ from "jquery";
           minimumCapacity: 0,
           maximumCapacity: 0,
           numberHall: 0,
-          idCity: 1,
+          idCounty: 1,
           idCategory: 1,
           selectedFacilitiesOptions: []
         },
@@ -284,7 +288,7 @@ import $ from "jquery";
         selectedFacilitiesOptions: [],
         categoriesServices: [],
         facilitiesOptions: [],
-        cities: [],
+        counties: [],
         subscriptionTypes: [
           { value: 'basic', text: 'basic' },
           { value: 'premium', text: 'premium' }
@@ -318,23 +322,23 @@ import $ from "jquery";
           }
         })
       },
-      getCities() {
+      getCounties() {
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/cities/getAllCities"
+          url: "http://localhost:3000/counties/getAllCounties"
         }).then(result => {
           if(result.data.length > 0) {
-            let city = {
+            let county = {
               value: 0,
               text: ""
             }
             for(var i = 0; i < result.data.length; i++) {
-              city = {
-                value: result.data[i].id_city,
-                text: result.data[i].city
+              county = {
+                value: result.data[i].id_county,
+                text: result.data[i].county
               }
-              this.cities.push(city);
+              this.counties.push(county);
             }
           }
         })
@@ -992,7 +996,7 @@ import $ from "jquery";
     },
     mounted() {
       this.getCategories();
-      this.getCities();
+      this.getCounties();
       this.getFacilitiesOptionsByCategory(1)
     }
   }

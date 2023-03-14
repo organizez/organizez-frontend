@@ -22,7 +22,7 @@
               <template #head(subscriptionType)>Tip abonament</template>
               <template #head(name)>Denumire</template>
               <template #head(location)>Locație</template>
-              <template #head(city)>Oraș</template>
+              <template #head(county)>Județ</template>
               <template #head(website)>Site</template>
               <template #head(phone)>Telefon companie</template>
               <template #head(companyEmail)>Email companie</template>
@@ -77,8 +77,8 @@
               <template #cell(location)="data">
                 {{ data.item.location }}
               </template>
-              <template #cell(city)="data">
-                {{ data.item.city }}
+              <template #cell(county)="data">
+                {{ data.item.county }}
               </template>
               <template #cell(website)="data">
                 {{ data.item.website }}
@@ -211,7 +211,7 @@ import $ from "jquery";
         fieldsTable: 
         ['Index', { key: 'company', label: 'Companie' }, { key: 'completeNameRepresentative', label: 'Nume Reprezentant'}, { key: 'emailRepresentative', label: 'Email Reprezentant'}, 
         { key: 'emailRepresentative', label: 'Email Reprezentant'}, { key: 'phoneRepresentative', label: 'Telefon Reprezentant'}, { key: 'subscriptionType', label: 'Tip abonament'},
-        { key: 'name', label: 'Denumire'}, { key: 'location', label: 'Locație'}, { key: 'city', label: 'Oraș'}, { key: 'website', label: 'Site'}, { key: 'phone', label: 'Telefon'}, { key: 'companyEmail', label: 'Email'}, { key: 'shortDescription', label: 'Descriere Scurtă'}, 
+        { key: 'name', label: 'Denumire'}, { key: 'location', label: 'Locație'}, { key: 'county', label: 'Județ'}, { key: 'website', label: 'Site'}, { key: 'phone', label: 'Telefon'}, { key: 'companyEmail', label: 'Email'}, { key: 'shortDescription', label: 'Descriere Scurtă'}, 
         { key: 'longDescription', label: 'Descriere Lungă'}, { key: 'image1', label: 'Imagine 1'}, { key: 'image2', label: 'Imagine 2'}, { key: 'image3', label: 'Imagine 3'}, { key: 'image4', label: 'Imagine 4'}, 
         { key: 'image5', label: 'Imagine 5'}, { key: 'image6', label: 'Imagine 6'}, { key: 'image7', label: 'Imagine 7'}, { key: 'image8', label: 'Imagine 8'}, { key: 'image9', label: 'Imagine 9'}, { key: 'image10', label: 'Imagine 10'},
         { key: 'image11', label: 'Imagine 11'}, { key: 'image12', label: 'Imagine 12'}, { key: 'image13', label: 'Imagine 13'}, { key: 'image14', label: 'Imagine 14'}, 
@@ -267,7 +267,7 @@ import $ from "jquery";
                 idCustomerService: 0,
                 name: "",
                 location: "",
-                city: "",
+                county: "",
                 website: "",
                 phone: "",
                 companyEmail: "",
@@ -309,7 +309,7 @@ import $ from "jquery";
                 idCustomerService: result.data[i].id_customer_service,
                 name: result.data[i].name,
                 location: result.data[i].location,
-                city: result.data[i].city,
+                county: result.data[i].county,
                 website: result.data[i].website,
                 phone: result.data[i].phone,
                 companyEmail: result.data[i].company_email,

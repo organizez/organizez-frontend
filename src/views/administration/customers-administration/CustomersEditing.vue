@@ -50,8 +50,8 @@
                 <b-form-input id="location" class="input-admin-form" placeholder="Locație" v-model="editedCustomer.location"></b-form-input>
               </b-col>
               <b-col class="col-admin-form left" sm="12" md="12" lg="6" xl="6">
-                <label for="cities" class="label-form">Orașe<span class="mandatory-field">*</span>:</label>
-                <b-select v-model="editedCustomer.idCity"  :options="cities" class="select-admin-form"></b-select>             
+                <label for="counties" class="label-form">Județ<span class="mandatory-field">*</span>:</label>
+                <b-select v-model="editedCustomer.idCounty"  :options="counties" class="select-admin-form"></b-select>             
               </b-col>
             </b-row>    
             <b-row class="row-admin-form">
@@ -296,7 +296,7 @@ import $ from "jquery";
           minimumCapacity: 0,
           maximumCapacity: 0,
           numberHall: 0,
-          idCity: 1,
+          idCounty: 1,
           idCategory: 1,
           selectedFacilitiesOptions: []
         },
@@ -322,7 +322,7 @@ import $ from "jquery";
         file20: [],
         categoriesServices: [],
         facilitiesOptions: [],
-        cities: [],
+        counties: [],
         subscriptionTypes: [
           { value: 'basic', text: 'basic' },
           { value: 'premium', text: 'premium' }
@@ -380,7 +380,7 @@ import $ from "jquery";
             minimumCapacity: result.data.minimum_capacity,
             maximumCapacity: result.data.maximum_capacity,
             numberHall: result.data.number_hall,
-            idCity: result.data.id_city,
+            idCounty: result.data.id_county,
             idCategory: result.data.id_category,
             selectedFacilitiesOptions: []
           }
@@ -408,23 +408,23 @@ import $ from "jquery";
           }
         })
       },
-      getCities() {
+      getCounties() {
         axios({
           method: "get",
           headers: {"accept":"application/json"},
-          url: "http://localhost:3000/cities/getAllCities"
+          url: "http://localhost:3000/counties/getAllCounties"
         }).then(result => {
           if(result.data.length > 0) {
-            let city = {
+            let county = {
               value: 0,
               text: ""
             }
             for(var i = 0; i < result.data.length; i++) {
-              city = {
-                value: result.data[i].id_city,
-                text: result.data[i].city
+              county = {
+                value: result.data[i].id_county,
+                text: result.data[i].county
               }
-              this.cities.push(city);
+              this.counties.push(county);
             }
           }
         })
@@ -1084,7 +1084,7 @@ import $ from "jquery";
       this.getCustomerById();
       this.getFacilitiesOptionsByCustomer();
       this.getCategories();
-      this.getCities();
+      this.getCounties();
     }
   }
 </script>
